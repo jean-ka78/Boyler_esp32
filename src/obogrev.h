@@ -40,7 +40,6 @@ class Flasher
      
     //  led3.on();
 
-
    }
    else if ((Kran_State == HIGH) && (currentMillis - previousMillis >= OffTime*1000))
    {

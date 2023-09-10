@@ -121,11 +121,15 @@ String message = (char*)payload;
   }else if (strcmp(topic, TIME_HEAT_CIKL) == 0){
     int time_cikl = message.toInt();
     eeprom.per_off = time_cikl;
+    High.OffTime = eeprom.per_off;
+    Low.OffTime = eeprom.per_off;
     Serial.println("cikl Otopl: "+String(eeprom.per_off));
 
   }else if (strcmp(topic, TIME_HEAT_IMPULS) == 0){
     int time_imp = message.toInt();
     eeprom.per_on = time_imp;
+    High.OnTime = eeprom.per_on;
+    Low.OnTime = eeprom.per_on;
     Serial.println("impuls Otopl: "+String(eeprom.per_on));
 
   }else if (strcmp(topic, TEMP_HEAT_OFF_TOPIC) == 0){
@@ -218,21 +222,21 @@ doc_post.clear();
 void SendData(){
 
 
-// dtostrf(eeprom.temp_u,2,2,msg);
-//     client.publish(TEMP_SETPOINT_GET_BOY, msg);
-// dtostrf(eeprom.temp_u_b,2,2,msg);
-//     client.publish(TEMP_SETPOINT_GET_HEAT, msg);
-// dtostrf(eeprom.temp_off_otop,2,2,msg);    
-//      client.publish(TEMP_HEAT_OFF_TOPIC, msg);
-// dtostrf(eeprom.gis_boy,2,2,msg);    
-//      client.publish(TEMP_BOILER_GIS, msg);
+dtostrf(eeprom.temp_u,2,2,msg);
+    client.publish(TEMP_SETPOINT_GET_BOY, msg);
+dtostrf(eeprom.temp_u_b,2,2,msg);
+    client.publish(TEMP_SETPOINT_GET_HEAT, msg);
+dtostrf(eeprom.temp_off_otop,2,2,msg);    
+     client.publish(TEMP_HEAT_OFF_TOPIC, msg);
+dtostrf(eeprom.gis_boy,2,2,msg);    
+     client.publish(TEMP_BOILER_GIS, msg);
 
-// snprintf (msg, MSG_BUFFER_SIZE, "%ld", eeprom.per_on);
-// // dtostrf(eeprom.per_on,2,2,msg);    
-//      client.publish(TIME_HEAT_IMPULS, msg);
-// snprintf (msg, MSG_BUFFER_SIZE, "%ld", eeprom.per_off);
-// // dtostrf(eeprom.per_on,2,2,msg);    
-//      client.publish(TIME_HEAT_CIKL, msg);
+snprintf (msg, MSG_BUFFER_SIZE, "%ld", eeprom.per_on);
+// dtostrf(eeprom.per_on,2,2,msg);    
+     client.publish(TIME_HEAT_IMPULS, msg);
+snprintf (msg, MSG_BUFFER_SIZE, "%ld", eeprom.per_off);
+// dtostrf(eeprom.per_on,2,2,msg);    
+     client.publish(TIME_HEAT_CIKL, msg);
 
 
 
