@@ -216,21 +216,23 @@ doc_post.clear();
 }
 
 void SendData(){
-dtostrf(eeprom.temp_u,2,2,msg);
-    client.publish(TEMP_SETPOINT_GET_BOY, msg);
-dtostrf(eeprom.temp_u_b,2,2,msg);
-    client.publish(TEMP_SETPOINT_GET_HEAT, msg);
-dtostrf(eeprom.temp_off_otop,2,2,msg);    
-     client.publish(TEMP_HEAT_OFF_TOPIC, msg);
-dtostrf(eeprom.gis_boy,2,2,msg);    
-     client.publish(TEMP_BOILER_GIS, msg);
 
-snprintf (msg, MSG_BUFFER_SIZE, "%ld", eeprom.per_on);
-// dtostrf(eeprom.per_on,2,2,msg);    
-     client.publish(TIME_HEAT_IMPULS, msg);
-snprintf (msg, MSG_BUFFER_SIZE, "%ld", eeprom.per_off);
-// dtostrf(eeprom.per_on,2,2,msg);    
-     client.publish(TIME_HEAT_CIKL, msg);
+
+// dtostrf(eeprom.temp_u,2,2,msg);
+//     client.publish(TEMP_SETPOINT_GET_BOY, msg);
+// dtostrf(eeprom.temp_u_b,2,2,msg);
+//     client.publish(TEMP_SETPOINT_GET_HEAT, msg);
+// dtostrf(eeprom.temp_off_otop,2,2,msg);    
+//      client.publish(TEMP_HEAT_OFF_TOPIC, msg);
+// dtostrf(eeprom.gis_boy,2,2,msg);    
+//      client.publish(TEMP_BOILER_GIS, msg);
+
+// snprintf (msg, MSG_BUFFER_SIZE, "%ld", eeprom.per_on);
+// // dtostrf(eeprom.per_on,2,2,msg);    
+//      client.publish(TIME_HEAT_IMPULS, msg);
+// snprintf (msg, MSG_BUFFER_SIZE, "%ld", eeprom.per_off);
+// // dtostrf(eeprom.per_on,2,2,msg);    
+//      client.publish(TIME_HEAT_CIKL, msg);
 
 
 
