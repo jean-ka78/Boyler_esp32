@@ -20,7 +20,7 @@ uint32_t tmr;
 bool flag = HIGH;
 float T_boyler, T_koll, T_bat;
 long rssi;
-unsigned long timer_1;
+unsigned long timer_1, old_time, old_time1, old_time2, old_time3, timer4;
 NTC kollektor(thermistorPin1);
 NTC boyler(thermistorPin2);
 NTC bat(thermistorPin3);
@@ -74,6 +74,7 @@ void setup() {
 
 void loop() {
   ArduinoOTA.handle(); // Всегда готовы к прошивке
+  rssi =  map(WiFi.RSSI(), -115, -35, 0, 100);
 if (isFirstConnection)
   {
   EEPROM.get(0, eeprom);
@@ -86,8 +87,49 @@ if (isFirstConnection)
     {
       timer_1 = millis();
       ConnectWIFI();
-
     }
+ unsigned long real_time = millis();
+  if (real_time - old_time>1000)
+    {
+      old_time = real_time;
+      T_koll = kollektor.Update_f();
+      T_bat = bat.Update_f();
+      T_boyler = boyler.Update_f();
+     
+    }
+    if (real_time - old_time1>2000)
+    {
+      old_time1 = real_time;
+      reconnect();
+    }
+    loopMQtt();
+    if (real_time - old_time2>300)
+    {
+      old_time2 = real_time;
+      regul();
+    }
+
+    if (real_time - old_time3 > 1000)
+    {
+      old_time3 = real_time;
+      
+    }
+    
+    // if (run_mb)    {
+    
+    if (real_time - timer4 > 5000)
+    {
+      timer4 = real_time;
+      getValues();
+      // loopMQtt();
+    }
+    // }
+
+  regulator(T_koll, eeprom.temp_u_b, T_bat, eeprom.temp_off_otop);
+
+
+
+
 }
 
 
