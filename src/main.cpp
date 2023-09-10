@@ -9,6 +9,8 @@ int myFunction(int, int);
 
 void setup() {
   Serial.begin(115200);
+
+  ConnectWIFI();
   ArduinoOTA.setHostname("ESP32"); // Задаем имя сетевого порта
   ArduinoOTA.begin(); 
   

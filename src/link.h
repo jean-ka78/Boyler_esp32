@@ -25,7 +25,7 @@ void ConnectWIFI()
         isFirstConnection = false;
          
         count++;
-        if (count >= 5){
+        if (count >= 50){
 
           Serial.println("WiFi not connected"); break;}
       }
