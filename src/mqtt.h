@@ -1,6 +1,12 @@
 #include <PubSubClient.h>
 // #include "json.h"
 #include <ArduinoJson.h> 
+
+
+
+
+
+
 const size_t capacity_post = JSON_ARRAY_SIZE(7) + JSON_OBJECT_SIZE(1) + 7*JSON_OBJECT_SIZE(2);
 DynamicJsonDocument doc_post(capacity_post);
 //MQTT Server
@@ -43,8 +49,9 @@ const char* TEMP_HEAT_TARGET_GET_TOPIC = "/home/heat_on/boiler-target-temperatur
 const char* TIME_HEAT_CIKL = "/home/heat_on/setpoint-time/cikl";
 const char* TIME_HEAT_IMPULS = "/home/heat_on/setpoint-time/impuls";
 
-float temp_boy = 45.6,
-      temp_heat = 55.6;
+float temp_boy,
+      temp_heat,
+      temp_koll;
 const String modeSetTopic(MODE_SET_TOPIC_BOY);
 float temp = 0.00;
 float hum = 0.00;
@@ -179,22 +186,21 @@ void reconnect() {
 }
 
 void getValues() {
- temp_heat = t_otop->readCelsius();
- temp_boy =  t_boyler->readCelsius();
- dtostrf(temp_boy,2,2,msg);
+
+ dtostrf(T_boyler,2,2,msg);
     client.publish(CURRENT_TEMP_GET_BOY, msg);
-dtostrf(temp_heat,2,2,msg);
+dtostrf(T_bat,2,2,msg);
     client.publish(CURRENT_TEMP_GET_HEAT, msg);
     
 JsonArray tags = doc_post.createNestedArray("tags");
 JsonObject tags_0 = tags.createNestedObject();
 
-tags_0["koll"] = t_kollektor->readCelsius();
+tags_0["koll"] = T_koll;
 tags_0["RSS"] = rssi;
 JsonObject tags_1 = tags.createNestedObject();
-tags_1["boy"] = t_boyler->readCelsius();
+tags_1["boy"] = T_boyler;
 JsonObject tags_2 = tags.createNestedObject();
-tags_2["bat"] = t_otop->readCelsius();
+tags_2["bat"] = T_bat;
 
 
 char output[256];
