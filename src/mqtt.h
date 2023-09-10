@@ -135,7 +135,8 @@ String message = (char*)payload;
 
 void setupMqtt() {  
   
-  client.setServer(mqtt_server, mqtt_port);           // указываем адрес брокера и порт
+  client.setServer(mqtt_server, mqtt_port); 
+  client.subscribe(inTopic);          // указываем адрес брокера и порт
   client.setCallback(callback); 
   // указываем функцию которая вызывается когда приходят данные от брокера
 }
@@ -162,6 +163,7 @@ void reconnect() {
       // client.publish("outTopic", "hello world");
       // ... and resubscribe
       client.subscribe(inTopic);
+      client.setCallback(callback); 
     } else {
       Serial.print("failed, rc=");
       Serial.print(client.state());
