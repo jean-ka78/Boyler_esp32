@@ -314,7 +314,7 @@ public:
    
 double Update()
 {
-  GKalman testFilter(40, 0.05);
+  GKalman testFilter(4, 0.005);
     adcAverage  = 0;
     adc = 0; 
   for (int i = 0; i < adc_count; i++) 

@@ -6,12 +6,16 @@
 #include "GyverFilters.h"
 #include "st_enum.h"
 #include "NTC.h"
+#include "NTC_LIB.h"
+
 
 // put function declarations here:
 
 int thermistorPin1 = 33;// Вход АЦП, выход делителя напряжения
 int thermistorPin2 = 32;
 int thermistorPin3 = 35;
+
+
 const int relay = 21;
 const int nasos_otop = 19;
 int PIN_LOW = 22;
@@ -39,9 +43,9 @@ digitalWrite(relay,relle);
 
 void setup() {
   Serial.begin(115200);
- setupMqtt();
+  setupMqtt();
 
- pinMode(relay, OUTPUT);
+  pinMode(relay, OUTPUT);
   pinMode(PIN_LOW, OUTPUT);
   pinMode(PIN_HIGH, OUTPUT);
   pinMode(nasos_otop, OUTPUT);
@@ -59,8 +63,8 @@ void setup() {
   eeprom.per_off = 600;
   EEPROM.put(0, eeprom);
   // ---------------------------------------
-
-   boolean ok2 = EEPROM.commit();
+  setup_ntc();
+  boolean ok2 = EEPROM.commit();
   ConnectWIFI();
 
   ArduinoOTA.setHostname("ESP32"); // Задаем имя сетевого порта
@@ -92,9 +96,9 @@ if (isFirstConnection)
   if (real_time - old_time>1000)
     {
       old_time = real_time;
-      T_koll = kollektor.Update_f();
-      T_bat = bat.Update_f();
-      T_boyler = boyler.Update_f();
+      T_koll = t_kollektor->readCelsius();
+      T_bat = t_otop->readCelsius();
+      T_boyler = t_boyler->readCelsius();
      
     }
     if (real_time - old_time1>2000)

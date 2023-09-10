@@ -179,8 +179,8 @@ void reconnect() {
 }
 
 void getValues() {
- temp_heat = bat.Update_f();
- temp_boy =  boyler.Update_f();
+ temp_heat = t_otop->readCelsius();
+ temp_boy =  t_boyler->readCelsius();
  dtostrf(temp_boy,2,2,msg);
     client.publish(CURRENT_TEMP_GET_BOY, msg);
 dtostrf(temp_heat,2,2,msg);
@@ -189,12 +189,12 @@ dtostrf(temp_heat,2,2,msg);
 JsonArray tags = doc_post.createNestedArray("tags");
 JsonObject tags_0 = tags.createNestedObject();
 
-tags_0["koll"] = kollektor.Update_f();
+tags_0["koll"] = t_kollektor->readCelsius();
 tags_0["RSS"] = rssi;
 JsonObject tags_1 = tags.createNestedObject();
-tags_1["boy"] = boyler.Update_f();
+tags_1["boy"] = t_boyler->readCelsius();
 JsonObject tags_2 = tags.createNestedObject();
-tags_2["bat"] = bat.Update_f();
+tags_2["bat"] = t_otop->readCelsius();
 
 
 char output[256];
