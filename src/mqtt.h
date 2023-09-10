@@ -181,6 +181,10 @@ void reconnect() {
 void getValues() {
  temp_heat = bat.Update_f();
  temp_boy =  boyler.Update_f();
+ dtostrf(temp_boy,2,2,msg);
+    client.publish(CURRENT_TEMP_GET_BOY, msg);
+dtostrf(temp_heat,2,2,msg);
+    client.publish(CURRENT_TEMP_GET_HEAT, msg);
     
 JsonArray tags = doc_post.createNestedArray("tags");
 JsonObject tags_0 = tags.createNestedObject();
@@ -199,9 +203,13 @@ client.publish("/home/temp_json", output,n);
 doc_post.clear();
 
 // 
-snprintf (msg, MSG_BUFFER_SIZE, "%ld", rssi);
-    client.publish("outTopic/rssi",msg);
+// snprintf (msg, MSG_BUFFER_SIZE, "%ld", rssi);
+    // client.publish("outTopic/rssi",msg);
 // snprintf (msg, MSG_BUFFER_SIZE, "%ld", String(eeprom.temp_u_b).c_str());
+
+}
+
+void SendData(){
 dtostrf(eeprom.temp_u,2,2,msg);
     client.publish(TEMP_SETPOINT_GET_BOY, msg);
 dtostrf(eeprom.temp_u_b,2,2,msg);
@@ -217,10 +225,7 @@ snprintf (msg, MSG_BUFFER_SIZE, "%ld", eeprom.per_on);
 snprintf (msg, MSG_BUFFER_SIZE, "%ld", eeprom.per_off);
 // dtostrf(eeprom.per_on,2,2,msg);    
      client.publish(TIME_HEAT_CIKL, msg);
-dtostrf(temp_boy,2,2,msg);
-    client.publish(CURRENT_TEMP_GET_BOY, msg);
-dtostrf(temp_heat,2,2,msg);
-    client.publish(CURRENT_TEMP_GET_HEAT, msg);
+
 
 
 
@@ -240,8 +245,8 @@ else{
   client.publish(MODE_GET_TOPIC_HEAT, "off");
 }
 
-
 }
+
 
 void loopMQtt() {
 

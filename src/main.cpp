@@ -52,11 +52,11 @@ void setup() {
   eeprom.temp_u = 50;
   eeprom.temp_u_b = 50;
   eeprom.temp_off_otop = 35;
-  eeprom.gis_boy = -5;
+  eeprom.gis_boy = -1.5;
   eeprom.heat = true;
   eeprom.heat_otop = true;
   eeprom.per_on = 10;
-  eeprom.per_off = 60;
+  eeprom.per_off = 600;
   EEPROM.put(0, eeprom);
   // ---------------------------------------
 
@@ -109,15 +109,15 @@ if (isFirstConnection)
       regul();
     }
 
-    if (real_time - old_time3 > 1000)
+    if (real_time - old_time3 > 5000)
     {
       old_time3 = real_time;
-      
+      SendData();
     }
     
     // if (run_mb)    {
     
-    if (real_time - timer4 > 5000)
+    if (real_time - timer4 > 1000)
     {
       timer4 = real_time;
       getValues();
