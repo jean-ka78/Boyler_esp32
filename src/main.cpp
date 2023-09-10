@@ -103,7 +103,7 @@ if (isFirstConnection)
 #else
       T_bat = bat.Update_f();
       T_boyler =  boyler.Update_f();
-      T_koll = kollektor.Update();
+      T_koll = kollektor.Update_f();
 #endif
      
     }
