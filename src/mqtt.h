@@ -266,6 +266,11 @@ if (eeprom.heat_otop)
   client.publish(MODE_GET_NASOS_HEAT, "on");
 }else {client.publish(MODE_GET_NASOS_HEAT, "off");}
 
+if (eeprom.heat)
+{
+  client.publish(MODE_GET_NASOS_BOY, "on");
+  
+}else {client.publish(MODE_GET_NASOS_BOY, "off");}
 
 
 }
