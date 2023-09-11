@@ -246,10 +246,10 @@ snprintf (msg, MSG_BUFFER_SIZE, "%ld", eeprom.per_off);
 
 if (eeprom.boy_state)
 {
-  client.publish(MODE_GET_NASOS_BOY, "on");
+  client.publish(MODE_GET_TOPIC_BOY, "on");
   /* code */
 } else {
-client.publish(MODE_GET_NASOS_BOY, "off");
+client.publish(MODE_GET_TOPIC_BOY, "off");
 }
 
 if (eeprom.heat_state)
