@@ -2,11 +2,6 @@
 // #include "json.h"
 #include <ArduinoJson.h> 
 
-
-
-
-
-
 const size_t capacity_post = JSON_ARRAY_SIZE(7) + JSON_OBJECT_SIZE(1) + 7*JSON_OBJECT_SIZE(2);
 DynamicJsonDocument doc_post(capacity_post);
 //MQTT Server
@@ -23,33 +18,33 @@ int value = 0;
 
 
 
-#define state_topic "/home/boy_on/state" 
-#define inTopic "/home/#"
+#define state_topic "home/boy_on/state" 
+#define inTopic "home/#"
 // 
 // MQTT topics
-const char* CURRENT_TEMP_GET_BOY = "/home/boy_on/current-temperature/get";
-const char* CURRENT_TEMP_SET_BOY = "/home/boy_on/current-temperature/set";
-const char* TEMP_SETPOINT_GET_BOY = "/home/boy_on/setpoint-temperature/get";
-const char* TEMP_SETPOINT_SET_BOY = "/home/boy_on/setpoint-temperature/set";
-const char* MODE_GET_TOPIC_BOY = "/home/boy_on/mode/get";
-const char* MODE_GET_NASOS_BOY = "/home/boy_on/mode/nasos";
-const char* MODE_SET_TOPIC_BOY = "/home/boy_on/mode/set";
-const char* TEMP_BOILER_GET_TOPIC = "/home/boy_on/boiler-temperature/get";
-const char* TEMP_BOILER_TARGET_GET_TOPIC = "/home/boy_on/boiler-target-temperature/get";
-const char* TEMP_BOILER_GIS = "/home/boy_on/gis-temperature/get";
+const char* CURRENT_TEMP_GET_BOY = "home/boy_on/current-temperature/get";
+const char* CURRENT_TEMP_SET_BOY = "home/boy_on/current-temperature/set";
+const char* TEMP_SETPOINT_GET_BOY = "home/boy_on/setpoint-temperature/get";
+const char* TEMP_SETPOINT_SET_BOY = "home/boy_on/setpoint-temperature/set";
+const char* MODE_GET_TOPIC_BOY = "home/boy_on/mode/get";
+const char* MODE_GET_NASOS_BOY = "home/boy_on/mode/nasos";
+const char* MODE_SET_TOPIC_BOY = "home/boy_on/mode/set";
+const char* TEMP_BOILER_GET_TOPIC = "home/boy_on/boiler-temperature/get";
+const char* TEMP_BOILER_TARGET_GET_TOPIC = "home/boy_on/boiler-target-temperature/get";
+const char* TEMP_BOILER_GIS = "home/boy_on/gis-temperature/get";
 
-const char* CURRENT_TEMP_GET_HEAT = "/home/heat_on/current-temperature/get";
-const char* CURRENT_TEMP_SET_HEAT = "/home/heat_on/current-temperature/set";
-const char* TEMP_SETPOINT_GET_HEAT = "/home/heat_on/setpoint-temperature/get";
-const char* TEMP_SETPOINT_SET_HEAT = "/home/heat_on/setpoint-temperature/set";
-const char* MODE_GET_TOPIC_HEAT = "/home/heat_on/mode/get";
-const char* MODE_SET_TOPIC_HEAT = "/home/heat_on/mode/set";
-const char* MODE_GET_NASOS_HEAT = "/home/heat_on/mode/nasos";
-const char* TEMP_HEAT_GET_TOPIC = "/home/heat_on/boiler-temperature/get";
-const char* TEMP_HEAT_OFF_TOPIC = "/home/heat_on/boiler-temperature/off";
-const char* TEMP_HEAT_TARGET_GET_TOPIC = "/home/heat_on/boiler-target-temperature/get";
-const char* TIME_HEAT_CIKL = "/home/heat_on/setpoint-time/cikl";
-const char* TIME_HEAT_IMPULS = "/home/heat_on/setpoint-time/impuls";
+const char* CURRENT_TEMP_GET_HEAT = "home/heat_on/current-temperature/get";
+const char* CURRENT_TEMP_SET_HEAT = "home/heat_on/current-temperature/set";
+const char* TEMP_SETPOINT_GET_HEAT = "home/heat_on/setpoint-temperature/get";
+const char* TEMP_SETPOINT_SET_HEAT = "home/heat_on/setpoint-temperature/set";
+const char* MODE_GET_TOPIC_HEAT = "home/heat_on/mode/get";
+const char* MODE_SET_TOPIC_HEAT = "home/heat_on/mode/set";
+const char* MODE_GET_NASOS_HEAT = "home/heat_on/mode/nasos";
+const char* TEMP_HEAT_GET_TOPIC = "home/heat_on/boiler-temperature/get";
+const char* TEMP_HEAT_OFF_TOPIC = "home/heat_on/boiler-temperature/off";
+const char* TEMP_HEAT_TARGET_GET_TOPIC = "home/heat_on/boiler-target-temperature/get";
+const char* TIME_HEAT_CIKL = "home/heat_on/setpoint-time/cikl";
+const char* TIME_HEAT_IMPULS = "home/heat_on/setpoint-time/impuls";
 
 
 
@@ -141,8 +136,6 @@ String message = (char*)payload;
     Serial.println("temp_off Otopl: "+String(eeprom.temp_off_otop));
   }
 
-
-
 }
 
 
@@ -154,9 +147,6 @@ void setupMqtt() {
   client.setCallback(callback); 
   // указываем функцию которая вызывается когда приходят данные от брокера
 }
-
-
-
 
 void reconnect() {                                                      
 

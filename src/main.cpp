@@ -31,6 +31,7 @@ NTC bat(thermistorPin3);
 #include "heat_regul.h"
 #include "obogrev.h"
 #include "mqtt.h"
+// Вибір алгоритму зчитування 
 // #define NTC
 
 
