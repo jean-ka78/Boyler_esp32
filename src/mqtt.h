@@ -202,7 +202,7 @@ tags_2["bat"] = T_bat;
 
 char output[256];
 size_t n = serializeJson(doc_post, output);
-client.publish("/home/temp_json", output,n);
+client.publish("home/temp_json", output,n);
 doc_post.clear();
 
 // 
