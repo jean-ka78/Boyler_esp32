@@ -37,8 +37,9 @@ NTC bat(thermistorPin3);
 void regul()
 {
 bool relle;
-relle = logic(eeprom.heat,T_boyler,T_koll,eeprom.temp_u, eeprom.gis_boy);
-digitalWrite(relay,relle);
+relle = logic(eeprom.boy_state,T_boyler,T_koll,eeprom.temp_u, eeprom.gis_boy);
+eeprom.heat = relle;
+digitalWrite(relay,eeprom.heat);
 }
 
 void setup() {
@@ -58,6 +59,7 @@ void setup() {
   eeprom.temp_off_otop = 35;
   eeprom.gis_boy = -1.5;
   eeprom.heat = true;
+  eeprom.boy_state = true;
   eeprom.heat_otop = true;
   eeprom.heat_state = true;
   eeprom.per_on = 10;

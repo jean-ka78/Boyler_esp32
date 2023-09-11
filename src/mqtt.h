@@ -32,6 +32,7 @@ const char* CURRENT_TEMP_SET_BOY = "/home/boy_on/current-temperature/set";
 const char* TEMP_SETPOINT_GET_BOY = "/home/boy_on/setpoint-temperature/get";
 const char* TEMP_SETPOINT_SET_BOY = "/home/boy_on/setpoint-temperature/set";
 const char* MODE_GET_TOPIC_BOY = "/home/boy_on/mode/get";
+const char* MODE_GET_NASOS_BOY = "/home/boy_on/mode/nasos";
 const char* MODE_SET_TOPIC_BOY = "/home/boy_on/mode/set";
 const char* TEMP_BOILER_GET_TOPIC = "/home/boy_on/boiler-temperature/get";
 const char* TEMP_BOILER_TARGET_GET_TOPIC = "/home/boy_on/boiler-target-temperature/get";
@@ -79,15 +80,15 @@ String message = (char*)payload;
 
    if (strcmp(topic, MODE_SET_TOPIC_BOY) == 0){
      if (message == "heat"){
-    eeprom.heat = true;
+    eeprom.boy_state = true;
     // client.publish(MODE_GET_TOPIC_BOY, "heat");
-    Serial.println("Heat: "+String(eeprom.heat));
+    Serial.println("Heat: "+String(eeprom.boy_state));
    }else if (message == "off")
    {
     eeprom.heat = false;
    
     // client.publish(MODE_GET_TOPIC_BOY, "off");
-    Serial.println("Heat: "+String(eeprom.heat));
+    Serial.println("Heat: "+String(eeprom.boy_state));
     
    }
      
@@ -243,13 +244,14 @@ snprintf (msg, MSG_BUFFER_SIZE, "%ld", eeprom.per_off);
 
 
 
-if (eeprom.heat)
+if (eeprom.boy_state)
 {
-  client.publish(MODE_GET_TOPIC_BOY, "heat");
+  client.publish(MODE_GET_NASOS_BOY, "heat");
   /* code */
 } else {
-client.publish(MODE_GET_TOPIC_BOY, "off");
+client.publish(MODE_GET_NASOS_BOY, "off");
 }
+
 if (eeprom.heat_state)
 {
   client.publish(MODE_GET_TOPIC_HEAT, "heat");
