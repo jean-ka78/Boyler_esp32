@@ -43,11 +43,14 @@ const char* TEMP_SETPOINT_GET_HEAT = "/home/heat_on/setpoint-temperature/get";
 const char* TEMP_SETPOINT_SET_HEAT = "/home/heat_on/setpoint-temperature/set";
 const char* MODE_GET_TOPIC_HEAT = "/home/heat_on/mode/get";
 const char* MODE_SET_TOPIC_HEAT = "/home/heat_on/mode/set";
+const char* MODE_GET_NASOS_HEAT = "/home/heat_on/mode/nasos";
 const char* TEMP_HEAT_GET_TOPIC = "/home/heat_on/boiler-temperature/get";
 const char* TEMP_HEAT_OFF_TOPIC = "/home/heat_on/boiler-temperature/off";
 const char* TEMP_HEAT_TARGET_GET_TOPIC = "/home/heat_on/boiler-target-temperature/get";
 const char* TIME_HEAT_CIKL = "/home/heat_on/setpoint-time/cikl";
 const char* TIME_HEAT_IMPULS = "/home/heat_on/setpoint-time/impuls";
+
+
 
 float temp_boy,
       temp_heat,
@@ -255,6 +258,13 @@ if (eeprom.heat_state)
 else{
   client.publish(MODE_GET_TOPIC_HEAT, "off");
 }
+
+if (eeprom.heat_otop)
+{
+  client.publish(MODE_GET_NASOS_HEAT, "on");
+}else {client.publish(MODE_GET_NASOS_HEAT, "off");}
+
+
 
 }
 
