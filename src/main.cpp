@@ -59,6 +59,7 @@ void setup() {
   eeprom.gis_boy = -1.5;
   eeprom.heat = true;
   eeprom.heat_otop = true;
+  eeprom.heat_state = true;
   eeprom.per_on = 10;
   eeprom.per_off = 600;
   EEPROM.put(0, eeprom);

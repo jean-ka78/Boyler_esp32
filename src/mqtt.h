@@ -97,15 +97,14 @@ String message = (char*)payload;
 
   if (strcmp(topic, MODE_SET_TOPIC_HEAT) == 0){
      if (message == "heat"){
-    eeprom.heat_otop = true;
+    eeprom.heat_state = true;
     // client.publish(MODE_GET_TOPIC_HEAT, "heat");
-    Serial.println("Heat_otop: "+String(eeprom.heat_otop));
+    Serial.println("Heat_otop: "+String(eeprom.heat_state));
    }else if (message == "off")
    {
-    eeprom.heat_otop = false;
-    
-    // client.publish(MODE_GET_TOPIC_HEAT, "off");
-    Serial.println("Heat: "+String(eeprom.heat_otop));
+    eeprom.heat_state = false;
+        // client.publish(MODE_GET_TOPIC_HEAT, "off");
+    Serial.println("Heat: "+String(eeprom.heat_state));
  
 
    } }else if (strcmp(topic, TEMP_SETPOINT_SET_HEAT) == 0){
@@ -248,7 +247,7 @@ if (eeprom.heat)
 } else {
 client.publish(MODE_GET_TOPIC_BOY, "off");
 }
-if (eeprom.heat_otop)
+if (eeprom.heat_state)
 {
   client.publish(MODE_GET_TOPIC_HEAT, "heat");
   /* code */

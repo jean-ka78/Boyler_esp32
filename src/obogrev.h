@@ -66,6 +66,14 @@ void regulator(float Temp_kol, float temp_u_b, float temp_b, float temp_off)
     float temp_on;
     temp_on = temp_u_b;
     // bool kran;
+if (eeprom.heat_state)
+{
+    eeprom.heat_otop = true;
+    /* code */
+}else{eeprom.heat_otop = false;}
+
+
+
 if (eeprom.heat_otop)
 {
     if (Temp_kol>=temp_off)
