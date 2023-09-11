@@ -85,7 +85,7 @@ String message = (char*)payload;
     Serial.println("Heat: "+String(eeprom.boy_state));
    }else if (message == "off")
    {
-    eeprom.heat = false;
+    eeprom.boy_state = false;
    
     // client.publish(MODE_GET_TOPIC_BOY, "off");
     Serial.println("Heat: "+String(eeprom.boy_state));
