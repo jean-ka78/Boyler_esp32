@@ -246,7 +246,7 @@ snprintf (msg, MSG_BUFFER_SIZE, "%ld", eeprom.per_off);
 
 if (eeprom.boy_state)
 {
-  client.publish(MODE_GET_TOPIC_BOY, "on");
+  client.publish(MODE_GET_TOPIC_BOY, "heat");
   /* code */
 } else {
 client.publish(MODE_GET_TOPIC_BOY, "off");
