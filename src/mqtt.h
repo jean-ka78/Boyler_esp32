@@ -185,17 +185,18 @@ String message = (char*)payload;
   }else if (strcmp(topic, VALVE_MODE) == 0){
     if (message == "on"){
     eeprom.valve_mode = true;}
-    else{eeprom.valve_mode = false;}
+    else if (message == "off")
+    {eeprom.valve_mode = false;}
     
   }else if (strcmp(topic, HAND_UP) == 0){
     if (message == "on"){
     hand_up = true;}
-    else{hand_up = false;}
+    else if (message == "off") {hand_up = false;}
     
   }else if (strcmp(topic, HAND_DOWN) == 0){
     if (message == "on"){
     hand_down = true;}
-    else{hand_down = false;}
+    else if (message == "off") {hand_down = false;}
     
   }
 
