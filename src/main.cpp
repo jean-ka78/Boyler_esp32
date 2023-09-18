@@ -8,6 +8,7 @@
 #include "NTC.h"
 #include "NTC_LIB.h"
 #include "pid.h"
+bool isFirstConnection=true;
 
 // put function declarations here:
 
@@ -70,6 +71,7 @@ void setup() {
   // ---------------------------------------
   setup_ntc();
   boolean ok2 = EEPROM.commit();
+  isFirstConnection = false;
   ConnectWIFI();
 
   ArduinoOTA.setHostname("ESP32"); // Задаем имя сетевого порта
