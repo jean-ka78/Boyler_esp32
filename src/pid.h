@@ -615,7 +615,7 @@ void loop_pid()
     AUTO_HAND_147944907_1 = eeprom.valve_mode;
     HAND_UP_147944907_1 = hand_up;
     HAND_DOWN_147944907_1 = hand_down;
-    SET_VALUE_147944907_1 = eeprom.heat_otop;
+    SET_VALUE_147944907_1 = _tempVariable_float;
     PRESENT_VALUE_147944907_1 = T_bat;
     PULSE_100MS_147944907_1 = _gtv2;
     CYCLE_147944907_1 = eeprom.per_on;
