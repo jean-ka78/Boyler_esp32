@@ -35,7 +35,7 @@ const char* TEMP_BOILER_GIS = "home/boy_on/gis-temperature/get";
 
 const char* CURRENT_TEMP_GET_HEAT = "home/heat_on/current-temperature/get";
 const char* CURRENT_TEMP_SET_HEAT = "home/heat_on/current-temperature/set";
-const char* CURRENT_TEMP_SET_PID = "home/heat_on/cuurrent-temperature/set_pid";
+const char* CURRENT_TEMP_SET_PID = "home/heat_on/current-temperature/set_pid";
 const char* TEMP_SETPOINT_GET_HEAT = "home/heat_on/setpoint-temperature/get";
 const char* TEMP_SETPOINT_SET_HEAT = "home/heat_on/setpoint-temperature/set";
 const char* MODE_GET_TOPIC_HEAT = "home/heat_on/mode/get";
