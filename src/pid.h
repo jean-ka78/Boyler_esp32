@@ -707,6 +707,14 @@ void loop_pid()
     // _tempVariable_bool = UP_147944907_1;
     // Slave_1_0.saveBool(_tempVariable_bool, 0, 3);
     digitalWrite(PIN_HIGH, UP_147944907_1);
+if (eeprom.heat_state)
+{
+    eeprom.heat_otop = true;
+    /* code */
+}else{eeprom.heat_otop = false;}
+
+
+
 if (eeprom.heat_otop)
 {
     if (T_koll>=eeprom.temp_off_otop)
