@@ -52,6 +52,8 @@ const char* KOF_P = "home/heat_on/kof_p";
 const char* KOF_I = "home/heat_on/kof_i";
 const char* KOF_D = "home/heat_on/kof_d";
 const char* TEMP_DEAD_ZONE = "home/heat_on/dead_zone";
+const char* VALVE_UP = "home/heat_on/valve/up";
+const char* VALVE_DOWN = "home/heat_on/valve/down";
 
 
 float temp_boy,
@@ -300,6 +302,17 @@ if (eeprom.heat)
   client.publish(MODE_GET_NASOS_BOY, "on");
   
 }else {client.publish(MODE_GET_NASOS_BOY, "off");}
+
+if (DOWN_147944907_1)
+{
+  client.publish(VALVE_DOWN, "on");
+}else {client.publish(VALVE_DOWN, "off");}
+
+if (UP_147944907_1)
+{
+  client.publish(VALVE_UP, "on");
+}else {client.publish(VALVE_UP, "off");}
+
 
 
 }
