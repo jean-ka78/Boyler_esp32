@@ -45,7 +45,13 @@ const char* TEMP_HEAT_OFF_TOPIC = "home/heat_on/boiler-temperature/off";
 const char* TEMP_HEAT_TARGET_GET_TOPIC = "home/heat_on/boiler-target-temperature/get";
 const char* TIME_HEAT_CIKL = "home/heat_on/setpoint-time/cikl";
 const char* TIME_HEAT_IMPULS = "home/heat_on/setpoint-time/impuls";
-
+const char* TEMP_MIN_OUT = "home/heat_on/temp_min_out";
+const char* TEMP_MAX_OUT = "home/heat_on/temp_max_out";
+const char* TEMP_MAX_HEAT = "home/heat_on/temp_max_heat";
+const char* KOF_P = "home/heat_on/kof_p";
+const char* KOF_I = "home/heat_on/kof_i";
+const char* KOF_D = "home/heat_on/kof_d";
+const char* TEMP_DEAD_ZONE = "home/heat_on/dead_zone";
 
 
 float temp_boy,
@@ -134,7 +140,40 @@ String message = (char*)payload;
     float temp_off = message.toFloat();
     eeprom.temp_off_otop = temp_off;
     Serial.println("temp_off Otopl: "+String(eeprom.temp_off_otop));
-  }
+    
+  }else if (strcmp(topic, TEMP_MIN_OUT) == 0){
+    float temp_min_out = message.toFloat();
+    eeprom.temp_min_out = temp_min_out;
+    // Serial.println("temp_off Otopl: "+String(eeprom.temp_off_otop));
+ 
+  }else if (strcmp(topic, TEMP_MAX_OUT) == 0){
+    float temp_max_out = message.toFloat();
+    eeprom.temp_max_out = temp_max_out;
+    // Serial.println("temp_off Otopl: "+String(eeprom.temp_off_otop));
+  
+  }else if (strcmp(topic, TEMP_MAX_HEAT) == 0){
+    float temp_max_heat = message.toFloat();
+    eeprom.temp_max_heat = temp_max_heat;
+    // Serial.println("temp_off Otopl: "+String(eeprom.temp_off_otop));
+  
+  }else if (strcmp(topic, KOF_P) == 0){
+    float kof_p = message.toFloat();
+    eeprom.kof_p = kof_p;
+
+  }else if (strcmp(topic, KOF_I) == 0){
+    float kof_i = message.toFloat();
+    eeprom.kof_i = kof_i;
+  
+  }else if (strcmp(topic, KOF_D) == 0){
+    float kof_d = message.toFloat();
+    eeprom.kof_d = kof_d;
+  
+  }else if (strcmp(topic, TEMP_DEAD_ZONE) == 0){
+    float dead_zone = message.toFloat();
+    eeprom.dead_zone = dead_zone;
+ 
+ }
+
 EEPROM.put(0, eeprom);
 }
 

@@ -7,6 +7,7 @@
 #include "st_enum.h"
 #include "NTC.h"
 #include "NTC_LIB.h"
+float T_boyler, T_koll, T_bat;
 #include "pid.h"
 bool isFirstConnection=true;
 
@@ -23,7 +24,7 @@ int PIN_LOW = 22;
 int PIN_HIGH = 23;
 uint32_t tmr;
 bool flag = HIGH;
-float T_boyler, T_koll, T_bat;
+
 long rssi;
 unsigned long timer_1, old_time, old_time1, old_time2, old_time3, timer4;
 NTC kollektor(thermistorPin1);
@@ -65,7 +66,7 @@ void setup() {
   eeprom.heat_otop = true;
   eeprom.heat_state = true;
   eeprom.per_on = 10;
-  eeprom.per_off = 600;
+  eeprom.per_off = 180;
   EEPROM.put(0, eeprom);
   isFirstConnection = false;
   // ---------------------------------------

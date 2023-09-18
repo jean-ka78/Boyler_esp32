@@ -585,10 +585,10 @@ void loop_pid()
     //Плата:4
 //Наименование:Отопительный график
     T_OUT_67293872_1 = 15.5;
-    T_X1_67293872_1 = -28.0;
-    T_Y1_67293872_1 = 80.0;
-    T_X2_67293872_1 = 8;
-    T_Y2_67293872_1 = 25.0;
+    T_X1_67293872_1 = eeprom.temp_min_out;
+    T_Y1_67293872_1 = eeprom.temp_max_heat;
+    T_X2_67293872_1 = eeprom.temp_max_out;
+    T_Y2_67293872_1 = eeprom.temp_off_otop;
     // График отопления
     if (T_OUT_67293872_1 <= T_X1_67293872_1)  // Верхняя срезка
     {
@@ -614,15 +614,15 @@ void loop_pid()
     AUTO_HAND_147944907_1 = 1;
     HAND_UP_147944907_1 = 0;
     HAND_DOWN_147944907_1 = 0;
-    SET_VALUE_147944907_1 = 45.0;
-    PRESENT_VALUE_147944907_1 = 50.0;
+    SET_VALUE_147944907_1 = eeprom.heat_otop;
+    PRESENT_VALUE_147944907_1 = T_bat;
     PULSE_100MS_147944907_1 = _gtv2;
-    CYCLE_147944907_1 = 3;
-    VALVE_147944907_1 = 120;
-    K_P_147944907_1 = 0.5;
-    K_I_147944907_1 = 30;
-    K_D_147944907_1 = 1;
-    DEAD_ZONE_147944907_1 = 1;
+    CYCLE_147944907_1 = eeprom.per_on;
+    VALVE_147944907_1 = eeprom.per_off;
+    K_P_147944907_1 = eeprom.kof_p;
+    K_I_147944907_1 = eeprom.kof_i;
+    K_D_147944907_1 = eeprom.kof_d;
+    DEAD_ZONE_147944907_1 = eeprom.dead_zone;
     E_1_147944907_1 =  SET_VALUE_147944907_1 -  PRESENT_VALUE_147944907_1; // Текущее рассогласование температуры
     if  (K_I_147944907_1 == 0.0)  // Деление на 0
     {
