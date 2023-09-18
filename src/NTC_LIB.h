@@ -7,7 +7,7 @@ int PIN3 = 35;
 #define SENSOR_PIN1             PIN1
 #define SENSOR_PIN2             PIN2
 #define SENSOR_PIN3             PIN3
-#define REFERENCE_RESISTANCE   8000
+#define REFERENCE_RESISTANCE   11350
 #define NOMINAL_RESISTANCE     10000
 #define NOMINAL_TEMPERATURE    25
 #define B_VALUE                3950

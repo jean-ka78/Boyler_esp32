@@ -33,7 +33,7 @@ NTC bat(thermistorPin3);
 #include "obogrev.h"
 #include "mqtt.h"
 // Вибір алгоритму зчитування 
-// #define NTC
+#define NTC
 
 
 void regul()
