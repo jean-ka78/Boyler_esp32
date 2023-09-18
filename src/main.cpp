@@ -7,7 +7,8 @@
 #include "st_enum.h"
 #include "NTC.h"
 #include "NTC_LIB.h"
-float T_boyler, T_koll, T_bat;
+float T_boyler, T_koll, T_bat, T_out;
+bool hand_up, hand_down;
 #include "pid.h"
 bool isFirstConnection=true;
 

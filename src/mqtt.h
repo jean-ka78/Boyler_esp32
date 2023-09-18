@@ -54,6 +54,10 @@ const char* KOF_D = "home/heat_on/kof_d";
 const char* TEMP_DEAD_ZONE = "home/heat_on/dead_zone";
 const char* VALVE_UP = "home/heat_on/valve/up";
 const char* VALVE_DOWN = "home/heat_on/valve/down";
+const char* VALVE_MODE = "home/heat_on/valve/mode";
+const char* TEMP_OUT = "home/heat_on/temp_out";
+const char* HAND_UP = "home/heat_on/hand_up";
+const char* HAND_DOWN = "home/heat_on/hand_down";
 
 
 float temp_boy,
@@ -174,7 +178,28 @@ String message = (char*)payload;
     float dead_zone = message.toFloat();
     eeprom.dead_zone = dead_zone;
  
- }
+  }else if (strcmp(topic, TEMP_OUT) == 0){
+    float temp_out = message.toFloat();
+    T_out = temp_out;
+ 
+  }else if (strcmp(topic, VALVE_MODE) == 0){
+    if (message == "on"){
+    eeprom.valve_mode = true;}
+    else{eeprom.valve_mode = false;}
+    
+  }else if (strcmp(topic, HAND_UP) == 0){
+    if (message == "on"){
+    hand_up = true;}
+    else{hand_up = false;}
+    
+  }else if (strcmp(topic, HAND_DOWN) == 0){
+    if (message == "on"){
+    hand_down = true;}
+    else{hand_down = false;}
+    
+  }
+
+
 
 EEPROM.put(0, eeprom);
 }

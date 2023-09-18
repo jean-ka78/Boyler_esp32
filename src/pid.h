@@ -584,7 +584,7 @@ void loop_pid()
 //     Slave_1_0.saveFloat(_tempVariable_float, 4, 16);
     //Плата:4
 //Наименование:Отопительный график
-    T_OUT_67293872_1 = 15.5;
+    T_OUT_67293872_1 = T_out;
     T_X1_67293872_1 = eeprom.temp_min_out;
     T_Y1_67293872_1 = eeprom.temp_max_heat;
     T_X2_67293872_1 = eeprom.temp_max_out;
@@ -610,10 +610,10 @@ void loop_pid()
     // Slave_1_0.saveFloat(_tempVariable_float, 4, 14);
     //Плата:5
 //Наименование:Регулирование
-    ON_OFF_147944907_1 = 1;
-    AUTO_HAND_147944907_1 = 1;
-    HAND_UP_147944907_1 = 0;
-    HAND_DOWN_147944907_1 = 0;
+    ON_OFF_147944907_1 = eeprom.heat_otop;
+    AUTO_HAND_147944907_1 = eeprom.valve_mode;
+    HAND_UP_147944907_1 = hand_up;
+    HAND_DOWN_147944907_1 = hand_down;
     SET_VALUE_147944907_1 = eeprom.heat_otop;
     PRESENT_VALUE_147944907_1 = T_bat;
     PULSE_100MS_147944907_1 = _gtv2;

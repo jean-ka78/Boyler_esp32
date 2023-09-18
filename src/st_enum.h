@@ -15,6 +15,7 @@ bool heat; //флаг включения бойлера
 bool boy_state;
 bool heat_otop; //Флаг включения отопления
 bool heat_state; 
+bool valve_mode;
 uint32_t per_on; //Период включения 
 uint32_t per_off; //Период виключения
 uint32_t time_valve;
