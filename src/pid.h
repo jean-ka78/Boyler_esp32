@@ -607,6 +607,7 @@ void loop_pid()
         T_SET_67293872_1 = T_Y2_67293872_1;
     }
     _tempVariable_float = T_SET_67293872_1;
+    
     // Slave_1_0.saveFloat(_tempVariable_float, 4, 14);
     //Плата:5
 //Наименование:Регулирование
