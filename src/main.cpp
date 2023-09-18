@@ -9,7 +9,7 @@
 #include "NTC_LIB.h"
 float T_boyler, T_koll, T_bat, T_out;
 bool hand_up, hand_down;
-#include "pid.h"
+
 bool isFirstConnection=true;
 
 // put function declarations here:
@@ -18,6 +18,7 @@ int thermistorPin1 = 33;// Вход АЦП, выход делителя напр
 int thermistorPin2 = 32;
 int thermistorPin3 = 35;
 
+#define PID
 
 const int relay = 21;
 const int nasos_otop = 19;
@@ -33,11 +34,12 @@ NTC boyler(thermistorPin2);
 NTC bat(thermistorPin3);
 #include "heat_regul.h"
 #include "obogrev.h"
+#include "pid.h"
 #include "mqtt.h"
 // Вибір алгоритму зчитування 
 #define NTC
 
-#define PID
+
 
 void regul()
 {
