@@ -1,7 +1,7 @@
 
 #define WIFI_SSID               "aonline3g"  //Имя точки доступа WIFI VVK   AndroidAP
 #define WIFI_PASS               "1qaz2wsx3edc" //пароль точки доступа WIFI vtb24admin 1234567890
-bool isFirstConnection=true;
+
 
 void ConnectWIFI()
 {
@@ -22,7 +22,7 @@ void ConnectWIFI()
         delay(500);
         Serial.print(".");
         Serial.print(WiFi.status());
-        isFirstConnection = false;
+        
          
         count++;
         if (count >= 50){
