@@ -22,19 +22,25 @@ void ConnectWIFI()
         delay(500);
         Serial.print(".");
         Serial.print(WiFi.status());
-        isFirstConnection = false;
-         
+            
         count++;
         if (count >= 50){
 
-          Serial.println("WiFi not connected"); break;}
+          Serial.println("WiFi not connected");
+          WiFi.disconnect(); // отключаемся от сети 
+          
+           break;}
       }
+
+
 
     }
   /*  Дисконект - для справки 
-    WiFi.disconnect(); // отключаемся от сети
+   
     
   */
+
+
  Serial.println(WiFi.localIP());
 
 }

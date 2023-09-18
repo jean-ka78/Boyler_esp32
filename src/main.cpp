@@ -7,7 +7,7 @@
 #include "st_enum.h"
 #include "NTC.h"
 #include "NTC_LIB.h"
-
+#include "pid.h"
 
 // put function declarations here:
 
@@ -46,7 +46,7 @@ digitalWrite(relay,eeprom.heat);
 void setup() {
   Serial.begin(115200);
   setupMqtt();
-
+  setup_pid();
   pinMode(relay, OUTPUT);
   pinMode(PIN_LOW, OUTPUT);
   pinMode(PIN_HIGH, OUTPUT);
@@ -66,6 +66,7 @@ void setup() {
   eeprom.per_on = 10;
   eeprom.per_off = 600;
   EEPROM.put(0, eeprom);
+  isFirstConnection = false;
   // ---------------------------------------
   setup_ntc();
   boolean ok2 = EEPROM.commit();

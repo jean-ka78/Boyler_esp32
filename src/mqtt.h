@@ -135,7 +135,7 @@ String message = (char*)payload;
     eeprom.temp_off_otop = temp_off;
     Serial.println("temp_off Otopl: "+String(eeprom.temp_off_otop));
   }
-
+EEPROM.put(0, eeprom);
 }
 
 
