@@ -331,6 +331,12 @@ if (eeprom.heat)
   
 }else {client.publish(MODE_GET_NASOS_BOY, "off");}
 
+
+if (eeprom.valve_mode)
+{
+  /* code */
+
+
 if (DOWN_147944907_1)
 {
   client.publish(VALVE_DOWN, "on");
@@ -341,6 +347,7 @@ if (UP_147944907_1)
   client.publish(VALVE_UP, "on");
 }else {client.publish(VALVE_UP, "off");}
 
+}
 
 
 }
