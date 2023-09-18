@@ -35,7 +35,10 @@ class Flasher
     //  terminal.print("Update+OnTime:"+String(OnTime));
      Kran_State = HIGH; // выключаем
      previousMillis = currentMillis; // запоминаем момент времени
+
      digitalWrite(Kran_Pin, Kran_State); // реализуем новое состояние
+
+     
      run_on = false;
      
     //  led3.on();

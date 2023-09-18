@@ -699,12 +699,16 @@ void loop_pid()
     {
         TIMER_PID_DOWN_147944907_1 = TIMER_PID_DOWN_147944907_1 + 0.1;
     }
-    _tempVariable_bool = DOWN_147944907_1;
+    // _tempVariable_bool = DOWN_147944907_1;
     // Slave_1_0.saveBool(_tempVariable_bool, 0, 4);
-    // digitalWrite(5, DOWN_147944907_1);
-    _tempVariable_bool = UP_147944907_1;
+
+    #ifdef PID
+    digitalWrite(PIN_LOW, DOWN_147944907_1);
+    // _tempVariable_bool = UP_147944907_1;
     // Slave_1_0.saveBool(_tempVariable_bool, 0, 3);
-    // digitalWrite(4, UP_147944907_1);
+    digitalWrite(PIN_HIGH, UP_147944907_1);
+
+    #endif
 }
 // float _convertDS18x2xData(byte type_s, byte data[12])
 // {

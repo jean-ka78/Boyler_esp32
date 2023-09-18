@@ -37,6 +37,7 @@ NTC bat(thermistorPin3);
 // Вибір алгоритму зчитування 
 #define NTC
 
+#define PID
 
 void regul()
 {
@@ -143,10 +144,17 @@ if (isFirstConnection)
       // loopMQtt();
     }
     // }
-
-  regulator(T_koll, eeprom.temp_u_b, T_bat, eeprom.temp_off_otop);
-
 loop_pid();
+
+#ifdef PID
+#else
+  regulator(T_koll, eeprom.temp_u_b, T_bat, eeprom.temp_off_otop);
+#endif
+
+
+
+
+
 
 
 }
