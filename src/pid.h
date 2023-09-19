@@ -699,14 +699,15 @@ void loop_pid()
     {
         TIMER_PID_DOWN = TIMER_PID_DOWN + 0.1;
     }
-    // _tempVariable_bool = DOWN;
+    _tempVariable_bool = DOWN;
     // Slave_1_0.saveBool(_tempVariable_bool, 0, 4);
 
     #ifdef PID
-    digitalWrite(PIN_LOW, DOWN);
+    digitalWrite(PIN_LOW, !DOWN);
     // _tempVariable_bool = UP;
     // Slave_1_0.saveBool(_tempVariable_bool, 0, 3);
-    digitalWrite(PIN_HIGH, UP);
+    digitalWrite(PIN_HIGH, !UP);
+
 if (eeprom.heat_state)
 {
     eeprom.heat_otop = true;
