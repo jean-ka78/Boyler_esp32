@@ -63,7 +63,7 @@ void setup() {
 // Заводские настройки 
   eeprom.temp_u = 50;
   eeprom.temp_u_b = 50;
-  eeprom.temp_off_otop = 35;
+  eeprom.temp_off_otop = 30;
   eeprom.gis_boy = -1.5;
   eeprom.heat = true;
   eeprom.boy_state = true;
@@ -71,7 +71,7 @@ void setup() {
   eeprom.heat_state = true;
   eeprom.valve_mode = true;
   eeprom.per_on = 10;
-  eeprom.per_off = 180;
+  eeprom.per_off = 120;
   eeprom.kof_p = 0.5;
   eeprom.kof_i = 30;
   eeprom.kof_d = 1;
