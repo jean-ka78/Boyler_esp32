@@ -18,36 +18,36 @@ bool table_0_1_D[5];
 // ModbusMainData SlaveData_1;
 // ModbusSlaveRTU Slave_1_0;
 // OneWire  _ow6(6);
-float T_OUT_67293872_1;
-float T_X1_67293872_1;
-float T_Y1_67293872_1;
-float T_X2_67293872_1;
-float T_Y2_67293872_1;
-float T_SET_67293872_1;
-bool ON_OFF_147944907_1;
-bool AUTO_HAND_147944907_1;
-bool HAND_UP_147944907_1;
-bool HAND_DOWN_147944907_1;
-float SET_VALUE_147944907_1;
-float PRESENT_VALUE_147944907_1;
-bool PULSE_100MS_147944907_1;
-float CYCLE_147944907_1;
-float VALVE_147944907_1;
-float K_P_147944907_1;
-float K_I_147944907_1;
-float K_D_147944907_1;
-float DEAD_ZONE_147944907_1;
-bool UP_147944907_1;
-bool DOWN_147944907_1;
-float TIMER_PID_147944907_1; // Внутренний таймер ПИД
-float E_1_147944907_1; // Текущее рассогласование
-float E_2_147944907_1; // Рассогласование на -1 шаг
-float E_3_147944907_1; // Рассогласование на -2 шага
-float D_T_147944907_1; // Время воздействия на текущем шагу регулирования
-float SUM_D_T_147944907_1; // Накопленное время воздействия
-float TIMER_PID_UP_147944907_1; // Накопленное время открытия
-float TIMER_PID_DOWN_147944907_1; // Накопленное время закрытия
-boolean PID_PULSE_147944907_1; // Шаг выполнения 1 цикла
+float T_OUT;
+float T_X1;
+float T_Y1;
+float T_X2;
+float T_Y2;
+float T_SET;
+bool ON_OFF;
+bool AUTO_HAND;
+bool HAND_UP;
+bool HAND_DOWN;
+float SET_VALUE;
+float PRESENT_VALUE;
+bool PULSE_100MS;
+float CYCLE;
+float VALVE;
+float K_P;
+float K_I;
+float K_D;
+float DEAD_ZONE;
+bool UP;
+bool DOWN;
+float TIMER_PID; // Внутренний таймер ПИД
+float E_1; // Текущее рассогласование
+float E_2; // Рассогласование на -1 шаг
+float E_3; // Рассогласование на -2 шага
+float D_T; // Время воздействия на текущем шагу регулирования
+float SUM_D_T; // Накопленное время воздействия
+float TIMER_PID_UP; // Накопленное время открытия
+float TIMER_PID_DOWN; // Накопленное время закрытия
+boolean PID_PULSE; // Шаг выполнения 1 цикла
 bool _gtv1; //Импульс при старте программы
 bool _gtv2; //Импульст 100 мс
 bool _trgrt1 = 0;
@@ -584,129 +584,129 @@ void loop_pid()
 //     Slave_1_0.saveFloat(_tempVariable_float, 4, 16);
     //Плата:4
 //Наименование:Отопительный график
-    T_OUT_67293872_1 = T_out;
-    T_X1_67293872_1 = eeprom.temp_min_out;
-    T_Y1_67293872_1 = eeprom.temp_max_heat;
-    T_X2_67293872_1 = eeprom.temp_max_out;
-    T_Y2_67293872_1 = eeprom.temp_off_otop;
+    T_OUT = T_out;
+    T_X1 = eeprom.temp_min_out;
+    T_Y1 = eeprom.temp_max_heat;
+    T_X2 = eeprom.temp_max_out;
+    T_Y2 = eeprom.temp_off_otop;
     // График отопления
-    if (T_OUT_67293872_1 <= T_X1_67293872_1)  // Верхняя срезка
+    if (T_OUT <= T_X1)  // Верхняя срезка
     {
-        T_SET_67293872_1 = T_Y1_67293872_1;
+        T_SET = T_Y1;
     }
-    if (T_OUT_67293872_1 > T_X1_67293872_1 & T_OUT_67293872_1 < T_X2_67293872_1)  // График между верхней и нижней срезкой
+    if (T_OUT > T_X1 & T_OUT < T_X2)  // График между верхней и нижней срезкой
     {
-        if (T_X1_67293872_1 == T_X2_67293872_1)  // Деление на 0
+        if (T_X1 == T_X2)  // Деление на 0
         {
-            T_X1_67293872_1 = T_X1_67293872_1 + 0.1;
+            T_X1 = T_X1 + 0.1;
         }
-        T_SET_67293872_1 = (T_OUT_67293872_1 - T_X1_67293872_1) * (T_Y1_67293872_1 - T_Y2_67293872_1) / (T_X1_67293872_1 - T_X2_67293872_1) + T_Y1_67293872_1;
+        T_SET = (T_OUT - T_X1) * (T_Y1 - T_Y2) / (T_X1 - T_X2) + T_Y1;
     }
-    if (T_OUT_67293872_1 >= T_X2_67293872_1)  // Нижняя срезка
+    if (T_OUT >= T_X2)  // Нижняя срезка
     {
-        T_SET_67293872_1 = T_Y2_67293872_1;
+        T_SET = T_Y2;
     }
-    _tempVariable_float = T_SET_67293872_1;
+    _tempVariable_float = T_SET;
     
     // Slave_1_0.saveFloat(_tempVariable_float, 4, 14);
     //Плата:5
 //Наименование:Регулирование
-    ON_OFF_147944907_1 = eeprom.heat_otop;
-    AUTO_HAND_147944907_1 = eeprom.valve_mode;
-    HAND_UP_147944907_1 = hand_up;
-    HAND_DOWN_147944907_1 = hand_down;
-    SET_VALUE_147944907_1 = _tempVariable_float;
-    PRESENT_VALUE_147944907_1 = T_bat;
-    PULSE_100MS_147944907_1 = _gtv2;
-    CYCLE_147944907_1 = eeprom.per_on;
-    VALVE_147944907_1 = eeprom.per_off;
-    K_P_147944907_1 = eeprom.kof_p;
-    K_I_147944907_1 = eeprom.kof_i;
-    K_D_147944907_1 = eeprom.kof_d;
-    DEAD_ZONE_147944907_1 = eeprom.dead_zone;
-    E_1_147944907_1 =  SET_VALUE_147944907_1 -  PRESENT_VALUE_147944907_1; // Текущее рассогласование температуры
-    if  (K_I_147944907_1 == 0.0)  // Деление на 0
+    ON_OFF = eeprom.heat_otop;
+    AUTO_HAND = eeprom.valve_mode;
+    HAND_UP = hand_up;
+    HAND_DOWN = hand_down;
+    SET_VALUE = _tempVariable_float;
+    PRESENT_VALUE = T_bat;
+    PULSE_100MS = _gtv2;
+    CYCLE = eeprom.per_on;
+    VALVE = eeprom.per_off;
+    K_P = eeprom.kof_p;
+    K_I = eeprom.kof_i;
+    K_D = eeprom.kof_d;
+    DEAD_ZONE = eeprom.dead_zone;
+    E_1 =  SET_VALUE -  PRESENT_VALUE; // Текущее рассогласование температуры
+    if  (K_I == 0.0)  // Деление на 0
     {
-        K_I_147944907_1 = 9999.0;
+        K_I = 9999.0;
     }
-    if  (CYCLE_147944907_1 == 0.0)  // Деление на 0
+    if  (CYCLE == 0.0)  // Деление на 0
     {
-        CYCLE_147944907_1 = 1.0;
+        CYCLE = 1.0;
     }
     // Ограничения
-    K_P_147944907_1 = constrain(K_P_147944907_1, (-99.0), (99.0)); // Кр -99.0...99.0 %/С, знак + для нагревателя, знак - для холодильника
-    K_I_147944907_1 = constrain(K_I_147944907_1, (1.0), (9999.0)); // Ти 1...9999.0 сек
-    K_D_147944907_1 = constrain(K_D_147944907_1, (0.0), (9999.0)); // Тд 0...9999.0 сек
-    CYCLE_147944907_1 = constrain(CYCLE_147944907_1, (1.0), (25.0)); // Цикл 1...25.0 сек
-    VALVE_147944907_1 = constrain(VALVE_147944907_1, (15.0), (250.0)); // Время привода 15...250.0 сек
+    K_P = constrain(K_P, (-99.0), (99.0)); // Кр -99.0...99.0 %/С, знак + для нагревателя, знак - для холодильника
+    K_I = constrain(K_I, (1.0), (9999.0)); // Ти 1...9999.0 сек
+    K_D = constrain(K_D, (0.0), (9999.0)); // Тд 0...9999.0 сек
+    CYCLE = constrain(CYCLE, (1.0), (25.0)); // Цикл 1...25.0 сек
+    VALVE = constrain(VALVE, (15.0), (250.0)); // Время привода 15...250.0 сек
 // Расчет управляющего воздействия
-    if  (PULSE_100MS_147944907_1 & TIMER_PID_147944907_1 == 0.0 & !  PID_PULSE_147944907_1)
+    if  (PULSE_100MS & TIMER_PID == 0.0 & !  PID_PULSE)
     {
-        PID_PULSE_147944907_1 = 1; // Присвоить шаг
-            D_T_147944907_1 = K_P_147944907_1 * (E_1_147944907_1 - E_2_147944907_1 + CYCLE_147944907_1 * E_2_147944907_1 / K_I_147944907_1 +  K_D_147944907_1 * (E_1_147944907_1 - 2 * E_2_147944907_1 +  E_3_147944907_1) / CYCLE_147944907_1) * VALVE_147944907_1 / 100.0; // Время воздействия на текущем шагу регулирования       
-            E_3_147944907_1 = E_2_147944907_1; // Запись рассогласования -2 шага назад
-            E_2_147944907_1 = E_1_147944907_1; // Запись рассогласования -1 шаг назад
-            SUM_D_T_147944907_1 = SUM_D_T_147944907_1 + D_T_147944907_1; // Накопленное время воздействия
-            if (SUM_D_T_147944907_1 >= 0.5)  // Сброс накопленного времени закрытия
+        PID_PULSE = 1; // Присвоить шаг
+            D_T = K_P * (E_1 - E_2 + CYCLE * E_2 / K_I +  K_D * (E_1 - 2 * E_2 +  E_3) / CYCLE) * VALVE / 100.0; // Время воздействия на текущем шагу регулирования       
+            E_3 = E_2; // Запись рассогласования -2 шага назад
+            E_2 = E_1; // Запись рассогласования -1 шаг назад
+            SUM_D_T = SUM_D_T + D_T; // Накопленное время воздействия
+            if (SUM_D_T >= 0.5)  // Сброс накопленного времени закрытия
         {
-            TIMER_PID_DOWN_147944907_1 = 0.0;
+            TIMER_PID_DOWN = 0.0;
         }
-        if (SUM_D_T_147944907_1 <= -0.5)  // Сброс накопленного времени открытия
+        if (SUM_D_T <= -0.5)  // Сброс накопленного времени открытия
         {
-            TIMER_PID_UP_147944907_1 = 0.0;
+            TIMER_PID_UP = 0.0;
         }
-        if (E_1_147944907_1 < DEAD_ZONE_147944907_1 & E_1_147944907_1 > - DEAD_ZONE_147944907_1)  // Зона нечувствительности
+        if (E_1 < DEAD_ZONE & E_1 > - DEAD_ZONE)  // Зона нечувствительности
         {
-            D_T_147944907_1 = 0.0;
-            SUM_D_T_147944907_1 = 0.0;
+            D_T = 0.0;
+            SUM_D_T = 0.0;
         }
     }
-    if (PULSE_100MS_147944907_1)
+    if (PULSE_100MS)
     {
-        TIMER_PID_147944907_1 = TIMER_PID_147944907_1 + 0.1; // Внутренний таймер ПИД
+        TIMER_PID = TIMER_PID + 0.1; // Внутренний таймер ПИД
     }
-    if  (ON_OFF_147944907_1 &  AUTO_HAND_147944907_1)
+    if  (ON_OFF &  AUTO_HAND)
     {
-        if (TIMER_PID_147944907_1 >= CYCLE_147944907_1)  // Сброс таймера при окончание цикла регулирования
+        if (TIMER_PID >= CYCLE)  // Сброс таймера при окончание цикла регулирования
         {
-            PID_PULSE_147944907_1 = 0; // Сбросить шаг       
-                   TIMER_PID_147944907_1 = 0.0;
-            if (SUM_D_T_147944907_1>=0.5 || SUM_D_T_147944907_1<=-0.5)  // Сброа накопленного времени воздействия
+            PID_PULSE = 0; // Сбросить шаг       
+                   TIMER_PID = 0.0;
+            if (SUM_D_T>=0.5 || SUM_D_T<=-0.5)  // Сброа накопленного времени воздействия
             {
-                SUM_D_T_147944907_1 = 0.0;
+                SUM_D_T = 0.0;
             }
         }
     }
     else
     {
-        PID_PULSE_147944907_1 = 0;
-        D_T_147944907_1 = 0.0;
-        SUM_D_T_147944907_1 = 0.0;
-        TIMER_PID_147944907_1 = 0.0;
-        E_3_147944907_1 = E_1_147944907_1;
-        E_2_147944907_1 = E_1_147944907_1;
-        TIMER_PID_UP_147944907_1 = 0.0;
-        TIMER_PID_DOWN_147944907_1 = 0.0;
+        PID_PULSE = 0;
+        D_T = 0.0;
+        SUM_D_T = 0.0;
+        TIMER_PID = 0.0;
+        E_3 = E_1;
+        E_2 = E_1;
+        TIMER_PID_UP = 0.0;
+        TIMER_PID_DOWN = 0.0;
     }
     // Управление
-    UP_147944907_1 = ((((SUM_D_T_147944907_1 >= TIMER_PID_147944907_1 & SUM_D_T_147944907_1 >= 0.5) || D_T_147944907_1 >= CYCLE_147944907_1 - 0.5 || TIMER_PID_UP_147944907_1 >= VALVE_147944907_1) & AUTO_HAND_147944907_1) || (HAND_UP_147944907_1 & ! AUTO_HAND_147944907_1)) & ON_OFF_147944907_1 & ! DOWN_147944907_1; // Открытие клапана 
-    if (PULSE_100MS_147944907_1 &  UP_147944907_1 & TIMER_PID_UP_147944907_1 <  VALVE_147944907_1)  // Накопленное время открытия
+    UP = ((((SUM_D_T >= TIMER_PID & SUM_D_T >= 0.5) || D_T >= CYCLE - 0.5 || TIMER_PID_UP >= VALVE) & AUTO_HAND) || (HAND_UP & ! AUTO_HAND)) & ON_OFF & ! DOWN; // Открытие клапана 
+    if (PULSE_100MS &  UP & TIMER_PID_UP <  VALVE)  // Накопленное время открытия
     {
-        TIMER_PID_UP_147944907_1 = TIMER_PID_UP_147944907_1 + 0.1;
+        TIMER_PID_UP = TIMER_PID_UP + 0.1;
     }
-    DOWN_147944907_1  = ((((SUM_D_T_147944907_1 <= - TIMER_PID_147944907_1 & SUM_D_T_147944907_1 <= - 0.5) || D_T_147944907_1 <= - CYCLE_147944907_1 + 0.5 ||  TIMER_PID_DOWN_147944907_1  >= VALVE_147944907_1) & AUTO_HAND_147944907_1) || (HAND_DOWN_147944907_1  & ! AUTO_HAND_147944907_1)) & ON_OFF_147944907_1 & !  UP_147944907_1; // Закрытие клапана
-    if (PULSE_100MS_147944907_1 &  DOWN_147944907_1 & TIMER_PID_DOWN_147944907_1 <  VALVE_147944907_1)  // Накопленное время закрытия
+    DOWN  = ((((SUM_D_T <= - TIMER_PID & SUM_D_T <= - 0.5) || D_T <= - CYCLE + 0.5 ||  TIMER_PID_DOWN  >= VALVE) & AUTO_HAND) || (HAND_DOWN  & ! AUTO_HAND)) & ON_OFF & !  UP; // Закрытие клапана
+    if (PULSE_100MS &  DOWN & TIMER_PID_DOWN <  VALVE)  // Накопленное время закрытия
     {
-        TIMER_PID_DOWN_147944907_1 = TIMER_PID_DOWN_147944907_1 + 0.1;
+        TIMER_PID_DOWN = TIMER_PID_DOWN + 0.1;
     }
-    // _tempVariable_bool = DOWN_147944907_1;
+    // _tempVariable_bool = DOWN;
     // Slave_1_0.saveBool(_tempVariable_bool, 0, 4);
 
     #ifdef PID
-    digitalWrite(PIN_LOW, DOWN_147944907_1);
-    // _tempVariable_bool = UP_147944907_1;
+    digitalWrite(PIN_LOW, DOWN);
+    // _tempVariable_bool = UP;
     // Slave_1_0.saveBool(_tempVariable_bool, 0, 3);
-    digitalWrite(PIN_HIGH, UP_147944907_1);
+    digitalWrite(PIN_HIGH, UP);
 if (eeprom.heat_state)
 {
     eeprom.heat_otop = true;

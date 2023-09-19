@@ -57,8 +57,8 @@ const char* VALVE_UP = "home/heat_on/valve/up";
 const char* VALVE_DOWN = "home/heat_on/valve/down";
 const char* VALVE_MODE = "home/heat_on/valve/mode";
 const char* TEMP_OUT = "home/heat_on/temp_out";
-const char* HAND_UP = "home/heat_on/hand_up";
-const char* HAND_DOWN = "home/heat_on/hand_down";
+const char* HAND_UP_HEAT = "home/heat_on/hand_up";
+const char* HAND_DOWN_HEAT = "home/heat_on/hand_down";
 
 
 float temp_boy,
@@ -189,12 +189,12 @@ String message = (char*)payload;
     else if (message == "off")
     {eeprom.valve_mode = false;}
     
-  }else if (strcmp(topic, HAND_UP) == 0){
+  }else if (strcmp(topic, HAND_UP_HEAT) == 0){
     if (message == "on"){
     hand_up = true;}
     else if (message == "off") {hand_up = false;}
     
-  }else if (strcmp(topic, HAND_DOWN) == 0){
+  }else if (strcmp(topic, HAND_DOWN_HEAT) == 0){
     if (message == "on"){
     hand_down = true;}
     else if (message == "off") {hand_down = false;}
@@ -298,7 +298,7 @@ snprintf (msg, MSG_BUFFER_SIZE, "%ld", eeprom.per_on);
 snprintf (msg, MSG_BUFFER_SIZE, "%ld", eeprom.per_off);
 // dtostrf(eeprom.per_on,2,2,msg);    
      client.publish(TIME_HEAT_CIKL, msg);
-dtostrf(T_SET_67293872_1,2,2,msg);
+dtostrf(T_SET,2,2,msg);
     client.publish(CURRENT_TEMP_SET_PID, msg);
 
 
@@ -337,12 +337,12 @@ if (eeprom.valve_mode)
   /* code */
 
 
-if (DOWN_147944907_1)
+if (DOWN)
 {
   client.publish(VALVE_DOWN, "on");
 }else {client.publish(VALVE_DOWN, "off");}
 
-if (UP_147944907_1)
+if (UP)
 {
   client.publish(VALVE_UP, "on");
 }else {client.publish(VALVE_UP, "off");}
