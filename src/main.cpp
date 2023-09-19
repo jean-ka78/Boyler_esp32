@@ -69,8 +69,17 @@ void setup() {
   eeprom.boy_state = true;
   eeprom.heat_otop = true;
   eeprom.heat_state = true;
+  eeprom.valve_mode = true;
   eeprom.per_on = 10;
   eeprom.per_off = 180;
+  eeprom.kof_p = 0.5;
+  eeprom.kof_i = 30;
+  eeprom.kof_d = 1;
+  eeprom.temp_max_out = 18;
+  eeprom.temp_min_out = -8;
+  eeprom.temp_max_heat = 80;
+  eeprom.dead_zone = 1;
+  
   EEPROM.put(0, eeprom);
   isFirstConnection = false;
   // ---------------------------------------
