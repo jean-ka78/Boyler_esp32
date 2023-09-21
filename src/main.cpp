@@ -7,6 +7,8 @@
 #include "st_enum.h"
 #include "NTC.h"
 #include "NTC_LIB.h"
+#define INIT_ADDR 1023  // номер резервной ячейки
+#define INIT_KEY 50     // ключ первого запуска. 0-254, на выбор
 float T_boyler, T_koll, T_bat, T_out;
 bool hand_up, hand_down;
 
@@ -58,34 +60,43 @@ void setup() {
   pinMode(PIN_HIGH, OUTPUT);
   pinMode(nasos_otop, OUTPUT);
   EEPROM.begin(sizeof(st_Enum));
-  EEPROM.get(0, eeprom);
+
+if (EEPROM.read(INIT_ADDR) != INIT_KEY) { // первый запуск
+    EEPROM.write(INIT_ADDR, INIT_KEY);    // записали ключ
+
+
+  // EEPROM.get(0, eeprom);
 // --------------------------------------
 // Заводские настройки 
-  // eeprom.temp_u = 50;
-  // eeprom.temp_u_b = 50;
-  // eeprom.temp_off_otop = 30;
-  // eeprom.gis_boy = -1.5;
-  // eeprom.heat = true;
-  // eeprom.boy_state = true;
-  // eeprom.heat_otop = true;
-  // eeprom.heat_state = true;
-  // eeprom.valve_mode = true;
-  // eeprom.per_on = 10;
-  // eeprom.per_off = 120;
-  // eeprom.kof_p = 0.5;
-  // eeprom.kof_i = 30;
-  // eeprom.kof_d = 1;
-  // eeprom.temp_max_out = 18;
-  // eeprom.temp_min_out = -8;
-  // eeprom.temp_max_heat = 80;
-  // eeprom.dead_zone = 1;
+  eeprom.temp_u = 50;
+  eeprom.temp_u_b = 50;
+  eeprom.temp_off_otop = 30;
+  eeprom.gis_boy = -1.5;
+  eeprom.heat = true;
+  eeprom.boy_state = true;
+  eeprom.heat_otop = true;
+  eeprom.heat_state = true;
+  eeprom.valve_mode = true;
+  eeprom.per_on = 10;
+  eeprom.per_off = 120;
+  eeprom.kof_p = 0.5;
+  eeprom.kof_i = 30;
+  eeprom.kof_d = 1;
+  eeprom.temp_max_out = 18;
+  eeprom.temp_min_out = -8;
+  eeprom.temp_max_heat = 80;
+  eeprom.dead_zone = 1;
   
-  // EEPROM.put(0, eeprom);
-  // isFirstConnection = false;
+  EEPROM.put(0, eeprom);
+  isFirstConnection = false;
+}
+  
+  EEPROM.get(0, eeprom);
+  // 
   // ---------------------------------------
   setup_ntc();
   boolean ok2 = EEPROM.commit();
-  isFirstConnection = false;
+  // isFirstConnection = false;
   ConnectWIFI();
 
   ArduinoOTA.setHostname("ESP32"); // Задаем имя сетевого порта
