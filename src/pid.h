@@ -1,23 +1,9 @@
-// #include "flprogUtilites.h"
-// #include "universalModbus.h"
-// #include <OneWire.h>
+
 #include <EEPROM.h>
 #include "GyverTimer.h"
 GTimer isTimer(MS);  
-// byte _d18x2x1Addr[8]={0x28, 0xDB, 0x66, 0x77, 0x91, 0x7, 0x2, 0xD0};
-// byte _d18x2x2Addr[8]={0x28, 0xE4, 0x84, 0x77, 0x91, 0x8, 0x2, 0x58};
-// FLProgSoftwareUart flprogSerial100(2, 3);
+
 bool table_0_1_D[5];
-// int table_0_1_A[5] = {0, 1, 2, 3, 4};
-// bool table_0_1_S[5] = {0, 0, 0, 0, 0};
-// ModbusBoolTable table_0_1_T(0, table_0_1_D, table_0_1_A, table_0_1_S, 5);
-// int table_4_1_D[26];
-// int table_4_1_A[26] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25};
-// bool table_4_1_S[26] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-// ModbusWorldTable table_4_1_T(4, table_4_1_D, table_4_1_A, table_4_1_S, 26);
-// ModbusMainData SlaveData_1;
-// ModbusSlaveRTU Slave_1_0;
-// OneWire  _ow6(6);
 float T_OUT;
 float T_X1;
 float T_Y1;
@@ -98,36 +84,9 @@ bool _tempVariable_bool;
 float _tempVariable_float;
 void setup_pid()
 {
-    // pinMode(4, OUTPUT);
-    // digitalWrite(4, 0);
-    // pinMode(5, OUTPUT);
-    // digitalWrite(5, 0);
+ 
     isTimer.setInterval(50);
-    // if(((readByteFromEEPROM(0, 0, 0x0))) != 186) 
-    // {
-    //     (updateByteToEEPROM(0, 0, 0x0, (186)));
-    //     (updateBooleanToEEPROM(1, 0, 0x0, (0)));
-    //     (updateFloatToEEPROM(2, 0, 0x0, (3.0)));
-    //     (updateFloatToEEPROM(6, 0, 0x0, (60.0)));
-    //     (updateFloatToEEPROM(10, 0, 0x0, (1)));
-    //     (updateFloatToEEPROM(14, 0, 0x0, (30.0)));
-    //     (updateFloatToEEPROM(18, 0, 0x0, (0.0)));
-    //     (updateFloatToEEPROM(22, 0, 0x0, (1.0)));
-    //     (updateFloatToEEPROM(26, 0, 0x0, (-28.0)));
-    //     (updateFloatToEEPROM(30, 0, 0x0, (80.0)));
-    //     (updateFloatToEEPROM(34, 0, 0x0, (8.0)));
-    //     (updateFloatToEEPROM(38, 0, 0x0, (25.0)));
-    // }
-    // SlaveData_1.setDataTable(&table_0_1_T);
-    // SlaveData_1.setDataTable(&table_4_1_T);
-    // SlaveData_1.setLongOrder(1);
-    // SlaveData_1.setFloatOrder(1);
-    // SlaveData_1.setUnsignedlongOrder(1);
-    // SlaveData_1.setIntOrder(1);
-    // Slave_1_0.setData(&SlaveData_1);
-    // Slave_1_0.setUart(&flprogSerial100);
-    // Slave_1_0.setPortSpeed(5);
-    // Slave_1_0.begin(1);
+
 }
 void loop_pid()
 {
