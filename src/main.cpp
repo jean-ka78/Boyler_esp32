@@ -91,7 +91,7 @@ if (EEPROM.read(INIT_ADDR) != INIT_KEY) { // первый запуск
   isFirstConnection = false;
 }
   
-  // EEPROM.get(0, eeprom);
+  EEPROM.get(0, eeprom);
   // 
   // ---------------------------------------
   setup_ntc();
