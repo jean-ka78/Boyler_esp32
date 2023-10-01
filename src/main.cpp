@@ -59,9 +59,9 @@ void setup() {
   pinMode(PIN_HIGH, OUTPUT);
   pinMode(nasos_otop, OUTPUT);
   // eeprom.INIT_ADDR = 1023;
-  eeprom.INIT_KEY = 50;
+  // eeprom.INIT_KEY = 50;
   EEPROM.begin(sizeof(st_Enum));
-
+/*
 if (EEPROM.read(eeprom.INIT_ADDR) != eeprom.INIT_KEY) { // первый запуск
     EEPROM.write(eeprom.INIT_ADDR, eeprom.INIT_KEY);    // записали ключ
 
@@ -91,7 +91,7 @@ if (EEPROM.read(eeprom.INIT_ADDR) != eeprom.INIT_KEY) { // первый запу
   EEPROM.put(0, eeprom);
   isFirstConnection = false;
 }
-  
+  */
   EEPROM.get(0, eeprom);
   // 
   // ---------------------------------------
