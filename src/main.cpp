@@ -7,20 +7,19 @@
 #include "st_enum.h"
 #include "NTC.h"
 #include "NTC_LIB.h"
-#define INIT_ADDR 1023  // номер резервной ячейки
-#define INIT_KEY 50     // ключ первого запуска. 0-254, на выбор
+  // номер резервной ячейки
+// #define INIT_KEY 50     // ключ первого запуска. 0-254, на выбор
 float T_boyler, T_koll, T_bat, T_out;
 bool hand_up, hand_down;
 
 bool isFirstConnection=true;
-
 // put function declarations here:
 
 int thermistorPin1 = 33;// Вход АЦП, выход делителя напряжения
 int thermistorPin2 = 32;
 int thermistorPin3 = 35;
 
-#define PID
+
 
 const int relay = 21;
 const int nasos_otop = 19;
@@ -39,8 +38,8 @@ NTC bat(thermistorPin3);
 #include "pid.h"
 #include "mqtt.h"
 // Вибір алгоритму зчитування 
+#define PID
 #define NTC
-
 
 
 void regul()
@@ -59,10 +58,12 @@ void setup() {
   pinMode(PIN_LOW, OUTPUT);
   pinMode(PIN_HIGH, OUTPUT);
   pinMode(nasos_otop, OUTPUT);
+  // eeprom.INIT_ADDR = 1023;
+  eeprom.INIT_KEY = 50;
   EEPROM.begin(sizeof(st_Enum));
 
-if (EEPROM.read(INIT_ADDR) != INIT_KEY) { // первый запуск
-    EEPROM.write(INIT_ADDR, INIT_KEY);    // записали ключ
+if (EEPROM.read(eeprom.INIT_ADDR) != eeprom.INIT_KEY) { // первый запуск
+    EEPROM.write(eeprom.INIT_ADDR, eeprom.INIT_KEY);    // записали ключ
 
 
   // EEPROM.get(0, eeprom);
@@ -95,7 +96,7 @@ if (EEPROM.read(INIT_ADDR) != INIT_KEY) { // первый запуск
   // 
   // ---------------------------------------
   setup_ntc();
-  boolean ok2 = EEPROM.commit();
+  // boolean ok2 = EEPROM.commit();
   // isFirstConnection = false;
   ConnectWIFI();
 
@@ -172,12 +173,6 @@ loop_pid();
 #else
   regulator(T_koll, eeprom.temp_u_b, T_bat, eeprom.temp_off_otop);
 #endif
-
-
-
-
-
-
 
 }
 

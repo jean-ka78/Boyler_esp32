@@ -19,6 +19,8 @@ bool valve_mode;
 uint32_t per_on; //Период включения 
 uint32_t per_off; //Период виключения
 uint32_t time_valve;
+uint32_t INIT_ADDR;
+uint32_t INIT_KEY;
 
 
 } eeprom;
