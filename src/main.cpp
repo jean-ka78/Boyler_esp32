@@ -48,6 +48,7 @@ void regul()
 bool relle;
 relle = logic(eeprom.boy_state,T_boyler,T_koll,eeprom.temp_u, eeprom.gis_boy);
 eeprom.heat = relle;
+
 digitalWrite(relay,eeprom.heat);
 }
 
@@ -91,7 +92,7 @@ if (EEPROM.read(INIT_ADDR) != INIT_KEY) { // первый запуск
   isFirstConnection = false;
 }
   
-  EEPROM.get(0, eeprom);
+  // EEPROM.get(0, eeprom);
   // 
   // ---------------------------------------
   setup_ntc();
@@ -111,7 +112,9 @@ if (EEPROM.read(INIT_ADDR) != INIT_KEY) { // первый запуск
 void loop() {
   ArduinoOTA.handle(); // Всегда готовы к прошивке
   rssi =  map(WiFi.RSSI(), -115, -35, 0, 100);
-if (EEPROM.read(INIT_ADDR) != INIT_KEY)
+
+// if (EEPROM.read(INIT_ADDR) != INIT_KEY)
+if (isFirstConnection)
   {
   EEPROM.get(0, eeprom);
   // Blynk.syncAll(); 
