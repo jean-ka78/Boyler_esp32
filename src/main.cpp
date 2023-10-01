@@ -111,7 +111,7 @@ if (EEPROM.read(INIT_ADDR) != INIT_KEY) { // первый запуск
 void loop() {
   ArduinoOTA.handle(); // Всегда готовы к прошивке
   rssi =  map(WiFi.RSSI(), -115, -35, 0, 100);
-if (isFirstConnection)
+if (EEPROM.read(INIT_ADDR) != INIT_KEY)
   {
   EEPROM.get(0, eeprom);
   // Blynk.syncAll(); 
