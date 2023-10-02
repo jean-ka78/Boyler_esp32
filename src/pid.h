@@ -272,7 +272,7 @@ void loop_pid()
     _tempVariable_bool = DOWN;
     // Slave_1_0.saveBool(_tempVariable_bool, 0, 4);
 
-    #ifdef PID
+#ifdef PID
     digitalWrite(PIN_LOW, !DOWN);
     // _tempVariable_bool = UP;
     // Slave_1_0.saveBool(_tempVariable_bool, 0, 3);
@@ -306,80 +306,3 @@ digitalWrite(nasos_otop, eeprom.heat_otop);
 
     #endif
 }
-// float _convertDS18x2xData(byte type_s, byte data[12])
-// {
-//     int16_t raw = (data[1] << 8) | data[0];
-//     if (type_s)
-//     {
-//         raw = raw << 3;
-//         if (data[7] == 0x10) 
-//         {
-//              raw = (raw & 0xFFF0) + 12 - data[6];
-//         }
-//     }
-//     else
-//     {
-//         byte cfg = (data[4] & 0x60);
-//         if (cfg == 0x00)raw = raw & ~7;
-//         else if(cfg == 0x20)raw = raw & ~3;
-//         else if(cfg == 0x40) raw = raw & ~1;
-//     }
-//     return  (float)raw / 16.0;
-// }
-// float _readDS18_ow6(byte addr[8], byte type_s)
-// {
-//     byte data[12];
-//     byte i;
-//     _ow6.reset();
-//     _ow6.select(addr);
-//     _ow6.write(0xBE);
-//     for (i = 0; i < 9; i++) 
-//     {
-//          data[i] = _ow6.read();
-//     }
-//     _ow6.reset();
-//     _ow6.select(addr);
-//     _ow6.write(0x44);
-//     if (_ow6.crc8(data, 8) != data[8])
-//     {
-//         return 501;
-//     }
-//     return _convertDS18x2xData(type_s, data);
-// }
-//  byte readByteFromEEPROM(int addres, byte bitAddres, byte chipAddres)
-// {
-//     return EEPROM.read(addres);
-// }
-// void updateByteToEEPROM(int addres, byte bitAddres, byte chipAddres, byte value)
-// {
-//     return EEPROM.update(addres, value);
-// }
-// bool readBooleanFromEEPROM(int addres, byte bitAddres, byte chipAddres)
-// {
-//     byte temp = readByteFromEEPROM(addres,  bitAddres,  chipAddres);
-//     return  bitRead(temp, bitAddres);
-// }
-// void updateBooleanToEEPROM(int addres, byte bitAddres, byte chipAddres, bool value)
-// {
-//     byte temp = readByteFromEEPROM(addres,  bitAddres,  chipAddres);
-//     bitWrite(temp, bitAddres, value);
-//     updateByteToEEPROM(addres,  bitAddres,  chipAddres, temp);
-// }
-// float readFloatFromEEPROM(int addres, byte bitAddres, byte chipAddres)
-// {
-//     byte x[4];
-//     for(byte i = 0; i < 4; i++) 
-//     {
-//          x[i] = readByteFromEEPROM((addres+i),  bitAddres,  chipAddres);
-//     }
-//     float *y = (float *)&x;
-//     return y[0];
-// }
-// void updateFloatToEEPROM(int addres, byte bitAddres, byte chipAddres, float value)
-// {
-//     byte *x = (byte *)&value;
-//     for(byte i = 0; i < 4; i++) 
-//     {
-//         updateByteToEEPROM((addres+i),  bitAddres,  chipAddres, x[i]);
-//     }
-// }

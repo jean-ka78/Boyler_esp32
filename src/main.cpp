@@ -99,13 +99,13 @@ void loop() {
 #endif
      
     }
-    if (real_time - old_time1>2000)
+    if (real_time - old_time1>20000)
     {
       old_time1 = real_time;
       reconnect();
     }
     loopMQtt();
-    if (real_time - old_time2>300)
+    if (real_time - old_time2>1000)
     {
       old_time2 = real_time;
       regul();
@@ -126,15 +126,16 @@ void loop() {
       timer4 = real_time;
       EEPROM.begin(sizeof(st_Enum));
       EEPROM.put(0, eeprom);
-      delay(50);
+      // delay(50);
       EEPROM.commit();
       // Serial.println("eeprom write: " + String(eeprom.temp_u_b));
      
     }
     // }
-loop_pid();
+
 
 #ifdef PID
+loop_pid();
 #else
   regulator(T_koll, eeprom.temp_u_b, T_bat, eeprom.temp_off_otop);
 #endif
