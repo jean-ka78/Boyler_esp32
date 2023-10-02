@@ -79,15 +79,6 @@ void loop() {
   ArduinoOTA.handle(); // Всегда готовы к прошивке
   rssi =  map(WiFi.RSSI(), -115, -35, 0, 100);
 
-if (EEPROM.read(INIT_ADDR) != INIT_KEY)
-// if (isFirstConnection)
-  {
-  EEPROM.get(0, eeprom);
-  // Blynk.syncAll(); 
-  // if (Blynk.connected()){ 
-
-  // }
-  }
   if (millis() - timer_1>1000)
     {
       timer_1 = millis();
@@ -125,7 +116,7 @@ if (EEPROM.read(INIT_ADDR) != INIT_KEY)
       old_time3 = real_time;
       SendData();
       getValues();
-      EEPROM.put(0, eeprom);
+      
     }
     
     // if (run_mb)    {
