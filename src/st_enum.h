@@ -60,7 +60,6 @@ void first_start()
   delay(50);
   EEPROM.commit();
 
-//   Serial.println("first start is read adress: "+String(eeprom.init));
-//   isFirstConnection = false;
+
 }
 }
