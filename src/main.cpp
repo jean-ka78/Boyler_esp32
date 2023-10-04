@@ -86,20 +86,12 @@ void loop() {
   //     ConnectWIFI();
   //   }
  unsigned long real_time = millis();
-  if (real_time - old_time>2000)
-    {
-      old_time = real_time;
-#ifdef NTC
-      T_koll = t_kollektor->readCelsius();
-      T_bat = t_otop->readCelsius();
-      T_boyler = t_boyler->readCelsius();
-#else
-      T_bat = bat.Update_f();
-      T_boyler =  boyler.Update_f();
-      T_koll = kollektor.Update_f();
-#endif
+  // if (real_time - old_time>2000)
+  //   {
+  //     old_time = real_time;
+
      
-    }
+  //   }
     if (real_time - old_time1>10000)
     {
       old_time1 = real_time;
@@ -113,9 +105,18 @@ void loop() {
      
     // }
 
-    if (real_time - old_time3 > 5000)
+    if (real_time - old_time3 > 2000)
     {
       old_time3 = real_time;
+      #ifdef NTC
+      T_koll = t_kollektor->readCelsius();
+      T_bat = t_otop->readCelsius();
+      T_boyler = t_boyler->readCelsius();
+      #else
+      T_bat = bat.Update_f();
+      T_boyler =  boyler.Update_f();
+      T_koll = kollektor.Update_f();
+      #endif
       SendData();
       getValues();      
     }
