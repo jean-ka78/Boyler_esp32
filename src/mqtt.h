@@ -376,10 +376,6 @@ if (UP)
 
 void loopMQtt() {
 
-   
-  if (!client.connected()) {                             // проверяем подключение к брокеру
-    reconnect();                                            // еще бы проверить подкючение к wifi...
-  }
   client.loop();
      
 }

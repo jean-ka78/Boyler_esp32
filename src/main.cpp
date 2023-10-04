@@ -38,7 +38,7 @@ NTC bat(thermistorPin3);
 #include "pid.h"
 #include "mqtt.h"
 // Вибір алгоритму зчитування 
-#define NTC
+// #define NTC
 
 
 
@@ -79,11 +79,11 @@ void loop() {
   ArduinoOTA.handle(); // Всегда готовы к прошивке
   rssi =  map(WiFi.RSSI(), -115, -35, 0, 100);
 
-  if (millis() - timer_1>1000)
-    {
-      timer_1 = millis();
-      ConnectWIFI();
-    }
+  // if (millis() - timer_1>1000)
+  //   {
+  //     timer_1 = millis();
+  //     ConnectWIFI();
+  //   }
  unsigned long real_time = millis();
   if (real_time - old_time>2000)
     {
@@ -99,24 +99,24 @@ void loop() {
 #endif
      
     }
-    if (real_time - old_time1>20000)
+    if (real_time - old_time1>10000)
     {
       old_time1 = real_time;
       reconnect();
     }
     loopMQtt();
-    if (real_time - old_time2>1000)
-    {
-      old_time2 = real_time;
-      regul();
-    }
+    regul();
+    // if (real_time - old_time2>1000)
+    // {
+    //   old_time2 = real_time;
+     
+    // }
 
     if (real_time - old_time3 > 5000)
     {
       old_time3 = real_time;
       SendData();
-      getValues();
-      
+      getValues();      
     }
     
     // if (run_mb)    {
