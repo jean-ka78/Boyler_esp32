@@ -18,6 +18,7 @@ bool isFirstConnection=true;
 int thermistorPin1 = 33;// Вход АЦП, выход делителя напряжения
 int thermistorPin2 = 32;
 int thermistorPin3 = 35;
+int old_len = 0;
 
 #define PID
 
@@ -124,10 +125,13 @@ void loop() {
     if (real_time - timer4 > 10000)
     {
       timer4 = real_time;
+      
+    
       EEPROM.begin(sizeof(st_Enum));
       EEPROM.put(0, eeprom);
-      // delay(50);
+      delay(50);
       EEPROM.commit();
+      
       // Serial.println("eeprom write: " + String(eeprom.temp_u_b));
      
     }
