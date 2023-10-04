@@ -198,7 +198,7 @@ String message = (char*)payload;
   }else if (strcmp(topic, TEMP_OUT) == 0){
     float temp_out = message.toFloat();
     T_out = temp_out;
-    Safe_eeprom();
+    
  
   }else if (strcmp(topic, VALVE_MODE) == 0){
     if (message == "on"){
@@ -211,13 +211,13 @@ String message = (char*)payload;
     if (message == "on"){
     hand_up = true;}
     else if (message == "off") {hand_up = false;}
-    Safe_eeprom();
+   
     
   }else if (strcmp(topic, HAND_DOWN_HEAT) == 0){
     if (message == "on"){
     hand_down = true;}
     else if (message == "off") {hand_down = false;}
-    Safe_eeprom();
+   
     
   }
 
