@@ -122,19 +122,19 @@ void loop() {
     
     // if (run_mb)    {
     
-    if (real_time - timer4 > 10000)
-    {
-      timer4 = real_time;
+    // if (real_time - timer4 > 10000)
+    // {
+    //   timer4 = real_time;
       
     
-      EEPROM.begin(sizeof(st_Enum));
-      EEPROM.put(0, eeprom);
-      delay(50);
-      EEPROM.commit();
+    //   EEPROM.begin(sizeof(st_Enum));
+    //   EEPROM.put(0, eeprom);
+    //   delay(50);
+    //   EEPROM.commit();
       
-      // Serial.println("eeprom write: " + String(eeprom.temp_u_b));
+    //   // Serial.println("eeprom write: " + String(eeprom.temp_u_b));
      
-    }
+    // }
     // }
 
 

@@ -63,3 +63,13 @@ void first_start()
 
 }
 }
+
+void Safe_eeprom()
+{
+
+      EEPROM.begin(sizeof(st_Enum));
+      EEPROM.put(0, eeprom);
+      delay(50);
+      EEPROM.commit();
+
+}
