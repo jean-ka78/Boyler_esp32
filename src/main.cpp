@@ -7,7 +7,7 @@
 #include "st_enum.h"
 #include "NTC.h"
 #include "NTC_LIB.h"
-    // ключ первого запуска. 0-254, на выбор
+    
 float T_boyler, T_koll, T_bat, T_out;
 bool hand_up, hand_down;
 
