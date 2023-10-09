@@ -317,7 +317,7 @@ dtostrf(eeprom.temp_u_b,2,2,msg);
 //      client.publish(TIME_HEAT_IMPULS, msg);
 // snprintf (msg, MSG_BUFFER_SIZE, "%ld", eeprom.per_off);
 // dtostrf(eeprom.per_on,2,2,msg);    
-     client.publish(TIME_HEAT_CIKL, msg);
+   //  client.publish(TIME_HEAT_CIKL, msg);
 dtostrf(T_SET,2,2,msg);
     client.publish(CURRENT_TEMP_SET_PID, msg);
 
