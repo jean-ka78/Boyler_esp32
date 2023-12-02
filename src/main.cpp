@@ -96,7 +96,7 @@ void loop() {
     {
       old_time1 = real_time;
       reconnect();
-      Safe_eeprom();
+      // Safe_eeprom();
     }
     loopMQtt();
     regul();

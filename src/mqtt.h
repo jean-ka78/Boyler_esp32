@@ -245,11 +245,11 @@ void reconnect() {
   if (!client.connected()) {
     Serial.print("Attempting MQTT connection...");
     // Create a random client ID
-    String clientId = "ESP8266Client-";
+    String clientId = "heater";
     clientId += String(random(0xffff), HEX);
     // Attempt to connect
     client.setServer(mqtt_server, 1883);
-    if (client.connect(clientId.c_str(), mqtt_user, mqtt_pass)) {
+    if (client.connect("heater", mqtt_user, mqtt_pass)) {
       Serial.println("connected");
       // Once connected, publish an announcement...
       // client.publish("outTopic", "hello world");
