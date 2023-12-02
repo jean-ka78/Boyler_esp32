@@ -89,7 +89,7 @@ String message = (char*)payload;
    if (strcmp(topic, MODE_SET_TOPIC_BOY) == 0){
      if (message == "heat"){
     eeprom.boy_state = true;
-    Safe_eeprom();
+    // Safe_eeprom();
     Serial.println("Heat: "+String(eeprom.boy_state));
    }else if (message == "off")
    {
@@ -98,13 +98,13 @@ String message = (char*)payload;
     // client.publish(MODE_GET_TOPIC_BOY, "off");
     // EEPROM.put(0, eeprom);
     Serial.println("Heat: "+String(eeprom.boy_state));
-    Safe_eeprom();
+    // Safe_eeprom();
    }
      
   }else if (strcmp(topic, TEMP_SETPOINT_SET_BOY) == 0){
     float temp_boy = message.toFloat();
     eeprom.temp_u = temp_boy;
-    Safe_eeprom();
+    // Safe_eeprom();
     Serial.println("Ustavka Boyler: "+String(eeprom.temp_u));
   }
   // 
@@ -112,13 +112,13 @@ String message = (char*)payload;
   if (strcmp(topic, MODE_SET_TOPIC_HEAT) == 0){
      if (message == "heat"){
     eeprom.heat_state = true;
-    Safe_eeprom();
+    // Safe_eeprom();
     // client.publish(MODE_GET_TOPIC_HEAT, "heat");
     Serial.println("Heat_otop: "+String(eeprom.heat_state));
    }else if (message == "off")
    {
     eeprom.heat_state = false;
-    Safe_eeprom();
+    // Safe_eeprom();
         // client.publish(MODE_GET_TOPIC_HEAT, "off");
     Serial.println("Heat: "+String(eeprom.heat_state));
  
@@ -126,13 +126,13 @@ String message = (char*)payload;
    } }else if (strcmp(topic, TEMP_SETPOINT_SET_HEAT) == 0){
     float temp_heat = message.toFloat();
     eeprom.temp_u_b = temp_heat;
-    Safe_eeprom();
+    // Safe_eeprom();
     Serial.println("Ustavka Otopl: "+String(eeprom.temp_u_b));
 
   }else if (strcmp(topic, TEMP_BOILER_GIS) == 0){
     float temp_gis = message.toFloat();
     eeprom.gis_boy = temp_gis;
-    Safe_eeprom();
+    // Safe_eeprom();
     Serial.println("GIS Otopl: "+String(eeprom.gis_boy));
 
   }else if (strcmp(topic, TIME_HEAT_CIKL) == 0){
@@ -140,7 +140,7 @@ String message = (char*)payload;
     eeprom.per_off = time_cikl;
     High.OffTime = eeprom.per_off;
     Low.OffTime = eeprom.per_off;
-    Safe_eeprom();
+    // Safe_eeprom();
     Serial.println("cikl Otopl: "+String(eeprom.per_off));
 
   }else if (strcmp(topic, TIME_HEAT_IMPULS) == 0){
@@ -148,52 +148,52 @@ String message = (char*)payload;
     eeprom.per_on = time_imp;
     High.OnTime = eeprom.per_on;
     Low.OnTime = eeprom.per_on;
-    Safe_eeprom();
+    // Safe_eeprom();
     Serial.println("impuls Otopl: "+String(eeprom.per_on));
 
   }else if (strcmp(topic, TEMP_HEAT_OFF_TOPIC) == 0){
     float temp_off = message.toFloat();
     eeprom.temp_off_otop = temp_off;
-    Safe_eeprom();
+    // Safe_eeprom();
     Serial.println("temp_off Otopl: "+String(eeprom.temp_off_otop));
     
   }else if (strcmp(topic, TEMP_MIN_OUT) == 0){
     float temp_min_out = message.toFloat();
     eeprom.temp_min_out = temp_min_out;
-    Safe_eeprom();
+    // Safe_eeprom();
     // Serial.println("temp_off Otopl: "+String(eeprom.temp_off_otop));
  
   }else if (strcmp(topic, TEMP_MAX_OUT) == 0){
     float temp_max_out = message.toFloat();
     eeprom.temp_max_out = temp_max_out;
-    Safe_eeprom();
+    // Safe_eeprom();
     // Serial.println("temp_off Otopl: "+String(eeprom.temp_off_otop));
   
   }else if (strcmp(topic, TEMP_MAX_HEAT) == 0){
     float temp_max_heat = message.toFloat();
     eeprom.temp_max_heat = temp_max_heat;
-    Safe_eeprom();
+    // Safe_eeprom();
     // Serial.println("temp_off Otopl: "+String(eeprom.temp_off_otop));
   
   }else if (strcmp(topic, KOF_P) == 0){
     float kof_p = message.toFloat();
     eeprom.kof_p = kof_p;
-    Safe_eeprom();
+    // Safe_eeprom();
 
   }else if (strcmp(topic, KOF_I) == 0){
     float kof_i = message.toFloat();
     eeprom.kof_i = kof_i;
-   Safe_eeprom();
+  //  Safe_eeprom();
   
   }else if (strcmp(topic, KOF_D) == 0){
     float kof_d = message.toFloat();
     eeprom.kof_d = kof_d;
-    Safe_eeprom();
+    // Safe_eeprom();
   
   }else if (strcmp(topic, TEMP_DEAD_ZONE) == 0){
     float dead_zone = message.toFloat();
     eeprom.dead_zone = dead_zone;
-    Safe_eeprom();
+    // Safe_eeprom();
  
   }else if (strcmp(topic, TEMP_OUT) == 0){
     float temp_out = message.toFloat();
@@ -205,7 +205,7 @@ String message = (char*)payload;
     eeprom.valve_mode = true;}
     else if (message == "off")
     {eeprom.valve_mode = false;}
-    Safe_eeprom();
+    // Safe_eeprom();
     
   }else if (strcmp(topic, HAND_UP_HEAT) == 0){
     if (message == "on"){

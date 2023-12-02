@@ -46,12 +46,12 @@ void first_start()
   eeprom.valve_mode = true;
   eeprom.per_on = 10;
   eeprom.per_off = 120;
-  eeprom.kof_p = 0.5;
+  eeprom.kof_p = 3;
   eeprom.kof_i = 30;
-  eeprom.kof_d = 1;
-  eeprom.temp_max_out = 18;
-  eeprom.temp_min_out = -8;
-  eeprom.temp_max_heat = 80;
+  eeprom.kof_d = 10;
+  eeprom.temp_max_out = 15;
+  eeprom.temp_min_out = -15;
+  eeprom.temp_max_heat = 60;
   eeprom.dead_zone = 1;
 
 
