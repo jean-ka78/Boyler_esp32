@@ -95,16 +95,15 @@ void loop() {
     if (real_time - old_time1>10000)
     {
       old_time1 = real_time;
-      reconnect();
-      // Safe_eeprom();
-    }
-    loopMQtt();
-    regul();
-    // if (real_time - old_time2>1000)
-    // {
-    //   old_time2 = real_time;
      
-    // }
+      Safe_eeprom();
+    }
+    
+    if (real_time - old_time2>1000)
+    {
+      old_time2 = real_time;
+      reconnect();
+    }
 
     if (real_time - old_time3 > 2000)
     {
@@ -145,7 +144,8 @@ loop_pid();
 #else
   regulator(T_koll, eeprom.temp_u_b, T_bat, eeprom.temp_off_otop);
 #endif
-
+loopMQtt();
+    regul();
 }
 
 

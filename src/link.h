@@ -19,12 +19,12 @@ void ConnectWIFI()
 
       int8_t count=0;
       while (WiFi.status() != WL_CONNECTED) {
-        delay(500);
+        delay(100);
         Serial.print(".");
         Serial.print(WiFi.status());
             
         count++;
-        if (count >= 50){
+        if (count >= 500){
 
           Serial.println("WiFi not connected");
           WiFi.disconnect(); // отключаемся от сети 
