@@ -35,8 +35,8 @@ void first_start()
   // EEPROM.get(0, eeprom);
 // --------------------------------------
 // Заводские настройки 
-  eeprom.temp_u = 50;
-  eeprom.temp_u_b = 50;
+  eeprom.temp_u = 60;
+  eeprom.temp_u_b = 18.5;
   eeprom.temp_off_otop = 30;
   eeprom.gis_boy = -1.5;
   eeprom.heat = true;

@@ -63,8 +63,7 @@ void setup() {
   first_start();
   // ---------------------------------------
   setup_ntc();
-  // boolean ok2 = EEPROM.commit();
-  // isFirstConnection = false;
+
   ConnectWIFI();
 
   ArduinoOTA.setHostname("ESP32"); // Задаем имя сетевого порта
@@ -80,34 +79,9 @@ void loop() {
   ArduinoOTA.handle(); // Всегда готовы к прошивке
   rssi =  map(WiFi.RSSI(), -115, -35, 0, 100);
 
-  // if (millis() - timer_1>1000)
-  //   {
-  //     timer_1 = millis();
-  //     ConnectWIFI();
-  //   }
- unsigned long real_time = millis();
-  // if (real_time - old_time>2000)
-  //   {
-  //     old_time = real_time;
-
-     
-  //   }
-    if (real_time - old_time1>10000)
+  if (millis() - timer_1>1000)
     {
-      old_time1 = real_time;
-     
-      Safe_eeprom();
-    }
-    
-    if (real_time - old_time2>1000)
-    {
-      old_time2 = real_time;
-      reconnect();
-    }
-
-    if (real_time - old_time3 > 2000)
-    {
-      old_time3 = real_time;
+      timer_1 = millis();
       #ifdef NTC
       T_koll = t_kollektor->readCelsius();
       T_bat = t_otop->readCelsius();
@@ -117,26 +91,29 @@ void loop() {
       T_boyler =  boyler.Update_f();
       T_koll = kollektor.Update_f();
       #endif
+     }
+
+    if (millis() - old_time1>10000)
+    {
+      old_time1 = millis();
+     
+      Safe_eeprom();
+    }
+    
+    if (millis() - old_time2>1000)
+    {
+      old_time2 = millis();
+      reconnect();
+    }
+
+    if (millis() - old_time3 > 2000)
+    {
+      old_time3 = millis();
+      
       SendData();
       getValues();      
     }
     
-    // if (run_mb)    {
-    
-    // if (real_time - timer4 > 10000)
-    // {
-    //   timer4 = real_time;
-      
-    
-    //   EEPROM.begin(sizeof(st_Enum));
-    //   EEPROM.put(0, eeprom);
-    //   delay(50);
-    //   EEPROM.commit();
-      
-    //   // Serial.println("eeprom write: " + String(eeprom.temp_u_b));
-     
-    // }
-    // }
 
 
 #ifdef PID

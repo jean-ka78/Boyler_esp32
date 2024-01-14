@@ -105,11 +105,11 @@ String message = (char*)payload;
     float temp_boy = message.toFloat();
     eeprom.temp_u = temp_boy;
     // Safe_eeprom();
-    Serial.println("Ustavka Boyler: "+String(eeprom.temp_u));
-  }
-  // 
 
-  if (strcmp(topic, MODE_SET_TOPIC_HEAT) == 0){
+    // ????????????
+    Serial.println("Ustavka Boyler: "+String(eeprom.temp_u));
+  
+  }if (strcmp(topic, MODE_SET_TOPIC_HEAT) == 0){
      if (message == "heat"){
     eeprom.heat_state = true;
     // Safe_eeprom();
@@ -123,11 +123,12 @@ String message = (char*)payload;
     Serial.println("Heat: "+String(eeprom.heat_state));
  
 
-   } }else if (strcmp(topic, TEMP_SETPOINT_SET_HEAT) == 0){
-    float temp_heat = message.toFloat();
-    eeprom.temp_u_b = temp_heat;
-    // Safe_eeprom();
-    Serial.println("Ustavka Otopl: "+String(eeprom.temp_u_b));
+   }   
+    // }else if (strcmp(topic, TEMP_SETPOINT_SET_HEAT) == 0){
+    // float temp_heat = message.toFloat();
+    // eeprom.temp_u_b = temp_heat;
+    // // Safe_eeprom();
+    // Serial.println("Ustavka Otopl: "+String(eeprom.temp_u_b));
 
   }else if (strcmp(topic, TEMP_BOILER_GIS) == 0){
     float temp_gis = message.toFloat();
@@ -305,8 +306,8 @@ void SendData(){
 
 dtostrf(eeprom.temp_u,2,2,msg);
     client.publish(TEMP_SETPOINT_GET_BOY, msg);
-dtostrf(eeprom.temp_u_b,2,2,msg);
-    client.publish(TEMP_SETPOINT_GET_HEAT, msg);
+// dtostrf(eeprom.temp_u_b,2,2,msg);
+//     client.publish(TEMP_SETPOINT_GET_HEAT, msg);
 // dtostrf(eeprom.temp_off_otop,2,2,msg);    
 //      client.publish(TEMP_HEAT_OFF_TOPIC, msg);
 // dtostrf(eeprom.gis_boy,2,2,msg);    
