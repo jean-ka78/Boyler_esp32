@@ -69,7 +69,7 @@ bool _changeNumber9_Out = 0;
 float _changeNumber9_OLV;
 bool _SEEPR3OSN = 0;
 bool _SEEPR2OSN = 0;
-unsigned long _d18x2x1Tti = 0UL;
+unsigned long _d18x2x1Tti = 0UL, timer;
 float _d18x2x1O = 0.00;
 bool _trgrt2 = 0;
 bool _trgrt2I = 0;
@@ -128,8 +128,11 @@ void loop_pid()
     }
     if (_gen1I) 
     {
-          if (isTimer.isReady()) 
+           if (millis() - timer>50)
+    
+      
         {
+              timer = millis();
              _gen1P = millis();
             _gen1O = ! _gen1O;
         }

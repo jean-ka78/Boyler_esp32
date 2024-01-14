@@ -30,7 +30,7 @@ uint32_t tmr;
 bool flag = HIGH;
 
 long rssi;
-unsigned long timer_1, old_time, old_time1, old_time2, old_time3, timer4;
+unsigned long timer_1, old_time, old_time1, old_time2, old_time3, timer4, timer5;
 NTC kollektor(thermistorPin1);
 NTC boyler(thermistorPin2);
 NTC bat(thermistorPin3);
