@@ -79,7 +79,7 @@ void loop() {
   ArduinoOTA.handle(); // Всегда готовы к прошивке
   rssi =  map(WiFi.RSSI(), -115, -35, 0, 100);
 
-  if (millis() - timer_1>1000)
+  if (millis() - timer_1>2000)
     {
       timer_1 = millis();
       #ifdef NTC
