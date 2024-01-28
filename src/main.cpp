@@ -93,12 +93,6 @@ void loop() {
       #endif
      }
 
-    if (millis() - old_time1>10000)
-    {
-      old_time1 = millis();
-     
-      Safe_eeprom();
-    }
     
     if (millis() - old_time2>1000)
     {
@@ -123,6 +117,15 @@ loop_pid();
 #endif
 loopMQtt();
     regul();
+
+
+
+    if (millis() - old_time1>10000)
+    {
+      old_time1 = millis();
+     
+      Safe_eeprom();
+    }
 }
 
 
