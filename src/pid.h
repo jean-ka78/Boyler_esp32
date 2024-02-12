@@ -291,7 +291,7 @@ if (eeprom.heat_state)
 
 if (eeprom.heat_otop)
 {
-    if (T_koll>eeprom.temp_off_otop-eeprom.dead_zone)
+    if (T_bat>eeprom.temp_off_otop-eeprom.dead_zone)
    // if (T_koll< eeprom.dead_zone & T_koll> - eeprom.dead_zone)
 {
 
