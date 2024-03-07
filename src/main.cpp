@@ -83,7 +83,7 @@ void loop() {
   if (millis() - timer_1>2000)
     {
       timer_1 = millis();
-      #ifdef MY
+      #ifdef NTC
       T_koll = t_kollektor->readCelsius();
       T_bat = t_otop->readCelsius();
       T_boyler = t_boyler->readCelsius();

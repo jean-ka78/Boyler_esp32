@@ -14,7 +14,7 @@ int PIN3 = 35;
 #define B_VALUE                3950
 #define STM32_ANALOG_RESOLUTION 4095
 #define READINGS_NUMBER 10
-#define DELAY_TIME 1
+#define DELAY_TIME 5
 
 
 
