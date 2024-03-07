@@ -21,6 +21,7 @@ int thermistorPin3 = 35;
 int old_len = 0;
 
 #define PID
+#define MY
 
 const int relay = 21;
 const int nasos_otop = 19;
@@ -82,7 +83,7 @@ void loop() {
   if (millis() - timer_1>2000)
     {
       timer_1 = millis();
-      #ifdef NTC
+      #ifdef MY
       T_koll = t_kollektor->readCelsius();
       T_bat = t_otop->readCelsius();
       T_boyler = t_boyler->readCelsius();
