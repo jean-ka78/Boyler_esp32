@@ -21,7 +21,8 @@ int thermistorPin3 = 35;
 int old_len = 0;
 
 #define PID
-#define MY
+
+#define MY // Вибір алгоритму зчитування 
 
 const int relay = 21;
 const int nasos_otop = 19;
@@ -32,15 +33,13 @@ bool flag = HIGH;
 
 long rssi;
 unsigned long timer_1, old_time, old_time1, old_time2, old_time3, timer4, timer5;
-NTC kollektor(thermistorPin1);
-NTC boyler(thermistorPin2);
-NTC bat(thermistorPin3);
+
 #include "heat_regul.h"
 #include "obogrev.h"
 #include "pid.h"
 #include "mqtt.h"
-// Вибір алгоритму зчитування 
-// #define NTC
+
+
 
 
 
@@ -63,8 +62,15 @@ void setup() {
   pinMode(nasos_otop, OUTPUT);
   first_start();
   // ---------------------------------------
+ #ifdef MY
+ 
   setup_ntc();
 
+  #else
+  NTC kollektor(thermistorPin1);
+  NTC boyler(thermistorPin2);
+  NTC bat(thermistorPin3);
+  #endif
   ConnectWIFI();
 
   ArduinoOTA.setHostname("ESP32"); // Задаем имя сетевого порта
@@ -83,7 +89,7 @@ void loop() {
   if (millis() - timer_1>2000)
     {
       timer_1 = millis();
-      #ifdef NTC
+      #ifdef MY
       T_koll = t_kollektor->readCelsius();
       T_bat = t_otop->readCelsius();
       T_boyler = t_boyler->readCelsius();
