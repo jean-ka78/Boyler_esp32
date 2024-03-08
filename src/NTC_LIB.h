@@ -11,7 +11,7 @@ int PIN3 = 35;
 #define REFERENCE_RESISTANCE   11350
 #define NOMINAL_RESISTANCE     10000
 #define NOMINAL_TEMPERATURE    25
-#define B_VALUE                3950
+#define B_VALUE                3970
 #define STM32_ANALOG_RESOLUTION 4095
 #define READINGS_NUMBER 10
 #define DELAY_TIME 5
@@ -25,41 +25,32 @@ Thermistor* t_otop;
 
 
 void setup_ntc() {
-  t_kollektor = new AverageThermistor(
-   new NTC_Thermistor(
+  t_kollektor =  new NTC_Thermistor(
     SENSOR_PIN1,
     REFERENCE_RESISTANCE,
     NOMINAL_RESISTANCE,
     NOMINAL_TEMPERATURE,
-    B_VALUE
-   ),
-   READINGS_NUMBER,
-    DELAY_TIME
-    // STM32_ANALOG_RESOLUTION // <- for a thermistor calibration
+    B_VALUE,
+   
+    STM32_ANALOG_RESOLUTION // <- for a thermistor calibration
   );
-  t_boyler = new AverageThermistor(
-    new NTC_Thermistor(
+  t_boyler =  new NTC_Thermistor(
     SENSOR_PIN2,
     REFERENCE_RESISTANCE,
     NOMINAL_RESISTANCE,
     NOMINAL_TEMPERATURE,
-    B_VALUE
-    ),
-    READINGS_NUMBER,
-    DELAY_TIME
-    // STM32_ANALOG_RESOLUTION // <- for a thermistor calibration
+    B_VALUE,
+   
+    STM32_ANALOG_RESOLUTION // <- for a thermistor calibration
   );
-    t_otop = new AverageThermistor(
-    new NTC_Thermistor(
+    t_otop =  new NTC_Thermistor(
     SENSOR_PIN3,
     REFERENCE_RESISTANCE,
     NOMINAL_RESISTANCE,
     NOMINAL_TEMPERATURE,
-    B_VALUE
-    ),
-    READINGS_NUMBER,
-    DELAY_TIME
-    // STM32_ANALOG_RESOLUTION // <- for a thermistor calibration
+    B_VALUE,
+   
+    STM32_ANALOG_RESOLUTION // <- for a thermistor calibration
   );
 
 
