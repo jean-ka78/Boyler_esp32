@@ -22,7 +22,7 @@ int old_len = 0;
 
 #define PID
 
-#define MY // Вибір алгоритму зчитування 
+#define LIB_NTC // Вибір алгоритму зчитування 
 
 const int relay = 21;
 const int nasos_otop = 19;
@@ -62,7 +62,7 @@ void setup() {
   pinMode(nasos_otop, OUTPUT);
   first_start();
   // ---------------------------------------
- #ifdef MY
+ #ifdef LIB_NTC
  
   setup_ntc();
 
@@ -89,7 +89,7 @@ void loop() {
   if (millis() - timer_1>2000)
     {
       timer_1 = millis();
-      #ifdef MY
+      #ifdef LIB_NTC
       T_koll = t_kollektor->readCelsius();
       T_bat = t_otop->readCelsius();
       T_boyler = t_boyler->readCelsius();
