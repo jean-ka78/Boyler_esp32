@@ -22,7 +22,7 @@ int old_len = 0;
 
 #define PID
 
-#define LIB_NTC // Вибір алгоритму зчитування 
+// #define LIB_NTC // Вибір алгоритму зчитування 
 
 const int relay = 21;
 const int nasos_otop = 19;
@@ -39,7 +39,10 @@ unsigned long timer_1, old_time, old_time1, old_time2, old_time3, timer4, timer5
 #include "pid.h"
 #include "mqtt.h"
 
-
+ 
+  NTC kollektor(thermistorPin1);
+  NTC boyler(thermistorPin2);
+  NTC bat(thermistorPin3);
 
 
 
@@ -66,10 +69,7 @@ void setup() {
  
   setup_ntc();
 
-  #else
-  NTC kollektor(thermistorPin1);
-  NTC boyler(thermistorPin2);
-  NTC bat(thermistorPin3);
+ 
   #endif
   ConnectWIFI();
 
