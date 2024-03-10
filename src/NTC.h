@@ -288,7 +288,7 @@ const float ADC_LUT[4096] PROGMEM = { 0,
 double adcAverage  = 0; 
 int    adc_count = 50;
 int    adcSamples[50];  // Массив для хранения отдельных результатов
-float smoothedValue = 0;     // Поточне згладжене значення
+float smoothedValue = 20;     // Поточне згладжене значення
 
 
 double Vout, Rt = 0;
