@@ -20,7 +20,7 @@ bool logic(bool heat_on, float Temp_boy, float Temp_kol, float temp_u, float gis
     //    heat_otop = LOW;
 
         }
-        if (Temp_boy >= temp_on)
+        if (Temp_boy > (temp_on-gis))
         {
             nasos = false;
             // heat_otop = HIGH;
