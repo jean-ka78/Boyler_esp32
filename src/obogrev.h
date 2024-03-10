@@ -1,3 +1,7 @@
+int PIN_LOW = 22;
+int PIN_HIGH = 23;
+const int relay = 21;
+const int nasos_otop = 19;
 class Flasher
 {
    public:
@@ -8,6 +12,7 @@ class Flasher
   unsigned long OffTime; // время, когда привод выключен
   bool run_on = false;
   bool run_off = false;
+  
   // Текущее состояние
   bool Kran_State = HIGH; // состояние ВКЛ/ВЫКЛ
   unsigned long previousMillis; // последний момент смены состояния

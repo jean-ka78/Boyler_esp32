@@ -7,9 +7,13 @@
 #include "st_enum.h"
 #include "NTC.h"
 #include "NTC_LIB.h"
+#include "heat_regul.h"
+#include "obogrev.h"
+#include "pid.h"
+#include "mqtt.h"
     
-float T_boyler, T_koll, T_bat, T_out;
-bool hand_up, hand_down;
+
+
 
 bool isFirstConnection=true;
 
@@ -24,25 +28,18 @@ int old_len = 0;
 
 // #define LIB_NTC // Вибір алгоритму зчитування 
 
-const int relay = 21;
-const int nasos_otop = 19;
-int PIN_LOW = 22;
-int PIN_HIGH = 23;
-uint32_t tmr;
-bool flag = HIGH;
-
-long rssi;
-unsigned long timer_1, old_time, old_time1, old_time2, old_time3, timer4, timer5;
-
-#include "heat_regul.h"
-#include "obogrev.h"
-#include "pid.h"
-#include "mqtt.h"
-
- 
+   
   NTC kollektor(thermistorPin1);
   NTC boyler(thermistorPin2);
   NTC bat(thermistorPin3);
+
+uint32_t tmr;
+bool flag = HIGH;
+
+
+unsigned long timer_1, old_time, old_time1, old_time2, old_time3, timer4, timer5;
+
+
 
 
 
@@ -68,7 +65,8 @@ void setup() {
  #ifdef LIB_NTC
  
   setup_ntc();
-
+#else
+setup_mtc();
  
   #endif
   ConnectWIFI();

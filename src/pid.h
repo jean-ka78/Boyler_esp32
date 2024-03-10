@@ -2,7 +2,8 @@
 #include <EEPROM.h>
 #include "GyverTimer.h"
 GTimer isTimer(MS);  
-
+float T_boyler, T_koll, T_bat, T_out;
+bool hand_up, hand_down;
 bool table_0_1_D[5];
 float T_OUT;
 float T_X1;

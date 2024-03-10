@@ -286,8 +286,10 @@ const float ADC_LUT[4096] PROGMEM = { 0,
 3996.0000,3996.8000,3997.3999,3998.0000,3998.8000,3999.6001,4000.0000,4002.6001,4004.8000,4007.0000,4009.3999,4011.8000,4014.0000,4016.2000,4026.80
 };
 double adcAverage  = 0; 
-int    adc_count = 10;
-int    adcSamples[10];  // Массив для хранения отдельных результатов
+int    adc_count = 50;
+int    adcSamples[50];  // Массив для хранения отдельных результатов
+float smoothedValue = 0;     // Поточне згладжене значення
+
 
 double Vout, Rt = 0;
 double T, Tc, Tf = 0;
@@ -379,7 +381,7 @@ double Update_f()
     // adc = testFilter.filtered(adc);
     raw[i] = ADC_LUT[(int)adc];
     // this_thread 
-    // delay(5);
+    delay(1);
     // }
     }
   
@@ -411,9 +413,18 @@ double Update_f()
   // Tc = testFilter.filtered(Tc);
   Tf = Tc * 9 / 5 + 32;              // Fahrenheit
   // Serial.println(Tc);
+  // Застосовуємо експоненційне згладжування
+  smoothedValue = 0.9 * smoothedValue + 0.1 * Tc;
 
-  return Tc;    // вернуть температуру в градусах Цельсия
+  return smoothedValue;
+  // return Tc;    // вернуть температуру в градусах Цельсия
 
 }
 
 };
+
+void setup_mtc()
+{
+
+
+}

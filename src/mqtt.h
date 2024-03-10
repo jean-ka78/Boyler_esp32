@@ -1,7 +1,7 @@
 #include <PubSubClient.h>
 // #include "json.h"
 #include <ArduinoJson.h> 
-
+long rssi;
 const size_t capacity_post = JSON_ARRAY_SIZE(7) + JSON_OBJECT_SIZE(1) + 7*JSON_OBJECT_SIZE(2);
 DynamicJsonDocument doc_post(capacity_post);
 //MQTT Server
