@@ -9,6 +9,7 @@
 #include "NTC_LIB.h"
 #include "heat_regul.h"
 #include "obogrev.h"
+#define PID
 #include "pid.h"
 #include "mqtt.h"
     
@@ -24,7 +25,7 @@ int thermistorPin2 = 32;
 int thermistorPin3 = 35;
 int old_len = 0;
 
-#define PID
+
 
 // #define LIB_NTC // Вибір алгоритму зчитування 
 
