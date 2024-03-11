@@ -33,6 +33,8 @@ const char* TEMP_BOILER_GET_TOPIC = "home/boy_on/boiler-temperature/get";
 const char* TEMP_BOILER_TARGET_GET_TOPIC = "home/boy_on/boiler-target-temperature/get";
 const char* TEMP_BOILER_GIS = "home/set/boy_on/gis-temperature/get";
 
+const char* CURRENT_TEMP_GET_HEAT_KOLL = "home/heat_on/current-temperature_koll";
+
 const char* CURRENT_TEMP_GET_HEAT = "home/heat_on/current-temperature/get";
 const char* CURRENT_TEMP_SET_HEAT = "home/set/heat_on/current-temperature/set";
 const char* CURRENT_TEMP_SET_PID = "home/heat_on/current-temperature/set_pid";
@@ -273,11 +275,16 @@ void reconnect() {
 
 void getValues() {
 
- dtostrf(T_boyler,2,2,msg);
+dtostrf(T_boyler,2,2,msg);
     client.publish(CURRENT_TEMP_GET_BOY, msg);
 dtostrf(T_bat,2,2,msg);
     client.publish(CURRENT_TEMP_GET_HEAT, msg);
+dtostrf(T_koll,2,2,msg);
+    client.publish(CURRENT_TEMP_GET_HEAT_KOLL, msg);
     
+
+
+
 JsonArray tags = doc_post.createNestedArray("tags");
 JsonObject tags_0 = tags.createNestedObject();
 
