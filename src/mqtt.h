@@ -19,46 +19,46 @@ int value = 0;
 
 
 #define state_topic "home/boy_on/state" 
-#define inTopic "home/#"
+#define inTopic "home/set/#"
 // 
 // MQTT topics
 const char* CURRENT_TEMP_GET_BOY = "home/boy_on/current-temperature/get";
-const char* CURRENT_TEMP_SET_BOY = "home/boy_on/current-temperature/set";
+const char* CURRENT_TEMP_SET_BOY = "home/set/boy_on/current-temperature/set";
 const char* TEMP_SETPOINT_GET_BOY = "home/boy_on/setpoint-temperature/get";
-const char* TEMP_SETPOINT_SET_BOY = "home/boy_on/setpoint-temperature/set";
+const char* TEMP_SETPOINT_SET_BOY = "home/set/boy_on/setpoint-temperature/set";
 const char* MODE_GET_TOPIC_BOY = "home/boy_on/mode/get";
 const char* MODE_GET_NASOS_BOY = "home/boy_on/mode/nasos";
-const char* MODE_SET_TOPIC_BOY = "home/boy_on/mode/set";
+const char* MODE_SET_TOPIC_BOY = "home/set/boy_on/mode/set";
 const char* TEMP_BOILER_GET_TOPIC = "home/boy_on/boiler-temperature/get";
 const char* TEMP_BOILER_TARGET_GET_TOPIC = "home/boy_on/boiler-target-temperature/get";
-const char* TEMP_BOILER_GIS = "home/boy_on/gis-temperature/get";
+const char* TEMP_BOILER_GIS = "home/set/boy_on/gis-temperature/get";
 
 const char* CURRENT_TEMP_GET_HEAT = "home/heat_on/current-temperature/get";
-const char* CURRENT_TEMP_SET_HEAT = "home/heat_on/current-temperature/set";
-const char* CURRENT_TEMP_SET_PID = "home/heat_on/current-temperature/set_pid";
+const char* CURRENT_TEMP_SET_HEAT = "home/set/heat_on/current-temperature/set";
+const char* CURRENT_TEMP_SET_PID = "home/set/heat_on/current-temperature/set_pid";
 const char* TEMP_SETPOINT_GET_HEAT = "home/heat_on/setpoint-temperature/get";
-const char* TEMP_SETPOINT_SET_HEAT = "home/heat_on/setpoint-temperature/set";
+const char* TEMP_SETPOINT_SET_HEAT = "home/set/heat_on/setpoint-temperature/set";
 const char* MODE_GET_TOPIC_HEAT = "home/heat_on/mode/get";
-const char* MODE_SET_TOPIC_HEAT = "home/heat_on/mode/set";
+const char* MODE_SET_TOPIC_HEAT = "home/set/heat_on/mode/set";
 const char* MODE_GET_NASOS_HEAT = "home/heat_on/mode/nasos";
-const char* TEMP_HEAT_GET_TOPIC = "home/heat_on/boiler-temperature/get";
-const char* TEMP_HEAT_OFF_TOPIC = "home/heat_on/boiler-temperature/off";
+const char* TEMP_HEAT_GET_TOPIC = "home/set/heat_on/boiler-temperature/get";
+const char* TEMP_HEAT_OFF_TOPIC = "home/set/heat_on/boiler-temperature/off";
 const char* TEMP_HEAT_TARGET_GET_TOPIC = "home/heat_on/boiler-target-temperature/get";
-const char* TIME_HEAT_CIKL = "home/heat_on/setpoint-time/cikl";
-const char* TIME_HEAT_IMPULS = "home/heat_on/setpoint-time/impuls";
-const char* TEMP_MIN_OUT = "home/heat_on/temp_min_out";
-const char* TEMP_MAX_OUT = "home/heat_on/temp_max_out";
-const char* TEMP_MAX_HEAT = "home/heat_on/temp_max_heat";
-const char* KOF_P = "home/heat_on/kof_p";
-const char* KOF_I = "home/heat_on/kof_i";
-const char* KOF_D = "home/heat_on/kof_d";
-const char* TEMP_DEAD_ZONE = "home/heat_on/dead_zone";
-const char* VALVE_UP = "home/heat_on/valve/up";
-const char* VALVE_DOWN = "home/heat_on/valve/down";
-const char* VALVE_MODE = "home/heat_on/valve/mode";
-const char* TEMP_OUT = "home/heat_on/temp_out";
-const char* HAND_UP_HEAT = "home/heat_on/hand_up";
-const char* HAND_DOWN_HEAT = "home/heat_on/hand_down";
+const char* TIME_HEAT_CIKL = "home/set/heat_on/setpoint-time/cikl";
+const char* TIME_HEAT_IMPULS = "home/set/heat_on/setpoint-time/impuls";
+const char* TEMP_MIN_OUT = "home/set/heat_on/temp_min_out";
+const char* TEMP_MAX_OUT = "home/set/heat_on/temp_max_out";
+const char* TEMP_MAX_HEAT = "home/set/heat_on/temp_max_heat";
+const char* KOF_P = "home/set/heat_on/kof_p";
+const char* KOF_I = "home/set/heat_on/kof_i";
+const char* KOF_D = "home/set/heat_on/kof_d";
+const char* TEMP_DEAD_ZONE = "home/set/heat_on/dead_zone";
+const char* VALVE_UP = "home/set/heat_on/valve/up";
+const char* VALVE_DOWN = "home/set/heat_on/valve/down";
+const char* VALVE_MODE = "home/set/heat_on/valve/mode";
+const char* TEMP_OUT = "home/set/heat_on/temp_out";
+const char* HAND_UP_HEAT = "home/set/heat_on/hand_up";
+const char* HAND_DOWN_HEAT = "home/set/heat_on/hand_down";
 
 
 float temp_boy,
