@@ -4,7 +4,7 @@
 GTimer isTimer(MS);  
 float T_boyler, T_koll, T_bat, T_out;
 bool hand_up, hand_down;
-bool nasos_on;
+// bool nasos_on;
 bool table_0_1_D[5];
 float T_OUT;
 float T_X1;
@@ -87,12 +87,12 @@ float _tempVariable_float;
 
     void turnNasosOn() {
         digitalWrite(nasos_otop, HIGH);
-        nasos_on = true;
+        eeprom.nasos_on = true;
     }
 
     void turnNasosOff() {
         digitalWrite(nasos_otop, LOW);
-        nasos_on = false;
+        eeprom.nasos_on = false;
     }
 void setup_pid()
 {

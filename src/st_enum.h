@@ -17,6 +17,7 @@ bool boy_state;
 bool heat_otop; //Флаг включения отопления
 bool heat_state; 
 bool valve_mode;
+bool nasos_on;
 int per_on; //Период включения 
 int per_off; //Период виключения
 int time_valve;

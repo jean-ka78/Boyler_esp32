@@ -350,7 +350,7 @@ else{
   client.publish(MODE_GET_TOPIC_HEAT, "off");
 }
 
-if (eeprom.heat_otop)
+if (eeprom.nasos_on)
 {
   client.publish(MODE_GET_NASOS_HEAT, "on");
 }else {client.publish(MODE_GET_NASOS_HEAT, "off");}
