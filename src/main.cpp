@@ -51,6 +51,7 @@ relle = logic(eeprom.boy_state,T_boyler,T_koll,eeprom.temp_u, eeprom.gis_boy);
 eeprom.heat = relle;
 
 digitalWrite(relay,eeprom.heat);
+
 }
 
 void setup() {
