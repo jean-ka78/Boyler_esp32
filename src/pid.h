@@ -4,6 +4,7 @@
 GTimer isTimer(MS);  
 float T_boyler, T_koll, T_bat, T_out;
 bool hand_up, hand_down;
+bool nasos_on;
 bool table_0_1_D[5];
 float T_OUT;
 float T_X1;
@@ -83,6 +84,16 @@ float _changeNumber6_OLV;
 bool _SEEPR11OSN = 0;
 bool _tempVariable_bool;
 float _tempVariable_float;
+
+    void turnNasosOn() {
+        digitalWrite(nasos_otop, HIGH);
+        nasos_on = true;
+    }
+
+    void turnNasosOff() {
+        digitalWrite(nasos_otop, LOW);
+        nasos_on = false;
+    }
 void setup_pid()
 {
  
@@ -185,7 +196,7 @@ void loop_pid()
     // Slave_1_0.saveFloat(_tempVariable_float, 4, 14);
     //Плата:5
 //Наименование:Регулирование
-    ON_OFF = eeprom.heat_otop;
+    ON_OFF = eeprom.heat_state;
     AUTO_HAND = eeprom.valve_mode;
     HAND_UP = hand_up;
     HAND_DOWN = hand_down;
@@ -282,32 +293,28 @@ void loop_pid()
     // Slave_1_0.saveBool(_tempVariable_bool, 0, 3);
     digitalWrite(PIN_HIGH, !UP);
 
-if (eeprom.heat_state)
-{
-    eeprom.heat_otop = true;
-    /* code */
-}else{eeprom.heat_otop = false;}
+    if (eeprom.heat_state)
+        {
+        eeprom.heat_otop = true;
+        /* code */
+            }
+        else{
+            eeprom.heat_otop = false;}
 
 
-
-if (eeprom.heat_otop)
-{
-    if (T_SET>eeprom.temp_off_otop)
-   // if (T_koll< eeprom.dead_zone & T_koll> - eeprom.dead_zone)
-{
-
-
-    digitalWrite(nasos_otop, eeprom.heat_otop);
-}else
-{
-eeprom.heat_otop = LOW;
-digitalWrite(nasos_otop, eeprom.heat_otop);
-// led5.off();
+    if (T_SET==eeprom.temp_off_otop){
+    eeprom.heat_otop = LOW;
+    }
+    if (eeprom.heat_otop)
+    {
+        turnNasosOn();
+    }
+    else
+    {
+      turnNasosOff();  
+    }
+    
+    // digitalWrite(nasos_otop, eeprom.heat_otop);
+#endif
 }
-}
 
-
-
-
-    #endif
-}
