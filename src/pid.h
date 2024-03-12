@@ -196,7 +196,7 @@ void loop_pid()
     // Slave_1_0.saveFloat(_tempVariable_float, 4, 14);
     //Плата:5
 //Наименование:Регулирование
-    ON_OFF = eeprom.heat_state;
+    ON_OFF = eeprom.heat_otop;
     AUTO_HAND = eeprom.valve_mode;
     HAND_UP = hand_up;
     HAND_DOWN = hand_down;
