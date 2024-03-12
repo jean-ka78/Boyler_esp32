@@ -352,8 +352,8 @@ else{
 
 if (eeprom.nasos_on)
 {
-  client.publish(MODE_GET_NASOS_HEAT, "on");
-}else {client.publish(MODE_GET_NASOS_HEAT, "off");}
+  client.publish(MODE_GET_NASOS_HEAT, "1");
+}else {client.publish(MODE_GET_NASOS_HEAT, "0");}
 
 if (eeprom.heat)
 {
