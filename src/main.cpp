@@ -98,6 +98,9 @@ void loop() {
       T_boyler =  boyler.Update_f();
       T_koll = kollektor.Update_f();
       #endif
+      SendData();
+      getValues(); 
+
      }
 
     
@@ -107,13 +110,13 @@ void loop() {
       reconnect();
     }
 
-    if (millis() - old_time3 > 2000)
-    {
-      old_time3 = millis();
+    // if (millis() - old_time3 > 2000)
+    // {
+    //   old_time3 = millis();
       
-      SendData();
-      getValues();      
-    }
+    //   SendData();
+    //   getValues();      
+    // }
     
 
 
@@ -127,12 +130,12 @@ loopMQtt();
 
 
 
-    if (millis() - old_time1>10000)
-    {
-      old_time1 = millis();
+    // if (millis() - old_time1>10000)
+    // {
+    //   old_time1 = millis();
      
-      Safe_eeprom();
-    }
+    //   Safe_eeprom();
+    // }
 }
 
 

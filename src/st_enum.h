@@ -70,7 +70,7 @@ void Safe_eeprom()
 
       EEPROM.begin(sizeof(st_Enum));
       EEPROM.put(0, eeprom);
-      delay(50);
+      delay(10);
       EEPROM.commit();
 
 }
