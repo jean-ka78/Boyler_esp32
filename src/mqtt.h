@@ -330,6 +330,7 @@ dtostrf(eeprom.temp_u,2,2,msg);
 // snprintf (msg, MSG_BUFFER_SIZE, "%ld", eeprom.per_off);
 // dtostrf(eeprom.per_on,2,2,msg);    
    //  client.publish(TIME_HEAT_CIKL, msg);
+   T_SET=set_temp_graf();
 dtostrf(T_SET,2,2,msg);
     client.publish(CURRENT_TEMP_SET_PID, msg);
 
