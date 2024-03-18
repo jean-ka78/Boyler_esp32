@@ -9,7 +9,7 @@
 #include "NTC_LIB.h"
 #include "heat_regul.h"
 #include "obogrev.h"
-#define PID
+// #define PID
 #include "pid.h"
 #include "mqtt.h"
 #include "test_pid.h"
@@ -124,7 +124,8 @@ void loop() {
 #ifdef PID
 loop_pid();
 #else
-  regulator(T_koll, eeprom.temp_u_b, T_bat, eeprom.temp_off_otop);
+  // regulator(T_koll, eeprom.temp_u_b, T_bat, eeprom.temp_off_otop);
+  loop_test_pid();
 #endif
 loopMQtt();
     regul();

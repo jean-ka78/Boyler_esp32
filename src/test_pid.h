@@ -102,7 +102,7 @@ double set_temp_graf(){
 const double Kp = eeprom.kof_p;        // Коефіцієнт пропорційності
 const double Ki = eeprom.kof_i;        // Коефіцієнт інтегралу
 const double Kd = eeprom.kof_d;        // Коефіцієнт диференціалу
-const double setpoint;                 // Бажане значення температури
+double setpoint;                 // Бажане значення температури
 const double hysteresis = eeprom.dead_zone;// Гістерезіс
 
 PIDController pid(Kp, Ki, Kd, setpoint, hysteresis);
@@ -132,12 +132,32 @@ double readTemperature() {
 
 void loop_test_pid() {
     setpoint = set_temp_graf();
-    setSetpoint(setpoint);
-    setHysteresis(eeprom.dead_zone);
+    pid.setSetpoint(setpoint);
+    pid.setHysteresis(eeprom.dead_zone);
     double temperature = readTemperature();
     double output = pid.compute(temperature);
   
     adjustHeaterCooler(output);
+    if (eeprom.heat_state)
+        {
+        eeprom.heat_otop = true;
+        /* code */
+            }
+        else{
+            eeprom.heat_otop = false;}
+
+
+    if (T_SET==eeprom.temp_off_otop){
+    eeprom.heat_otop = LOW;
+    }
+    if (eeprom.heat_otop)
+    {
+        turnNasosOn();
+    }
+    else
+    {
+      turnNasosOff();  
+    }
 }
 
 

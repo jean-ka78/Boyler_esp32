@@ -315,6 +315,8 @@ void loop_pid()
     }
     
     // digitalWrite(nasos_otop, eeprom.heat_otop);
+
+    
 #endif
 }
 
