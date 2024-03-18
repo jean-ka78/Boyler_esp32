@@ -130,12 +130,12 @@ loopMQtt();
 
 
 
-    // if (millis() - old_time1>10000)
-    // {
-    //   old_time1 = millis();
+    if (millis() - old_time1>10000)
+    {
+      old_time1 = millis();
      
-    //   Safe_eeprom();
-    // }
+      Safe_eeprom();
+    }
 }
 
 
