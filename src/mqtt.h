@@ -28,6 +28,7 @@ const char* TEMP_SETPOINT_GET_BOY = "home/boy_on/setpoint-temperature/get";
 const char* TEMP_SETPOINT_SET_BOY = "home/set/boy_on/setpoint-temperature/set";
 const char* MODE_GET_TOPIC_BOY = "home/boy_on/mode/get";
 const char* MODE_GET_NASOS_BOY = "home/boy_on/mode/nasos";
+const char* MODE_SET_NASOS_BOY = "home/set/boy_on/mode/nasos";
 const char* MODE_SET_TOPIC_BOY = "home/set/boy_on/mode/set";
 const char* TEMP_BOILER_GET_TOPIC = "home/boy_on/boiler-temperature/get";
 const char* TEMP_BOILER_TARGET_GET_TOPIC = "home/boy_on/boiler-target-temperature/get";
@@ -43,6 +44,7 @@ const char* TEMP_SETPOINT_SET_HEAT = "home/set/heat_on/setpoint-temperature/set"
 const char* MODE_GET_TOPIC_HEAT = "home/heat_on/mode/get";
 const char* MODE_SET_TOPIC_HEAT = "home/set/heat_on/mode/set";
 const char* MODE_GET_NASOS_HEAT = "home/heat_on/mode/nasos";
+const char* MODE_SET_NASOS_HEAT = "home/set/heat_on/mode/nasos";
 const char* TEMP_HEAT_GET_TOPIC = "home/set/heat_on/boiler-temperature/get";
 const char* TEMP_HEAT_OFF_TOPIC = "home/set/heat_on/boiler-temperature/off";
 const char* TEMP_HEAT_TARGET_GET_TOPIC = "home/heat_on/boiler-target-temperature/get";
@@ -353,13 +355,16 @@ client.publish(MODE_GET_TOPIC_BOY, "off");
 if (eeprom.nasos_on)
 {
   client.publish(MODE_GET_NASOS_HEAT, "1");
-}else {client.publish(MODE_GET_NASOS_HEAT, "0");}
+  client.publish(MODE_SET_NASOS_HEAT, "1");
+}else {client.publish(MODE_SET_NASOS_HEAT, "0");client.publish(MODE_GET_NASOS_HEAT, "0");}
 
 if (eeprom.heat)
 {
+  client.publish(MODE_SET_NASOS_BOY, "on");
   client.publish(MODE_GET_NASOS_BOY, "on");
   
-}else {client.publish(MODE_GET_NASOS_BOY, "off");}
+}else {client.publish(MODE_SET_NASOS_BOY, "off");
+       client.publish(MODE_GET_NASOS_BOY, "off");}
 
 
 // if (eeprom.valve_mode)
