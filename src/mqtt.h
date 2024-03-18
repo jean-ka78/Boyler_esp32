@@ -341,14 +341,14 @@ if (eeprom.boy_state)
 client.publish(MODE_GET_TOPIC_BOY, "off");
 }
 
-if (eeprom.heat_state)
-{
-  client.publish(MODE_GET_TOPIC_HEAT, "heat");
-  /* code */
-}
-else{
-  client.publish(MODE_GET_TOPIC_HEAT, "off");
-}
+// if (eeprom.heat_state)
+// {
+//   client.publish(MODE_GET_TOPIC_HEAT, "heat");
+//   /* code */
+// }
+// else{
+//   client.publish(MODE_GET_TOPIC_HEAT, "off");
+// }
 
 if (eeprom.nasos_on)
 {
