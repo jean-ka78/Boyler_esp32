@@ -370,7 +370,7 @@ if (eeprom.heat)
 // if (eeprom.valve_mode)
 // {
   /* code */
-
+#ifdef PID
 
 if (DOWN)
 {
@@ -383,7 +383,7 @@ if (UP)
 }else {client.publish(VALVE_UP, "off");}
 
 // }
-
+#endif
 
 }
 
