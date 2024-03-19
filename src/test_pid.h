@@ -104,7 +104,7 @@ const double Ki = eeprom.kof_i;        // Коефіцієнт інтеграл�
 const double Kd = eeprom.kof_d;        // Коефіцієнт диференціалу
 double setpoint;                 // Бажане значення температури
 const double hysteresis = eeprom.dead_zone;// Гістерезіс
-
+unsigned long timer1;
 PIDController pid(Kp, Ki, Kd, setpoint, hysteresis);
 
 void adjustHeaterCooler(double output) {
@@ -117,6 +117,9 @@ void adjustHeaterCooler(double output) {
     }
 }
 
+
+
+
 double readTemperature() {
 
     double present = T_bat;
@@ -124,6 +127,18 @@ double readTemperature() {
     // Зчитування температури з датчика
 }
 
+void state_ventil(double output){
+    if (output)
+{
+  client.publish(VALVE_DOWN, "on");
+}else {client.publish(VALVE_DOWN, "off");}
+
+if (output)
+{
+  client.publish(VALVE_UP, "on");
+}else {client.publish(VALVE_UP, "off");}
+
+}
 
 // void setup_test_pid() {
 //     pinMode(heaterPin, OUTPUT);
@@ -131,6 +146,8 @@ double readTemperature() {
 // }
 
 void loop_test_pid() {
+       T_SET=set_temp_graf();
+
     setpoint = set_temp_graf();
     pid.setSetpoint(setpoint);
     pid.setHysteresis(eeprom.dead_zone);
@@ -138,6 +155,8 @@ void loop_test_pid() {
     double output = pid.compute(temperature);
   
     adjustHeaterCooler(output);
+
+
     if (eeprom.heat_state)
         {
         eeprom.heat_otop = true;
@@ -158,6 +177,14 @@ void loop_test_pid() {
     {
       turnNasosOff();  
     }
+
+if (millis() - timer1 > 2000)
+    {
+      timer1 = millis();
+      
+        state_ventil(T_SET);
+    }
+
 }
 
 
