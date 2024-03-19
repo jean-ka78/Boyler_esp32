@@ -128,17 +128,15 @@ double readTemperature() {
 }
 
 void state_ventil(double output){
-    if (output)
+    if (output>0)
 {
   client.publish(VALVE_DOWN, "on");
-}else {client.publish(VALVE_DOWN, "off");}
-
-if (output)
-{
-  client.publish(VALVE_UP, "on");
-}else {client.publish(VALVE_UP, "off");}
-
+  client.publish(VALVE_DOWN, "off");
+}else {client.publish(VALVE_DOWN, "off");
+       client.publish(VALVE_DOWN, "on");}
 }
+
+
 
 // void setup_test_pid() {
 //     pinMode(heaterPin, OUTPUT);
