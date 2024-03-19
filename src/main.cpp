@@ -9,7 +9,7 @@
 #include "NTC_LIB.h"
 #include "heat_regul.h"
 #include "obogrev.h"
-// #define PID
+#define PID
 #include "pid.h"
 
 #include "mqtt.h"
