@@ -120,9 +120,9 @@ void adjustHeaterCooler(double output) {
 
 
 
-double readTemperature() {
+double readTemperature(double tbat) {
 
-    double present = T_bat;
+    double present = tbat;
     return present;
     // Зчитування температури з датчика
 }
@@ -147,9 +147,9 @@ void loop_test_pid() {
        T_SET=set_temp_graf();
 
     setpoint = set_temp_graf();
-    pid.setSetpoint(setpoint);
-    pid.setHysteresis(eeprom.dead_zone);
-    double temperature = readTemperature();
+    // pid.setSetpoint(setpoint);
+    // pid.setHysteresis(eeprom.dead_zone);
+    double temperature = readTemperature(T_bat);
     double output = pid.compute(temperature);
   
     adjustHeaterCooler(output);
@@ -176,11 +176,14 @@ void loop_test_pid() {
       turnNasosOff();  
     }
 
-if (millis() - timer1 > 2000)
+if (millis() - timer1 > 1000)
     {
       timer1 = millis();
       
         state_ventil(T_SET);
+        setpoint = set_temp_graf();
+        pid.setSetpoint(setpoint);
+        pid.setHysteresis(eeprom.dead_zone);
     }
 
 }
