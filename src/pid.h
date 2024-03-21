@@ -274,13 +274,13 @@ void loop_pid()
         TIMER_PID_DOWN = 0.0;
     }
     // Управление
-    UP = ((((SUM_D_T >= TIMER_PID & SUM_D_T >= 0.5) || D_T >= CYCLE - 0.5 || TIMER_PID_UP >= VALVE) & AUTO_HAND) || (HAND_UP & ! AUTO_HAND)) & ON_OFF & ! DOWN; // Открытие клапана 
-    if (PULSE_100MS &  UP & TIMER_PID_UP <  VALVE)  // Накопленное время открытия
+    UP = ((((SUM_D_T >= TIMER_PID && SUM_D_T >= 0.5) || D_T >= CYCLE - 0.5 || TIMER_PID_UP >= VALVE) && AUTO_HAND) || (HAND_UP && ! AUTO_HAND)) && ON_OFF && ! DOWN; // Открытие клапана 
+    if (PULSE_100MS &&  UP && TIMER_PID_UP <  VALVE)  // Накопленное время открытия
     {
         TIMER_PID_UP = TIMER_PID_UP + 0.1;
     }
-    DOWN  = ((((SUM_D_T <= - TIMER_PID & SUM_D_T <= - 0.5) || D_T <= - CYCLE + 0.5 ||  TIMER_PID_DOWN  >= VALVE) & AUTO_HAND) || (HAND_DOWN  & ! AUTO_HAND)) & ON_OFF & !  UP; // Закрытие клапана
-    if (PULSE_100MS &  DOWN & TIMER_PID_DOWN <  VALVE)  // Накопленное время закрытия
+    DOWN  = ((((SUM_D_T <= - TIMER_PID && SUM_D_T <= - 0.5) || D_T <= - CYCLE + 0.5 ||  TIMER_PID_DOWN  >= VALVE) && AUTO_HAND) || (HAND_DOWN  && ! AUTO_HAND)) && ON_OFF && !  UP; // Закрытие клапана
+    if (PULSE_100MS &&  DOWN && TIMER_PID_DOWN <  VALVE)  // Накопленное время закрытия
     {
         TIMER_PID_DOWN = TIMER_PID_DOWN + 0.1;
     }
