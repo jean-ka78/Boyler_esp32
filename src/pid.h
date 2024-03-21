@@ -179,7 +179,7 @@ void loop_pid()
     {
         T_SET = T_Y1;
     }
-    if (T_OUT > T_X1 & T_OUT < T_X2)  // График между верхней и нижней срезкой
+    if (T_OUT > T_X1 && T_OUT < T_X2)  // График между верхней и нижней срезкой
     {
         if (T_X1 == T_X2)  // Деление на 0
         {
@@ -225,7 +225,7 @@ void loop_pid()
     CYCLE = constrain(CYCLE, (1.0), (25.0)); // Цикл 1...25.0 сек
     VALVE = constrain(VALVE, (15.0), (250.0)); // Время привода 15...250.0 сек
 // Расчет управляющего воздействия
-    if  (PULSE_100MS & TIMER_PID == 0.0 & !  PID_PULSE)
+    if  (PULSE_100MS && TIMER_PID == 0.0 && !  PID_PULSE)
     {
         PID_PULSE = 1; // Присвоить шаг
             D_T = K_P * (E_1 - E_2 + CYCLE * E_2 / K_I +  K_D * (E_1 - 2 * E_2 +  E_3) / CYCLE) * VALVE / 100.0; // Время воздействия на текущем шагу регулирования       
@@ -240,7 +240,7 @@ void loop_pid()
         {
             TIMER_PID_UP = 0.0;
         }
-        if (E_1 < DEAD_ZONE & E_1 > - DEAD_ZONE)  // Зона нечувствительности
+        if (E_1 < DEAD_ZONE && E_1 > - DEAD_ZONE)  // Зона нечувствительности
         {
             D_T = 0.0;
             SUM_D_T = 0.0;
@@ -250,7 +250,7 @@ void loop_pid()
     {
         TIMER_PID = TIMER_PID + 0.1; // Внутренний таймер ПИД
     }
-    if  (ON_OFF &  AUTO_HAND)
+    if  (ON_OFF &&  AUTO_HAND)
     {
         if (TIMER_PID >= CYCLE)  // Сброс таймера при окончание цикла регулирования
         {
@@ -274,13 +274,13 @@ void loop_pid()
         TIMER_PID_DOWN = 0.0;
     }
     // Управление
-    UP = ((((SUM_D_T >= TIMER_PID & SUM_D_T >= 0.5) || D_T >= CYCLE - 0.5 || TIMER_PID_UP >= VALVE) & AUTO_HAND) || (HAND_UP & ! AUTO_HAND)) & ON_OFF & ! DOWN; // Открытие клапана 
-    if (PULSE_100MS &  UP & TIMER_PID_UP <  VALVE)  // Накопленное время открытия
+    UP = ((((SUM_D_T >= TIMER_PID && SUM_D_T >= 0.5) || D_T >= CYCLE - 0.5 || TIMER_PID_UP >= VALVE) && AUTO_HAND) || (HAND_UP && ! AUTO_HAND)) && ON_OFF && ! DOWN; // Открытие клапана 
+    if (PULSE_100MS &&  UP && TIMER_PID_UP <  VALVE)  // Накопленное время открытия
     {
         TIMER_PID_UP = TIMER_PID_UP + 0.1;
     }
-    DOWN  = ((((SUM_D_T <= - TIMER_PID & SUM_D_T <= - 0.5) || D_T <= - CYCLE + 0.5 ||  TIMER_PID_DOWN  >= VALVE) & AUTO_HAND) || (HAND_DOWN  & ! AUTO_HAND)) & ON_OFF & !  UP; // Закрытие клапана
-    if (PULSE_100MS &  DOWN & TIMER_PID_DOWN <  VALVE)  // Накопленное время закрытия
+    DOWN  = ((((SUM_D_T <= - TIMER_PID && SUM_D_T <= - 0.5) || D_T <= - CYCLE + 0.5 ||  TIMER_PID_DOWN  >= VALVE) && AUTO_HAND) || (HAND_DOWN  && ! AUTO_HAND)) && ON_OFF && !  UP; // Закрытие клапана
+    if (PULSE_100MS &&  DOWN && TIMER_PID_DOWN <  VALVE)  // Накопленное время закрытия
     {
         TIMER_PID_DOWN = TIMER_PID_DOWN + 0.1;
     }
