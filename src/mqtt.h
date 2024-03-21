@@ -298,7 +298,7 @@ dtostrf(T_koll,2,2,msg);
     client.publish(CURRENT_TEMP_GET_HEAT_KOLL, msg);
     
 
-
+/*
 
 JsonArray tags = doc_post.createNestedArray("tags");
 JsonObject tags_0 = tags.createNestedObject();
@@ -315,7 +315,7 @@ char output[256];
 size_t n = serializeJson(doc_post, output);
 client.publish("home/temp_json", output,n);
 doc_post.clear();
-
+*/
 // 
 // snprintf (msg, MSG_BUFFER_SIZE, "%ld", rssi);
     // client.publish("outTopic/rssi",msg);
