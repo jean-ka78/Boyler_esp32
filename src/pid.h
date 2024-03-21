@@ -197,126 +197,109 @@ void loop_pid()
     //Плата:5
 //Наименование:Регулирование
     ON_OFF = eeprom.heat_otop;
-    AUTO_HAND = eeprom.valve_mode;
-    HAND_UP = hand_up;
-    HAND_DOWN = hand_down;
-    SET_VALUE = _tempVariable_float;
-    PRESENT_VALUE = T_bat;
-    PULSE_100MS = _gtv2;
-    CYCLE = eeprom.per_on;
-    VALVE = eeprom.per_off;
-    K_P = eeprom.kof_p;
-    K_I = eeprom.kof_i;
-    K_D = eeprom.kof_d;
-    DEAD_ZONE = eeprom.dead_zone;
-    E_1 =  SET_VALUE -  PRESENT_VALUE; // Текущее рассогласование температуры
-    if  (K_I == 0.0)  // Деление на 0
-    {
-        K_I = 9999.0;
+AUTO_HAND = eeprom.valve_mode;
+HAND_UP = hand_up;
+HAND_DOWN = hand_down;
+SET_VALUE = _tempVariable_float;
+PRESENT_VALUE = T_bat;
+PULSE_100MS = _gtv2;
+CYCLE = eeprom.per_on;
+VALVE = eeprom.per_off;
+K_P = eeprom.kof_p;
+K_I = eeprom.kof_i;
+K_D = eeprom.kof_d;
+DEAD_ZONE = eeprom.dead_zone;
+
+// Розрахунок розбіжності
+E_1 = SET_VALUE - PRESENT_VALUE;
+
+// Перевірка поділу на нуль та обмеження
+K_I = (K_I == 0.0) ? 9999.0 : K_I;
+CYCLE = (CYCLE == 0.0) ? 1.0 : CYCLE;
+K_P = constrain(K_P, -99.0, 99.0);
+K_I = constrain(K_I, 1.0, 9999.0);
+K_D = constrain(K_D, 0.0, 9999.0);
+CYCLE = constrain(CYCLE, 1.0, 25.0);
+VALVE = constrain(VALVE, 15.0, 250.0);
+
+// Розрахунок впливу ПІД
+if (PULSE_100MS && TIMER_PID == 0.0 && !PID_PULSE) {
+    PID_PULSE = 1;
+    D_T = K_P * (E_1 - E_2 + CYCLE * E_2 / K_I + K_D * (E_1 - 2 * E_2 + E_3) / CYCLE) * VALVE / 100.0;
+    E_3 = E_2;
+    E_2 = E_1;
+    SUM_D_T = SUM_D_T + D_T;
+    if (SUM_D_T >= 0.5) {
+        TIMER_PID_DOWN = 0.0;
     }
-    if  (CYCLE == 0.0)  // Деление на 0
-    {
-        CYCLE = 1.0;
+    if (SUM_D_T <= -0.5) {
+        TIMER_PID_UP = 0.0;
     }
-    // Ограничения
-    K_P = constrain(K_P, (-99.0), (99.0)); // Кр -99.0...99.0 %/С, знак + для нагревателя, знак - для холодильника
-    K_I = constrain(K_I, (1.0), (9999.0)); // Ти 1...9999.0 сек
-    K_D = constrain(K_D, (0.0), (9999.0)); // Тд 0...9999.0 сек
-    CYCLE = constrain(CYCLE, (1.0), (25.0)); // Цикл 1...25.0 сек
-    VALVE = constrain(VALVE, (15.0), (250.0)); // Время привода 15...250.0 сек
-// Расчет управляющего воздействия
-    if  (PULSE_100MS && TIMER_PID == 0.0 && !  PID_PULSE)
-    {
-        PID_PULSE = 1; // Присвоить шаг
-            D_T = K_P * (E_1 - E_2 + CYCLE * E_2 / K_I +  K_D * (E_1 - 2 * E_2 +  E_3) / CYCLE) * VALVE / 100.0; // Время воздействия на текущем шагу регулирования       
-            E_3 = E_2; // Запись рассогласования -2 шага назад
-            E_2 = E_1; // Запись рассогласования -1 шаг назад
-            SUM_D_T = SUM_D_T + D_T; // Накопленное время воздействия
-            if (SUM_D_T >= 0.5)  // Сброс накопленного времени закрытия
-        {
-            TIMER_PID_DOWN = 0.0;
-        }
-        if (SUM_D_T <= -0.5)  // Сброс накопленного времени открытия
-        {
-            TIMER_PID_UP = 0.0;
-        }
-        if (E_1 < DEAD_ZONE && E_1 > - DEAD_ZONE)  // Зона нечувствительности
-        {
-            D_T = 0.0;
+    if (E_1 < DEAD_ZONE && E_1 > -DEAD_ZONE) {
+        D_T = 0.0;
+        SUM_D_T = 0.0;
+    }
+}
+
+if (PULSE_100MS) {
+    TIMER_PID += 0.1;
+}
+
+if (ON_OFF && AUTO_HAND) {
+    if (TIMER_PID >= CYCLE) {
+        PID_PULSE = 0;
+        TIMER_PID = 0.0;
+        if (SUM_D_T >= 0.5 || SUM_D_T <= -0.5) {
             SUM_D_T = 0.0;
         }
     }
-    if (PULSE_100MS)
-    {
-        TIMER_PID = TIMER_PID + 0.1; // Внутренний таймер ПИД
-    }
-    if  (ON_OFF &&  AUTO_HAND)
-    {
-        if (TIMER_PID >= CYCLE)  // Сброс таймера при окончание цикла регулирования
-        {
-            PID_PULSE = 0; // Сбросить шаг       
-                   TIMER_PID = 0.0;
-            if (SUM_D_T>=0.5 || SUM_D_T<=-0.5)  // Сброа накопленного времени воздействия
-            {
-                SUM_D_T = 0.0;
-            }
-        }
-    }
-    else
-    {
-        PID_PULSE = 0;
-        D_T = 0.0;
-        SUM_D_T = 0.0;
-        TIMER_PID = 0.0;
-        E_3 = E_1;
-        E_2 = E_1;
-        TIMER_PID_UP = 0.0;
-        TIMER_PID_DOWN = 0.0;
-    }
-    // Управление
-    UP = ((((SUM_D_T >= TIMER_PID && SUM_D_T >= 0.5) || D_T >= CYCLE - 0.5 || TIMER_PID_UP >= VALVE) && AUTO_HAND) || (HAND_UP && ! AUTO_HAND)) && ON_OFF && ! DOWN; // Открытие клапана 
-    if (PULSE_100MS &&  UP && TIMER_PID_UP <  VALVE)  // Накопленное время открытия
-    {
-        TIMER_PID_UP = TIMER_PID_UP + 0.1;
-    }
-    DOWN  = ((((SUM_D_T <= - TIMER_PID && SUM_D_T <= - 0.5) || D_T <= - CYCLE + 0.5 ||  TIMER_PID_DOWN  >= VALVE) && AUTO_HAND) || (HAND_DOWN  && ! AUTO_HAND)) && ON_OFF && !  UP; // Закрытие клапана
-    if (PULSE_100MS &&  DOWN && TIMER_PID_DOWN <  VALVE)  // Накопленное время закрытия
-    {
-        TIMER_PID_DOWN = TIMER_PID_DOWN + 0.1;
-    }
-    _tempVariable_bool = DOWN;
-    // Slave_1_0.saveBool(_tempVariable_bool, 0, 4);
+} else {
+    PID_PULSE = 0;
+    D_T = 0.0;
+    SUM_D_T = 0.0;
+    TIMER_PID = 0.0;
+    E_3 = E_1;
+    E_2 = E_1;
+    TIMER_PID_UP = 0.0;
+    TIMER_PID_DOWN = 0.0;
+}
+
+// Управління
+UP = ((((SUM_D_T >= TIMER_PID && SUM_D_T >= 0.5) || D_T >= CYCLE - 0.5 || TIMER_PID_UP >= VALVE) && AUTO_HAND) || (HAND_UP && !AUTO_HAND)) && ON_OFF && !DOWN;
+if (PULSE_100MS && UP && TIMER_PID_UP < VALVE) {
+    TIMER_PID_UP += 0.1;
+}
+
+DOWN = ((((SUM_D_T <= -TIMER_PID && SUM_D_T <= -0.5) || D_T <= -CYCLE + 0.5 || TIMER_PID_DOWN >= VALVE) && AUTO_HAND) || (HAND_DOWN && !AUTO_HAND)) && ON_OFF && !UP;
+if (PULSE_100MS && DOWN && TIMER_PID_DOWN < VALVE) {
+    TIMER_PID_DOWN += 0.1;
+}
+
+_tempVariable_bool = DOWN;
 
 #ifdef PID
-    digitalWrite(PIN_LOW, !DOWN);
-    // _tempVariable_bool = UP;
-    // Slave_1_0.saveBool(_tempVariable_bool, 0, 3);
-    digitalWrite(PIN_HIGH, !UP);
+digitalWrite(PIN_LOW, !DOWN);
+digitalWrite(PIN_HIGH, !UP);
 
-    if (eeprom.heat_state)
-        {
-        eeprom.heat_otop = true;
-        /* code */
-            }
-        else{
-            eeprom.heat_otop = false;}
+// Керування нагрівом
+if (eeprom.heat_state) {
+    eeprom.heat_otop = true;
+} else {
+    eeprom.heat_otop = false;
+}
 
-
-    if (T_SET==eeprom.temp_off_otop){
+// Вимкнення нагріву при досягненні потрібної температури
+if (T_SET == eeprom.temp_off_otop) {
     eeprom.heat_otop = LOW;
-    }
-    if (eeprom.heat_otop)
-    {
-        turnNasosOn();
-    }
-    else
-    {
-      turnNasosOff();  
-    }
-    
-    // digitalWrite(nasos_otop, eeprom.heat_otop);
+}
 
-    
+// Управління насосом
+if (eeprom.heat_otop) {
+    turnNasosOn();
+} else {
+    turnNasosOff();
+}
 #endif
+
 }
 
