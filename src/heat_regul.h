@@ -1,6 +1,7 @@
+ bool nasos = false;
 bool logic(bool heat_on, float Temp_boy, float Temp_kol, float temp_u, float gis)
 {
-    bool nasos = false;
+   
     float temp_on;
     // if (Temp_kol<temp_u)
     // {
@@ -13,14 +14,14 @@ bool logic(bool heat_on, float Temp_boy, float Temp_kol, float temp_u, float gis
          temp_on = temp_u;
     if (heat_on)
     {
-        if (Temp_boy<(temp_on+gis))
+        if (Temp_boy<(temp_on+gis) && !nasos)
         {
            nasos = true;
         //    led1.on();
     //    heat_otop = LOW;
 
         }
-        if (Temp_boy > (temp_on-gis))
+        else if (Temp_boy > (temp_on-gis) && nasos)
         {
             nasos = false;
             // heat_otop = HIGH;
@@ -29,13 +30,13 @@ bool logic(bool heat_on, float Temp_boy, float Temp_kol, float temp_u, float gis
         }
         
     }
-    else
-    {
-        nasos = false;
+    // else
+    // {
+    //     nasos = false;
         
-        // heat_otop = HIGH;
+    //     // heat_otop = HIGH;
       
-        }
+    //     }
     return nasos;
 
 }

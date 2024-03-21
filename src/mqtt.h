@@ -116,6 +116,7 @@ String message = (char*)payload;
   }if (strcmp(topic, MODE_SET_TOPIC_HEAT) == 0){
      if (message == "heat"){
     eeprom.heat_state = true;
+    eeprom.summer = false;
     // Safe_eeprom();
     // client.publish(MODE_GET_TOPIC_HEAT, "heat");
     Serial.println("Heat_otop: "+String(eeprom.heat_state));
@@ -127,7 +128,17 @@ String message = (char*)payload;
     Serial.println("Heat: "+String(eeprom.heat_state));
  
 
-   }   
+   }else if (message == "heat_cool")
+   {
+    eeprom.summer = true;
+    eeprom.heat_state = false;
+    // Safe_eeprom();
+        // client.publish(MODE_GET_TOPIC_HEAT, "off");
+    // Serial.println("Heat: "+String(eeprom.heat_state));
+ 
+
+   } 
+
     // }else if (strcmp(topic, TEMP_SETPOINT_SET_HEAT) == 0){
     // float temp_heat = message.toFloat();
     // eeprom.temp_u_b = temp_heat;
@@ -287,7 +298,7 @@ dtostrf(T_koll,2,2,msg);
     client.publish(CURRENT_TEMP_GET_HEAT_KOLL, msg);
     
 
-
+/*
 
 JsonArray tags = doc_post.createNestedArray("tags");
 JsonObject tags_0 = tags.createNestedObject();
@@ -304,7 +315,7 @@ char output[256];
 size_t n = serializeJson(doc_post, output);
 client.publish("home/temp_json", output,n);
 doc_post.clear();
-
+*/
 // 
 // snprintf (msg, MSG_BUFFER_SIZE, "%ld", rssi);
     // client.publish("outTopic/rssi",msg);
@@ -330,7 +341,6 @@ dtostrf(eeprom.temp_u,2,2,msg);
 // snprintf (msg, MSG_BUFFER_SIZE, "%ld", eeprom.per_off);
 // dtostrf(eeprom.per_on,2,2,msg);    
    //  client.publish(TIME_HEAT_CIKL, msg);
-   T_SET=set_temp_graf();
 dtostrf(T_SET,2,2,msg);
     client.publish(CURRENT_TEMP_SET_PID, msg);
 
@@ -371,7 +381,7 @@ if (eeprom.heat)
 // if (eeprom.valve_mode)
 // {
   /* code */
-
+#ifdef PID
 
 if (DOWN)
 {
@@ -384,7 +394,7 @@ if (UP)
 }else {client.publish(VALVE_UP, "off");}
 
 // }
-
+#endif
 
 }
 

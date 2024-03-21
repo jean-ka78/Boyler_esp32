@@ -11,9 +11,9 @@
 #include "obogrev.h"
 #define PID
 #include "pid.h"
-#include "test_pid.h"
-#include "mqtt.h"
 
+#include "mqtt.h"
+#include "test_pid.h"
     
 
 
@@ -55,6 +55,9 @@ eeprom.heat = relle;
 digitalWrite(relay,eeprom.heat);
 
 }
+
+
+
 
 void setup() {
   Serial.begin(115200);
@@ -112,13 +115,7 @@ void loop() {
       reconnect();
     }
 
-    // if (millis() - old_time3 > 2000)
-    // {
-    //   old_time3 = millis();
-      
-    //   SendData();
-    //   getValues();      
-    // }
+    
     
 
 
@@ -127,6 +124,7 @@ loop_pid();
 #else
   // regulator(T_koll, eeprom.temp_u_b, T_bat, eeprom.temp_off_otop);
   loop_test_pid();
+  
 #endif
 loopMQtt();
     regul();
