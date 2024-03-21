@@ -15,7 +15,8 @@ bool init;
 bool heat; //флаг включения бойлера
 bool boy_state;
 bool heat_otop; //Флаг включения отопления
-bool heat_state; 
+bool heat_state;
+bool summer; 
 bool valve_mode;
 bool nasos_on;
 int per_on; //Период включения 

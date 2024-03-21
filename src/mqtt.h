@@ -116,6 +116,7 @@ String message = (char*)payload;
   }if (strcmp(topic, MODE_SET_TOPIC_HEAT) == 0){
      if (message == "heat"){
     eeprom.heat_state = true;
+    eeprom.summer = false;
     // Safe_eeprom();
     // client.publish(MODE_GET_TOPIC_HEAT, "heat");
     Serial.println("Heat_otop: "+String(eeprom.heat_state));
@@ -127,7 +128,17 @@ String message = (char*)payload;
     Serial.println("Heat: "+String(eeprom.heat_state));
  
 
-   }   
+   }else if (message == "heat_cool")
+   {
+    eeprom.summer = true;
+    eeprom.heat_state = false;
+    // Safe_eeprom();
+        // client.publish(MODE_GET_TOPIC_HEAT, "off");
+    // Serial.println("Heat: "+String(eeprom.heat_state));
+ 
+
+   } 
+
     // }else if (strcmp(topic, TEMP_SETPOINT_SET_HEAT) == 0){
     // float temp_heat = message.toFloat();
     // eeprom.temp_u_b = temp_heat;
