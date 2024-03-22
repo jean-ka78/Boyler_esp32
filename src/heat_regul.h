@@ -30,13 +30,13 @@ bool logic(bool heat_on, float Temp_boy, float Temp_kol, float temp_u, float gis
         }
         
     }
-    // else
-    // {
-    //     nasos = false;
+    else
+    {
+        nasos = false;
         
-    //     // heat_otop = HIGH;
+        // heat_otop = HIGH;
       
-    //     }
+        }
     return nasos;
 
 }
