@@ -130,9 +130,9 @@ double readTemperature(double tbat) {
 void state_ventil(double output){
     if (output>0)
 {
-  client.publish(VALVE_DOWN, "on");
+  client.publish(VALVE_UP, "on");
   client.publish(VALVE_DOWN, "off");
-}else {client.publish(VALVE_DOWN, "off");
+}else {client.publish(VALVE_UP, "off");
        client.publish(VALVE_DOWN, "on");}
 }
 
