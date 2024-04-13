@@ -288,7 +288,7 @@ const float ADC_LUT[4096] PROGMEM = { 0,
 double adcAverage  = 0; 
 int    adc_count = 50;
 int    adcSamples[50];  // Массив для хранения отдельных результатов
-float smoothedValue = 25;     // Поточне згладжене значення
+float smoothedValue = 0;     // Поточне згладжене значення
 
 
 double Vout, Rt = 0;
@@ -376,9 +376,10 @@ double Update_f()
     // {
       /* code */
         timer1 = millis();
-    adc = analogRead(ntc_pin);
+    adc = 0.9 * adc + 0.1 * (analogRead(ntc_pin));
     // Калмана фильтр запускаем
     // adc = testFilter.filtered(adc);
+
     raw[i] = ADC_LUT[(int)adc];
     // this_thread 
     delay(1);
