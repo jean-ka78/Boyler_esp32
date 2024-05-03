@@ -5,7 +5,7 @@ long rssi;
 const size_t capacity_post = JSON_ARRAY_SIZE(7) + JSON_OBJECT_SIZE(1) + 7*JSON_OBJECT_SIZE(2);
 DynamicJsonDocument doc_post(capacity_post);
 //MQTT Server
-const char *mqtt_server = "greenhouse.net.ua"; // Имя сервера MQTT
+const char *mqtt_server = "192.168.1.106"; // Имя сервера MQTT
 const int mqtt_port = 1883; // Порт для подключения к серверу MQTT
 const char *mqtt_user = "mqtt_boyler"; // Логин от сервер
 const char *mqtt_pass = "qwerty"; // Пароль от сервера
