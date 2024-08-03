@@ -102,101 +102,76 @@ void setup_pid()
 }
 void loop_pid()
 {
-    // Slave_1_0.pool();
-    //Плата:1
-//Наименование:Импульсы времени
-    if (1) 
-    {
-         if (_trgrt1I) 
-        {
-             _trgrt1 = 0;
-        }
-         else 
-        {
-            _trgrt1 = 1;
-            _trgrt1I = 1;
-        }
-    }
-     else 
-    {
+// Основна умова
+if (true) {
+    if (_trgrt1I) {
         _trgrt1 = 0;
-        _trgrt1I = 0;
+    } else {
+        _trgrt1 = 1;
+        _trgrt1I = 1;
     }
-    ;
-    _gtv1 = _trgrt1;
-    if (1) 
-    {
-         if (! _gen1I) 
-        {
-            _gen1I = 1;
-            _gen1O = 1;
-            _gen1P = millis();
-        }
-    }
-     else 
-    {
-        _gen1I = 0 ;
-        _gen1O= 0;
-    }
-    if (_gen1I) 
-    {
-           if (millis() - timer>50)
-    
-      
-        {
-              timer = millis();
-             _gen1P = millis();
-            _gen1O = ! _gen1O;
-        }
-    }
-    if (_gen1O) 
-    {
-         if (_trgrt2I) 
-        {
-             _trgrt2 = 0;
-        }
-         else 
-        {
-            _trgrt2 = 1;
-            _trgrt2I = 1;
-        }
-    }
-     else 
-    {
-        _trgrt2 = 0;
-        _trgrt2I = 0;
-    }
-    ;
-    _gtv2 = _trgrt2;
+} else {
+    _trgrt1 = 0;
+    _trgrt1I = 0;
+}
+_gtv1 = _trgrt1;
 
-    T_OUT = T_out;
-    T_X1 = eeprom.temp_min_out;
-    T_Y1 = eeprom.temp_max_heat;
-    T_X2 = eeprom.temp_max_out;
-    T_Y2 = eeprom.temp_off_otop;
-    // График отопления
-    if (T_OUT <= T_X1)  // Верхняя срезка
-    {
-        T_SET = T_Y1;
+// Умови для генератора
+if (true) {
+    if (!_gen1I) {
+        _gen1I = 1;
+        _gen1O = 1;
+        _gen1P = millis();
     }
-    if (T_OUT > T_X1 && T_OUT < T_X2)  // График между верхней и нижней срезкой
-    {
-        if (T_X1 == T_X2)  // Деление на 0
-        {
-            T_X1 = T_X1 + 0.1;
-        }
-        T_SET = (T_OUT - T_X1) * (T_Y1 - T_Y2) / (T_X1 - T_X2) + T_Y1;
+} else {
+    _gen1I = 0;
+    _gen1O = 0;
+}
+
+// Таймер для генератора
+if (_gen1I) {
+    if (millis() - timer > 50) {
+        timer = millis();
+        _gen1P = millis();
+        _gen1O = !_gen1O;
     }
-    if (T_OUT >= T_X2)  // Нижняя срезка
-    {
-        T_SET = T_Y2;
+}
+
+// Перемикання тригерів
+if (_gen1O) {
+    if (_trgrt2I) {
+        _trgrt2 = 0;
+    } else {
+        _trgrt2 = 1;
+        _trgrt2I = 1;
     }
-    _tempVariable_float = T_SET;
-    
-    // Slave_1_0.saveFloat(_tempVariable_float, 4, 14);
-    //Плата:5
-//Наименование:Регулирование
-    ON_OFF = eeprom.heat_otop;
+} else {
+    _trgrt2 = 0;
+    _trgrt2I = 0;
+}
+_gtv2 = _trgrt2;
+
+// Розрахунок цільової температури
+T_OUT = T_out;
+T_X1 = eeprom.temp_min_out;
+T_Y1 = eeprom.temp_max_heat;
+T_X2 = eeprom.temp_max_out;
+T_Y2 = eeprom.temp_off_otop;
+
+if (T_OUT <= T_X1) {
+    T_SET = T_Y1;
+} else if (T_OUT > T_X1 && T_OUT < T_X2) {
+    if (T_X1 == T_X2) {
+        T_X1 += 0.1;
+    }
+    T_SET = (T_OUT - T_X1) * (T_Y1 - T_Y2) / (T_X1 - T_X2) + T_Y1;
+} else {
+    T_SET = T_Y2;
+}
+_tempVariable_float = T_SET;
+
+// Параметри для ПІД-регулювання
+ON_OFF = eeprom.heat_otop;
 AUTO_HAND = eeprom.valve_mode;
 HAND_UP = hand_up;
 HAND_DOWN = hand_down;
@@ -228,7 +203,7 @@ if (PULSE_100MS && TIMER_PID == 0.0 && !PID_PULSE) {
     D_T = K_P * (E_1 - E_2 + CYCLE * E_2 / K_I + K_D * (E_1 - 2 * E_2 + E_3) / CYCLE) * VALVE / 100.0;
     E_3 = E_2;
     E_2 = E_1;
-    SUM_D_T = SUM_D_T + D_T;
+    SUM_D_T = constrain(SUM_D_T + D_T, -VALVE, VALVE);
     if (SUM_D_T >= 0.5) {
         TIMER_PID_DOWN = 0.0;
     }
@@ -266,13 +241,15 @@ if (ON_OFF && AUTO_HAND) {
 
 // Управління
 UP = ((((SUM_D_T >= TIMER_PID && SUM_D_T >= 0.5) || D_T >= CYCLE - 0.5 || TIMER_PID_UP >= VALVE) && AUTO_HAND) || (HAND_UP && !AUTO_HAND)) && ON_OFF && !DOWN;
-if (PULSE_100MS && UP && TIMER_PID_UP < VALVE) {
+if (PULSE_100MS && UP) {
     TIMER_PID_UP += 0.1;
+    TIMER_PID_UP = (TIMER_PID_UP > VALVE) ? VALVE : TIMER_PID_UP;
 }
 
 DOWN = ((((SUM_D_T <= -TIMER_PID && SUM_D_T <= -0.5) || D_T <= -CYCLE + 0.5 || TIMER_PID_DOWN >= VALVE) && AUTO_HAND) || (HAND_DOWN && !AUTO_HAND)) && ON_OFF && !UP;
-if (PULSE_100MS && DOWN && TIMER_PID_DOWN < VALVE) {
+if (PULSE_100MS && DOWN) {
     TIMER_PID_DOWN += 0.1;
+    TIMER_PID_DOWN = (TIMER_PID_DOWN > VALVE) ? VALVE : TIMER_PID_DOWN;
 }
 
 _tempVariable_bool = DOWN;
@@ -300,6 +277,7 @@ if (eeprom.heat_otop) {
     turnNasosOff();
 }
 #endif
+
 
 }
 
