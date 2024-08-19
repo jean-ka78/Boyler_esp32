@@ -10,6 +10,7 @@
 #include "heat_regul.h"
 #include "obogrev.h"
 #define PID
+
 #include "pid.h"
 
 #include "mqtt.h"
@@ -91,7 +92,7 @@ void loop() {
   ArduinoOTA.handle(); // Всегда готовы к прошивке
   rssi =  map(WiFi.RSSI(), -115, -35, 0, 100);
 
-  if (millis() - timer_1>2000)
+  if (millis() - timer_1>1000)
     {
       timer_1 = millis();
       #ifdef LIB_NTC

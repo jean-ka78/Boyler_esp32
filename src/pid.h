@@ -244,19 +244,24 @@ UP = ((((SUM_D_T >= TIMER_PID && SUM_D_T >= 0.5) || D_T >= CYCLE - 0.5 || TIMER_
 if (PULSE_100MS && UP) {
     TIMER_PID_UP += 0.1;
     TIMER_PID_UP = (TIMER_PID_UP > VALVE) ? VALVE : TIMER_PID_UP;
+    digitalWrite(PIN_HIGH, LOW);
+} else {
+    digitalWrite(PIN_HIGH, HIGH);
 }
 
 DOWN = ((((SUM_D_T <= -TIMER_PID && SUM_D_T <= -0.5) || D_T <= -CYCLE + 0.5 || TIMER_PID_DOWN >= VALVE) && AUTO_HAND) || (HAND_DOWN && !AUTO_HAND)) && ON_OFF && !UP;
 if (PULSE_100MS && DOWN) {
     TIMER_PID_DOWN += 0.1;
     TIMER_PID_DOWN = (TIMER_PID_DOWN > VALVE) ? VALVE : TIMER_PID_DOWN;
-}
+    digitalWrite(PIN_LOW, LOW);
 
+}
+else {digitalWrite(PIN_LOW, HIGH);}
 _tempVariable_bool = DOWN;
 
 #ifdef PID
-digitalWrite(PIN_LOW, !DOWN);
-digitalWrite(PIN_HIGH, !UP);
+// digitalWrite(PIN_LOW, !DOWN);
+// digitalWrite(PIN_HIGH, !UP);
 
 // Керування нагрівом
 if (eeprom.heat_state) {

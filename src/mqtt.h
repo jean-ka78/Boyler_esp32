@@ -64,6 +64,11 @@ const char* TEMP_OUT = "home/set/heat_on/temp_out";
 const char* HAND_UP_HEAT = "home/set/heat_on/hand_up";
 const char* HAND_DOWN_HEAT = "home/set/heat_on/hand_down";
 
+const char* s_d_t = "home/test/s_d_t";
+const char* t_p_u = "home/test/t_p_u";
+const char* t_p_d = "home/test/t_p_d";
+
+
 
 float temp_boy,
       temp_heat,
@@ -346,6 +351,7 @@ dtostrf(T_SET,2,2,msg);
 
 
 
+
 if (eeprom.boy_state)
 {
   client.publish(MODE_GET_TOPIC_BOY, "heat");
@@ -392,6 +398,17 @@ if (UP)
 {
   client.publish(VALVE_UP, "on");
 }else {client.publish(VALVE_UP, "off");}
+
+dtostrf(SUM_D_T,2,2,msg);
+client.publish(s_d_t, msg);
+dtostrf(TIMER_PID_UP,2,2,msg);
+client.publish(t_p_u, msg);
+dtostrf(TIMER_PID_DOWN,2,2,msg);
+client.publish(t_p_d, msg);
+  
+
+
+
 
 // }
 #endif
