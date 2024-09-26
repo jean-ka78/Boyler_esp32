@@ -95,6 +95,26 @@ float _tempVariable_float;
         digitalWrite(nasos_otop, LOW);
         eeprom.nasos_on = false;
     }
+
+    void valve_UP(){
+        
+        digitalWrite(PIN_HIGH, LOW);
+        digitalWrite(PIN_LOW, HIGH);
+    }
+
+    void valve_UP_STOP(){
+        digitalWrite(PIN_HIGH, HIGH);
+    }
+
+    void valve_DOWN(){
+        digitalWrite(PIN_LOW, LOW);
+        digitalWrite(PIN_HIGH, HIGH);
+    }
+
+    void valve_DOWN_STOP(){
+
+        digitalWrite(PIN_LOW, HIGH);
+    }
 void setup_pid()
 {
  
@@ -245,22 +265,20 @@ UP = ((((SUM_D_T >= TIMER_PID && SUM_D_T >= 0.5) || D_T >= CYCLE - 0.5 || TIMER_
 if (PULSE_100MS && UP) {
     TIMER_PID_UP += 0.1;
     TIMER_PID_UP = (TIMER_PID_UP > VALVE) ? VALVE : TIMER_PID_UP;
-    digitalWrite(PIN_HIGH, LOW);
-    digitalWrite(PIN_LOW, HIGH);
+    valve_UP();
 
 } else {
-    digitalWrite(PIN_HIGH, HIGH);
+    valve_UP_STOP();
 }
 
 DOWN = ((((SUM_D_T <= -TIMER_PID && SUM_D_T <= -0.5) || D_T <= -CYCLE + 0.5 || TIMER_PID_DOWN >= VALVE) && AUTO_HAND) || (HAND_DOWN && !AUTO_HAND)) && ON_OFF && !UP;
 if (PULSE_100MS && DOWN) {
     TIMER_PID_DOWN += 0.1;
     TIMER_PID_DOWN = (TIMER_PID_DOWN > VALVE) ? VALVE : TIMER_PID_DOWN;
-    digitalWrite(PIN_LOW, LOW);
-    digitalWrite(PIN_HIGH, HIGH);
+    valve_DOWN();
 
 }
-else {digitalWrite(PIN_LOW, HIGH);}
+else {valve_DOWN_STOP();}
 _tempVariable_bool = DOWN;
 
 #ifdef PID
