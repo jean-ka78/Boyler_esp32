@@ -27,6 +27,7 @@ float K_D;
 float DEAD_ZONE;
 bool UP;
 bool DOWN;
+bool nasos_valve;
 float TIMER_PID; // Внутренний таймер ПИД
 float E_1; // Текущее рассогласование
 float E_2; // Рассогласование на -1 шаг
@@ -245,6 +246,8 @@ if (PULSE_100MS && UP) {
     TIMER_PID_UP += 0.1;
     TIMER_PID_UP = (TIMER_PID_UP > VALVE) ? VALVE : TIMER_PID_UP;
     digitalWrite(PIN_HIGH, LOW);
+    digitalWrite(PIN_LOW, HIGH);
+
 } else {
     digitalWrite(PIN_HIGH, HIGH);
 }
@@ -254,6 +257,7 @@ if (PULSE_100MS && DOWN) {
     TIMER_PID_DOWN += 0.1;
     TIMER_PID_DOWN = (TIMER_PID_DOWN > VALVE) ? VALVE : TIMER_PID_DOWN;
     digitalWrite(PIN_LOW, LOW);
+    digitalWrite(PIN_HIGH, HIGH);
 
 }
 else {digitalWrite(PIN_LOW, HIGH);}
@@ -272,11 +276,12 @@ if (eeprom.heat_state) {
 
 // Вимкнення нагріву при досягненні потрібної температури
 if (T_SET == eeprom.temp_off_otop) {
-    eeprom.heat_otop = LOW;
-}
+    // eeprom.heat_otop = LOW;
+    nasos_valve = LOW;
+} else {nasos_valve = HIGH;}
 
 // Управління насосом
-if (eeprom.heat_otop) {
+if (eeprom.heat_otop || nasos_valve) {
     turnNasosOn();
 } else {
     turnNasosOff();
