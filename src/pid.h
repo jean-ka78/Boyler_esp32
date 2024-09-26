@@ -299,7 +299,7 @@ if (T_SET == eeprom.temp_off_otop) {
 } else {nasos_valve = HIGH;}
 
 // Управління насосом
-if (eeprom.heat_otop || nasos_valve) {
+if (nasos_valve) {
     turnNasosOn();
 } else {
     turnNasosOff();
