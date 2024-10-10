@@ -293,11 +293,14 @@ if (eeprom.heat_state) {
 }
 
 // Вимкнення нагріву при досягненні потрібної температури
-if (T_SET == eeprom.temp_off_otop) {
+if (eeprom.heat_otop){
+    
+    if (T_SET == eeprom.temp_off_otop) {
     // eeprom.heat_otop = LOW;
-    nasos_valve = LOW;
-} else {nasos_valve = HIGH;}
-
+      nasos_valve = LOW;
+    } else {nasos_valve = HIGH;}
+    }
+else{nasos_valve = LOW;}
 // Управління насосом
 if (nasos_valve) {
     turnNasosOn();
