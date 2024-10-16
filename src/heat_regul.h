@@ -18,13 +18,13 @@ bool logic(bool heat_on, float Temp_boy, float Temp_kol, float temp_u, float gis
         {
            nasos = true;
         //    led1.on();
-    //    heat_otop = LOW;
+       eeprom.heat_otop = LOW;
 
         }
         else if (Temp_boy > temp_on && nasos)
         {
             nasos = false;
-            // heat_otop = HIGH;
+            eeprom.heat_otop = HIGH;
             
             // led1.off();
         }
@@ -34,7 +34,7 @@ bool logic(bool heat_on, float Temp_boy, float Temp_kol, float temp_u, float gis
     {
         nasos = false;
         
-        // heat_otop = HIGH;
+        eeprom.heat_otop = HIGH;
       
         }
     return nasos;

@@ -362,29 +362,15 @@ double Update()
 
 double Update_f()
 {
-  // Калмана фильтр
-// GKalman testFilter(4, 0.005);
-
-//  adc = 0; 
  // массив для хранения данных
  int middle;
   int raw[adc_count];
   // считываем вход и помещаем величину в ячейки массива 
    for (int i = 0; i < adc_count; i++){
-    //   old_time = real_time;  
-    // if (millis() - timer1 > 10)
-    // {
-      /* code */
-        timer1 = millis();
-    adc = 0.9 * adc + 0.1 * (analogRead(ntc_pin));
-    // Калмана фильтр запускаем
-    // adc = testFilter.filtered(adc);
-
-    raw[i] = ADC_LUT[(int)adc];
-    // this_thread 
-    delay(1);
-    // }
-    }
+      adc = 0.9 * adc + 0.1 * (analogRead(ntc_pin));
+      raw[i] = ADC_LUT[(int)adc];
+      delay(1);
+     }
   
   // сортируем массив по возрастанию значений в ячейках
   int temp = 0; // временная переменная
@@ -400,20 +386,12 @@ double Update_f()
   }
   // возвращаем значение средней ячейки массива
   middle = raw[adc_count/2];
-  // middle = testFilter.filtered(middle);
-  // return middle;
-
-//  Serial.println("adcAverage:"+String(adcAverage));
   Vout = middle * Vs/adcMax;
-//  Vout = adc * Vs/adcMax;
-//Serial.println("Vout:"+String(Vout));
   Rt = R1 * Vout / (Vs - Vout);
-
   T = 1/(1/To + log(Rt/Ro)/Beta);    // Temperature in Kelvin
   Tc = T - 273.15;                   // Celsius
-  // Tc = testFilter.filtered(Tc);
   Tf = Tc * 9 / 5 + 32;              // Fahrenheit
-  // Serial.println(Tc);
+ 
   // Застосовуємо експоненційне згладжування
   smoothedValue = 0.9 * smoothedValue + 0.1 * Tc;
 
