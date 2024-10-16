@@ -1,3 +1,4 @@
+// #include "pid.h"
  bool nasos = false;
 bool logic(bool heat_on, float Temp_boy, float Temp_kol, float temp_u, float gis)
 {
@@ -18,13 +19,15 @@ bool logic(bool heat_on, float Temp_boy, float Temp_kol, float temp_u, float gis
         {
            nasos = true;
         //    led1.on();
-       eeprom.heat_otop = LOW;
+    //    eeprom.heat_otop = LOW;
+        turnNasosOff();
 
         }
         else if (Temp_boy > temp_on && nasos)
         {
             nasos = false;
-            eeprom.heat_otop = HIGH;
+            // eeprom.heat_otop = HIGH;
+            turnNasosOn();
             
             // led1.off();
         }
@@ -34,7 +37,8 @@ bool logic(bool heat_on, float Temp_boy, float Temp_kol, float temp_u, float gis
     {
         nasos = false;
         
-        eeprom.heat_otop = HIGH;
+        // eeprom.heat_otop = HIGH;
+        turnNasosOn();
       
         }
     return nasos;
