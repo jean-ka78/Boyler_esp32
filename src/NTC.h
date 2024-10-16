@@ -289,7 +289,7 @@ double adcAverage  = 0;
 int    adc_count = 50;
 int    adcSamples[50];  // Массив для хранения отдельных результатов
 float smoothedValue = 0;     // Поточне згладжене значення
-
+bool initialized;          // Прапорець для перевірки ініціалізації
 
 double Vout, Rt = 0;
 double T, Tc, Tf = 0;
@@ -391,9 +391,13 @@ double Update_f()
   T = 1/(1/To + log(Rt/Ro)/Beta);    // Temperature in Kelvin
   Tc = T - 273.15;                   // Celsius
   Tf = Tc * 9 / 5 + 32;              // Fahrenheit
- 
-  // Застосовуємо експоненційне згладжування
-  smoothedValue = 0.9 * smoothedValue + 0.1 * Tc;
+  if (!initialized) {
+    smoothedValue = Tc;
+     initialized = true; // Помічаємо, що ми вже ініціалізували
+   } else{ 
+    // Застосовуємо експоненційне згладжування
+     smoothedValue = 0.9 * smoothedValue + 0.1 * Tc;
+  }
 
   return smoothedValue;
   // return Tc;    // вернуть температуру в градусах Цельсия
