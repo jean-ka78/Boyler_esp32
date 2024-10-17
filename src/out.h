@@ -43,6 +43,7 @@ class ControlSystem {
         // Якщо насос бойлера має сигнал для увімкнення
         if (nasosBoyOn) {
             turnNasosBoyOn();  // Увімкнути насос бойлера
+            
             turnNasosOff();    // Вимкнути насос опалення
         } else {
             turnNasosBoyOff(); // Вимкнути насос бойлера
@@ -59,18 +60,21 @@ class ControlSystem {
     void turnNasosOn() {
         digitalWrite(nasosOtop, HIGH);
         nasosOn = true;
+        eeprom.nasos_on = true;
     }
 
     // Вимкнути насос опалення (Otop)
     void turnNasosOff() {
         digitalWrite(nasosOtop, LOW);
         nasosOn = false;
+        eeprom.nasos_on = false;
     }
 
     // Увімкнути насос бойлера (Boy)
     void turnNasosBoyOn() {
         digitalWrite(nasosBoy, HIGH);
         boyOn = true;
+        
     }
 
     // Вимкнути насос бойлера (Boy)

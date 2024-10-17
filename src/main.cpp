@@ -1,11 +1,13 @@
 #include <Arduino.h>
 #include <WiFi.h>
 #include <ArduinoOTA.h>
-#include "out.h"
+
 #include "link.h"
 #include <EEPROM.h>
+
 #include "GyverFilters.h"
 #include "st_enum.h"
+#include "out.h"
 #include "NTC.h"
 #include "NTC_LIB.h"
 
