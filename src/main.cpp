@@ -132,8 +132,8 @@ loop_pid();
   
 #endif
 loopMQtt();
-    regul();
-
+regul();
+loop_out();
 
 
     if (millis() - old_time1>10000)
