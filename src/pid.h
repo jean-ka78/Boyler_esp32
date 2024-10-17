@@ -265,21 +265,26 @@ UP = ((((SUM_D_T >= TIMER_PID && SUM_D_T >= 0.5) || D_T >= CYCLE - 0.5 || TIMER_
 if (PULSE_100MS && UP) {
     TIMER_PID_UP += 0.1;
     TIMER_PID_UP = (TIMER_PID_UP > VALVE) ? VALVE : TIMER_PID_UP;
-    valve_UP();
+    // valve_UP();
+    control.valveUp();
 
 } else {
-    valve_UP_STOP();
+    // valve_UP_STOP();
+    control.valveUpStop();
 }
 
 DOWN = ((((SUM_D_T <= -TIMER_PID && SUM_D_T <= -0.5) || D_T <= -CYCLE + 0.5 || TIMER_PID_DOWN >= VALVE) && AUTO_HAND) || (HAND_DOWN && !AUTO_HAND)) && ON_OFF && !UP;
 if (PULSE_100MS && DOWN) {
     TIMER_PID_DOWN += 0.1;
     TIMER_PID_DOWN = (TIMER_PID_DOWN > VALVE) ? VALVE : TIMER_PID_DOWN;
-    valve_DOWN();
+    // valve_DOWN();
+    control.valveDown();
 
 }
-else {valve_DOWN_STOP();}
-_tempVariable_bool = DOWN;
+else {
+    // valve_DOWN_STOP();
+control.valveDownStop();}
+// _tempVariable_bool = DOWN;
 
 #ifdef PID
 // digitalWrite(PIN_LOW, !DOWN);
