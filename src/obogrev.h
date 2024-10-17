@@ -1,7 +1,7 @@
-int PIN_LOW = 22;
-int PIN_HIGH = 23;
-const int relay = 21;
-const int nasos_otop = 19;
+// int PIN_LOW = 22;
+// int PIN_HIGH = 23;
+// const int relay = 21;
+// const int nasos_otop = 19;
 class Flasher
 {
    public:

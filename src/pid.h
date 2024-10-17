@@ -303,9 +303,9 @@ if (eeprom.heat_otop){
 else{nasos_valve = LOW;}
 // Управління насосом
 if (nasos_valve) {
-    turnNasosOn();
+    control.nasosOtop_start(1);
 } else {
-    turnNasosOff();
+    control.nasosOtop_start(0);
 }
 #endif
 

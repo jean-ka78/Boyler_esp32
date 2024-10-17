@@ -20,14 +20,14 @@ bool logic(bool heat_on, float Temp_boy, float Temp_kol, float temp_u, float gis
            nasos = true;
         //    led1.on();
     //    eeprom.heat_otop = LOW;
-        turnNasosOff();
+        // turnNasosOff();
 
         }
         else if (Temp_boy > temp_on && nasos)
         {
             nasos = false;
             // eeprom.heat_otop = HIGH;
-            turnNasosOn();
+            // turnNasosOn();
             
             // led1.off();
         }
@@ -38,7 +38,7 @@ bool logic(bool heat_on, float Temp_boy, float Temp_kol, float temp_u, float gis
         nasos = false;
         
         // eeprom.heat_otop = HIGH;
-        turnNasosOn();
+        // turnNasosOn();
       
         }
     return nasos;

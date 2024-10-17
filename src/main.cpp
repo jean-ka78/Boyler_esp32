@@ -1,6 +1,7 @@
 #include <Arduino.h>
 #include <WiFi.h>
 #include <ArduinoOTA.h>
+#include "out.h"
 #include "link.h"
 #include <EEPROM.h>
 #include "GyverFilters.h"
@@ -15,6 +16,7 @@
 #include "heat_regul.h"
 #include "mqtt.h"
 #include "test_pid.h"
+
     
 
 
@@ -53,7 +55,8 @@ bool relle;
 relle = logic(eeprom.boy_state,T_boyler,T_koll,eeprom.temp_u, eeprom.gis_boy);
 eeprom.heat = relle;
 
-digitalWrite(relay,eeprom.heat);
+// digitalWrite(relay,eeprom.heat);
+control.nasosBoy_start(relle);
 
 }
 
@@ -64,10 +67,11 @@ void setup() {
   Serial.begin(115200);
   setupMqtt();
   setup_pid();
-  pinMode(relay, OUTPUT);
-  pinMode(PIN_LOW, OUTPUT);
-  pinMode(PIN_HIGH, OUTPUT);
-  pinMode(nasos_otop, OUTPUT);
+  // pinMode(relay, OUTPUT);
+  // pinMode(PIN_LOW, OUTPUT);
+  // pinMode(PIN_HIGH, OUTPUT);
+  // pinMode(nasos_otop, OUTPUT);
+
   first_start();
   // ---------------------------------------
  #ifdef LIB_NTC
@@ -81,10 +85,10 @@ setup_mtc();
 
   ArduinoOTA.setHostname("ESP32"); // Задаем имя сетевого порта
   ArduinoOTA.begin(); 
-  digitalWrite(PIN_LOW,HIGH);
-  digitalWrite(PIN_HIGH,HIGH);
-  digitalWrite(relay,LOW);
-  digitalWrite(nasos_otop, LOW);
+  // digitalWrite(PIN_LOW,HIGH);
+  // digitalWrite(PIN_HIGH,HIGH);
+  // digitalWrite(relay,LOW);
+  // digitalWrite(nasos_otop, LOW);
 
 }
 
