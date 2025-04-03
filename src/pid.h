@@ -219,12 +219,13 @@ CYCLE = constrain(CYCLE, 1.0, 25.0);
 VALVE = constrain(VALVE, 15.0, 250.0);
 
 // Розрахунок впливу ПІД
+// Розрахунок впливу ПІД
 if (PULSE_100MS && TIMER_PID == 0.0 && !PID_PULSE) {
-    PID_PULSE = 1;
+    PID_PULSE = true;
     D_T = K_P * (E_1 - E_2 + CYCLE * E_2 / K_I + K_D * (E_1 - 2 * E_2 + E_3) / CYCLE) * VALVE / 100.0;
     E_3 = E_2;
     E_2 = E_1;
-    SUM_D_T = constrain(SUM_D_T + D_T, -VALVE, VALVE);
+    SUM_D_T = SUM_D_T + D_T;
     if (SUM_D_T >= 0.5) {
         TIMER_PID_DOWN = 0.0;
     }
@@ -243,14 +244,14 @@ if (PULSE_100MS) {
 
 if (ON_OFF && AUTO_HAND) {
     if (TIMER_PID >= CYCLE) {
-        PID_PULSE = 0;
+        PID_PULSE = false;
         TIMER_PID = 0.0;
         if (SUM_D_T >= 0.5 || SUM_D_T <= -0.5) {
             SUM_D_T = 0.0;
         }
     }
 } else {
-    PID_PULSE = 0;
+    PID_PULSE = false;
     D_T = 0.0;
     SUM_D_T = 0.0;
     TIMER_PID = 0.0;
@@ -259,32 +260,35 @@ if (ON_OFF && AUTO_HAND) {
     TIMER_PID_UP = 0.0;
     TIMER_PID_DOWN = 0.0;
 }
-
 // Управління
 UP = ((((SUM_D_T >= TIMER_PID && SUM_D_T >= 0.5) || D_T >= CYCLE - 0.5 || TIMER_PID_UP >= VALVE) && AUTO_HAND) || (HAND_UP && !AUTO_HAND)) && ON_OFF && !DOWN;
-if (PULSE_100MS && UP) {
-    TIMER_PID_UP += 0.1;
-    TIMER_PID_UP = (TIMER_PID_UP > VALVE) ? VALVE : TIMER_PID_UP;
-    // valve_UP();
-    control.valveUp();
-
-} else {
-    // valve_UP_STOP();
-    control.valveUpStop();
-}
+        if (PULSE_100MS && UP && TIMER_PID_UP < VALVE) {
+            TIMER_PID_UP += 0.1;
+        }
 
 DOWN = ((((SUM_D_T <= -TIMER_PID && SUM_D_T <= -0.5) || D_T <= -CYCLE + 0.5 || TIMER_PID_DOWN >= VALVE) && AUTO_HAND) || (HAND_DOWN && !AUTO_HAND)) && ON_OFF && !UP;
-if (PULSE_100MS && DOWN) {
-    TIMER_PID_DOWN += 0.1;
-    TIMER_PID_DOWN = (TIMER_PID_DOWN > VALVE) ? VALVE : TIMER_PID_DOWN;
-    // valve_DOWN();
-    control.valveDown();
+        if (PULSE_100MS && DOWN && TIMER_PID_DOWN < VALVE) {
+            TIMER_PID_DOWN += 0.1;
+        }
 
+
+if (UP)
+{
+    control.valveUp(); // Включаем реле
+} else {
+    control.valveUpStop(); // Выключаем реле
 }
-else {
-    // valve_DOWN_STOP();
-control.valveDownStop();}
-// _tempVariable_bool = DOWN;
+if (DOWN)
+{
+    control.valveDown(); // Включаем реле
+} else {
+    control.valveDownStop(); // Выключаем реле
+}
+
+
+
+
+
 
 #ifdef PID
 // digitalWrite(PIN_LOW, !DOWN);
